@@ -19,8 +19,10 @@ import FeatherIcon from "feather-icons-react";
 import { useRouter } from "next/dist/client/router";
 import React, { useState } from "react";
 import Transition from "../../transition";
-import useUploadPhoto from "@/hooks/useUploadFilse";
+import useUploadPhoto from "@/hooks/useUploadFile";
 import Image from "next/image";
+import { uploadFile } from "@/lib/services/form/upload";
+import ServiceAdapter from "@/lib/services";
 const upTransition = Transition("up");
 
 const AddUserModal = ({ open = false, closeModalHandler, type }) => {
@@ -30,6 +32,7 @@ const AddUserModal = ({ open = false, closeModalHandler, type }) => {
 
   const { handleDeletePoster, onSelectFile, preview, gambar, pesan } =
     useUploadPhoto();
+  console.log("zzzz", preview);
 
   const action = (
     <React.Fragment>
@@ -47,21 +50,32 @@ const AddUserModal = ({ open = false, closeModalHandler, type }) => {
   const create = async (event) => {
     setLoading(true);
     event.preventDefault();
+    const { target } = event;
+    const { name, email, password } = target;
+    const payload = {
+      name: name.value,
+      email: email.value,
+      nik: "D12340",
+      role: "siswa",
+      agama: "konghuxu",
+      password: password.value,
+    };
     try {
-      const { target } = event;
-      const { name, email, password } = target;
-
-      const data = {
-        name: name.value,
-        email: email.value,
-        nik: "D12340",
-        role: "siswa",
-        password: password.value,
-      };
-      await axios.post("/api/users", data);
+      if (!gambar) {
+        openSnackBar("Foto tidak boleh kosong");
+        return;
+      }
+      if (gambar) {
+        const upload = await uploadFile(gambar);
+        payload.photo = upload.id;
+      }
+      await ServiceAdapter().post("/users", payload);
+      // await axios.post("/api/users", payload);
       setLoading(false);
       openSnackBar("Berhasil menambahkan users");
       closeModalHandler();
+      handleDeletePoster();
+      event.target.reset();
       router.replace({
         pathname: router.pathname,
         query: {
@@ -75,7 +89,10 @@ const AddUserModal = ({ open = false, closeModalHandler, type }) => {
       // if (error.response.data.message.status === 409) {
       //   return openSnackBar("Email ini sudah digunakan");
       // }
-      openSnackBar("Gagal menambahkan user");
+      openSnackBar(
+        error.response.data.message ||
+          "Gagal menambahkan, silahkan coba kembali nanti"
+      );
       return;
     }
   };
