@@ -7,21 +7,29 @@ import {
   DialogContentText,
   DialogTitle,
   FormLabel,
+  Grid,
   IconButton,
   Snackbar,
   TextField,
+  Tooltip,
+  Typography,
 } from "@mui/material";
 import axios from "axios";
 import FeatherIcon from "feather-icons-react";
 import { useRouter } from "next/dist/client/router";
 import React, { useState } from "react";
 import Transition from "../../transition";
+import useUploadPhoto from "@/hooks/useUploadFilse";
+import Image from "next/image";
 const upTransition = Transition("up");
 
 const AddUserModal = ({ open = false, closeModalHandler, type }) => {
   const router = useRouter();
   const { isActive, message, openSnackBar, closeSnackBar } = useSnackbar();
   const [loading, setLoading] = useState(false);
+
+  const { handleDeletePoster, onSelectFile, preview, gambar, pesan } =
+    useUploadPhoto();
 
   const action = (
     <React.Fragment>
@@ -95,6 +103,49 @@ const AddUserModal = ({ open = false, closeModalHandler, type }) => {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-slide-description" component="div">
+              {preview && (
+                <Grid container sx={{ mt: 2 }}>
+                  <Grid item>
+                    <Image
+                      src={preview}
+                      alt="company_logo"
+                      width={200}
+                      height={200}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <Tooltip title="Hapus">
+                      <IconButton onClick={handleDeletePoster}>
+                        <FeatherIcon icon="x" />
+                      </IconButton>
+                    </Tooltip>
+                  </Grid>
+                </Grid>
+              )}
+              <FormLabel
+                htmlFor="image"
+                sx={{ color: "#1BA0E2", fontWeight: "700", mt: "3vh" }}
+              >
+                Upload gambar
+              </FormLabel>
+              <TextField
+                required
+                type="file"
+                name="image"
+                accept="image/*"
+                onChange={onSelectFile}
+                fullWidth
+                size="small"
+                variant="outlined"
+                sx={{
+                  background: "#1ba0e20d",
+                  borderRadius: "6px",
+                  border: "1px solid #1ba0e20d",
+                }}
+              />
+              <Typography color="red" fontSize="small">
+                {!gambar ? pesan : ""}
+              </Typography>
               <FormLabel htmlFor="nama">Nama</FormLabel>
               <TextField
                 required
