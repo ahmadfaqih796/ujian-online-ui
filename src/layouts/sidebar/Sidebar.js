@@ -158,53 +158,51 @@ const Sidebar = ({
                           //   }
                           //   return !x.isAdmin, !x.isSPV, !x.isStaff;
                           // })
+                          // ...(pathDirect === child.href && {
+                          //   "sssss"
+                          // })
                           .map((child) => {
                             return (
-                              <NextLink
+                              <ListItem
                                 key={child.title}
-                                href={child.href}
-                                // onClick={onSidebarClose}
+                                button
+                                selected={pathDirect === child.href}
+                                onClick={
+                                  pathDirect === child.href
+                                    ? null
+                                    : () => router.replace(child.href)
+                                }
+                                sx={{
+                                  mb: 1,
+                                  ...(pathDirect === child.href && {
+                                    color: "primary.main",
+                                    backgroundColor: "transparent!important",
+                                  }),
+                                }}
                               >
-                                <ListItem
-                                  button
-                                  selected={pathDirect === child.href}
-                                  onClick={
-                                    child.children
-                                      ? null
-                                      : () => handleClick(index)
-                                  }
+                                <ListItemIcon
                                   sx={{
-                                    mb: 1,
+                                    svg: {
+                                      width: "14px",
+                                      marginLeft: "3px",
+                                    },
                                     ...(pathDirect === child.href && {
                                       color: "primary.main",
-                                      backgroundColor: "transparent!important",
                                     }),
                                   }}
                                 >
-                                  <ListItemIcon
-                                    sx={{
-                                      svg: {
-                                        width: "14px",
-                                        marginLeft: "3px",
-                                      },
-                                      ...(pathDirect === child.href && {
-                                        color: "primary.main",
-                                      }),
-                                    }}
-                                  >
-                                    <FeatherIcon
-                                      icon={child.icon}
-                                      width="20"
-                                      height="20"
-                                    />
-                                  </ListItemIcon>
-                                  <ListItemText>
-                                    <Typography variant="body1">
-                                      {child.title}
-                                    </Typography>
-                                  </ListItemText>
-                                </ListItem>
-                              </NextLink>
+                                  <FeatherIcon
+                                    icon={child.icon}
+                                    width="20"
+                                    height="20"
+                                  />
+                                </ListItemIcon>
+                                <ListItemText>
+                                  <Typography variant="body1">
+                                    {child.title}
+                                  </Typography>
+                                </ListItemText>
+                              </ListItem>
                             );
                           })}
                       </List>
