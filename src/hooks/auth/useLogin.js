@@ -37,7 +37,6 @@ const useLogin = () => {
       }
       router.replace("/index");
     } catch (error) {
-      console.log("first", error);
       handleLoading(false);
       alert(error?.response?.data.message);
       return;

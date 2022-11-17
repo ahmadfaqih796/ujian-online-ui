@@ -5,7 +5,7 @@ async function loginRoute(req, res) {
   try {
     const response = await loginService(req.body);
 
-    //  const { job_level, role_id } = response.user;
+    const { nik } = response.user;
 
     // if (role_id != "admin") {
     //   if (job_level.level === 1 || job_level.name === "STAFF") {
@@ -15,6 +15,7 @@ async function loginRoute(req, res) {
 
     req.session.user = {
       id: response.user.id_user,
+      nik: nik,
       // role: response.user.role_id,
       // level: job_level.name,
       // company_id: response.user.company_id,
