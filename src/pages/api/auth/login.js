@@ -1,5 +1,5 @@
-import { loginService } from "../../lib/services/login";
-import { withSessionRoute } from "../../lib/session/withSession";
+import { loginService } from "@/lib/services/auth/login";
+import { withSessionRoute } from "@/lib/sessions/withSession";
 
 async function loginRoute(req, res) {
   try {
@@ -14,10 +14,10 @@ async function loginRoute(req, res) {
     // }
 
     req.session.user = {
-      id: response.user.id,
+      id: response.user.id_user,
       // role: response.user.role_id,
       // level: job_level.name,
-      company_id: response.user.company_id,
+      // company_id: response.user.company_id,
       token: response.accessToken,
     };
 

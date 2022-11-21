@@ -35,8 +35,9 @@ const useLogin = () => {
       if (res.level.level === 1) {
         return router.replace("/apps/absent");
       }
-      router.replace("/dashboards/dashboard");
+      router.replace("/index");
     } catch (error) {
+      console.log("first", error);
       handleLoading(false);
       alert(error?.response?.data.message);
       return;
