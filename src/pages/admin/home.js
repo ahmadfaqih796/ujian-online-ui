@@ -33,7 +33,7 @@ const Home = ({ dashboard }) => {
   };
   return (
     <>
-      Coba
+      aaa
       <Button onClick={handleLogout}>Keluar</Button>
     </>
   );
