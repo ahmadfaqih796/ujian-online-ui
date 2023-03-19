@@ -30,7 +30,7 @@ const useLogin = () => {
     };
 
     try {
-      const { data: res } = await Axios.post("/api/login", data);
+      const { data: res } = await Axios.post("/api/auth/login", data);
 
       if (res.level.level === 1) {
         return router.replace("/apps/absent");

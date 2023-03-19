@@ -5,7 +5,7 @@ async function loginRoute(req, res) {
   try {
     const response = await loginService(req.body);
 
-    const { job_level, role_id } = response.user;
+    //  const { job_level, role_id } = response.user;
 
     // if (role_id != "admin") {
     //   if (job_level.level === 1 || job_level.name === "STAFF") {
@@ -15,8 +15,8 @@ async function loginRoute(req, res) {
 
     req.session.user = {
       id: response.user.id,
-      role: response.user.role_id,
-      level: job_level.name,
+      // role: response.user.role_id,
+      // level: job_level.name,
       company_id: response.user.company_id,
       token: response.accessToken,
     };
@@ -26,7 +26,7 @@ async function loginRoute(req, res) {
     return res.json({
       success: true,
       message: "Berhasil login",
-      level: job_level,
+      // level: job_level,
     });
   } catch (error) {
     console.log(error);
