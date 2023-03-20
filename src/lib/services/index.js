@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_API = process.env.NEXT_PUBLIC_BASE_API;
+const BASE_API = process.env.NEXT_PUBLIC_BASE_API_LOCAL;
 
 function ServiceAdapter() {
   return axios.create({
