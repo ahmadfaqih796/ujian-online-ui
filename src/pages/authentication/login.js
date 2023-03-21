@@ -13,10 +13,25 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import useLogin from "@/hooks/auth/useLogin";
+import WithAuth from "@/lib/sessions/withAuth";
+import { useRouter } from "next/router";
+
+export const getServerSideProps = WithAuth(async function ({ req }) {
+  const { id } = req.session.user;
+  const { token } = req.session.user;
+  return {
+    props: { token },
+  };
+});
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function SignIn({ token }) {
+  const router = useRouter();
+  // if (token) {
+  //   return router.replace("/admin/home");
+  // }
+  console.log("mooooo", token);
   const { loading, handleLogin } = useLogin();
   return (
     <ThemeProvider theme={theme}>
