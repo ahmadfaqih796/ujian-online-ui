@@ -15,7 +15,7 @@ import { useEffect } from "react";
 
 export const getServerSideProps = async ({ req }) => {
   const { cookies } = req;
-  // console.log("sssssss", cookies.ujian_online);
+  // console.log("vvvvvvvvvv", req);
   return {
     props: {
       cookie: cookies.ujian_online ?? "",
@@ -27,11 +27,11 @@ const theme = createTheme();
 
 export default function SignIn({ cookie }) {
   const router = useRouter();
-  useEffect(() => {
-    if (cookie != "") {
-      router.push("/admin/home");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (cookie != "") {
+  //     router.push("/admin/home");
+  //   }
+  // }, []);
 
   console.log("mooooo", cookie);
   const { loading, handleLogin } = useLogin();

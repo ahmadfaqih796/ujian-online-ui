@@ -12,10 +12,11 @@ async function loginRoute(req, res) {
     //     return res.redirect("/404").end();
     //   }
     // }
-
+    // console.log("xxxxxxxx", response);
     req.session.user = {
       id: response.user.id_user,
       nik: nik,
+      exp: response.authentication.payload.exp,
       // role: response.user.role_id,
       // level: job_level.name,
       // company_id: response.user.company_id,
