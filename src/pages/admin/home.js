@@ -1,6 +1,7 @@
 import { getHome } from "@/lib/services/admin/home";
 import WithAuth from "@/lib/sessions/withAuth";
 import { Button } from "@mui/material";
+import axios from "axios";
 import { useRouter } from "next/router";
 import React from "react";
 
@@ -27,8 +28,8 @@ const Home = ({ dashboard }) => {
   // console.log("xxxxxxxx", dashboard);
   const router = useRouter();
   const handleLogout = async () => {
-    await axios.post("/api/logout");
-    router.push("/authentication/login");
+    await axios.post("/api/auth/logout");
+    router.replace("/authentication/login");
   };
   return (
     <>

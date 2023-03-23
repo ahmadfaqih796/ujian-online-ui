@@ -1,37 +1,39 @@
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import useLogin from "@/hooks/auth/useLogin";
-import WithAuth from "@/lib/sessions/withAuth";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import CssBaseline from "@mui/material/CssBaseline";
+import Grid from "@mui/material/Grid";
+import Link from "@mui/material/Link";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
-export const getServerSideProps = WithAuth(async function ({ req }) {
-  const { id } = req.session.user;
-  const { token } = req.session.user;
+export const getServerSideProps = async ({ req }) => {
+  const { cookies } = req;
+  // console.log("sssssss", cookies.ujian_online);
   return {
-    props: { token },
+    props: {
+      cookie: cookies.ujian_online ?? "",
+    },
   };
-});
+};
 
 const theme = createTheme();
 
-export default function SignIn({ token }) {
+export default function SignIn({ cookie }) {
   const router = useRouter();
-  // if (token) {
-  //   return router.replace("/admin/home");
-  // }
-  console.log("mooooo", token);
+  useEffect(() => {
+    if (cookie != "") {
+      router.push("/admin/home");
+    }
+  }, []);
+
+  console.log("mooooo", cookie);
   const { loading, handleLogin } = useLogin();
   return (
     <ThemeProvider theme={theme}>
