@@ -14,6 +14,9 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+// image
+import brand from "../../../assets/images/ujianOnline.png";
+import Image from "next/image";
 
 export const getServerSideProps = async ({ req }) => {
   const { cookies } = req;
@@ -42,6 +45,7 @@ export default function SignIn({ cookie }) {
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+        <Image src={brand} alt="bg" maxWidth="812" />
         <Box
           sx={{
             display: "flex",
