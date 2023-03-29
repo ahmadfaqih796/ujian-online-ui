@@ -48,10 +48,8 @@ export default function SignIn({ cookie }) {
       flexWrap="wrap"
       alignItems="center"
     >
-      <Image src={brand} alt="bg" maxWidth="812" />
-      <Container component="main" maxWidth="xs" sx={{ background: "red" }}>
-        <CssBaseline />
-
+      <Image className="brand-login" src={brand} alt="bg" />
+      <Container component="main" maxWidth="xs">
         <Box
           sx={{
             display: "flex",
@@ -83,7 +81,7 @@ export default function SignIn({ cookie }) {
                   <CloseIcon fontSize="inherit" />
                 </IconButton>
               }
-              sx={{ mb: 2 }}
+              sx={{ mb: 2, mt: 2, width: "100%" }}
             >
               <Typography color={"white"}>{message}</Typography>
             </Alert>
