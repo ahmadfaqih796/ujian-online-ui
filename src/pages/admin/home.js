@@ -38,5 +38,5 @@ const Home = ({ dashboard }) => {
     </>
   );
 };
-
+Home.layout = "Admin";
 export default Home;
