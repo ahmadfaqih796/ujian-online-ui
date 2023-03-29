@@ -1,5 +1,7 @@
 import useLogin from "@/hooks/auth/useLogin";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { Alert, Collapse, IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -11,7 +13,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export const getServerSideProps = async ({ req }) => {
   const { cookies } = req;
@@ -34,7 +36,8 @@ export default function SignIn({ cookie }) {
   // }, []);
 
   console.log("mooooo", cookie);
-  const { loading, handleLogin } = useLogin();
+  const { loading, handleLogin, color, message, open, setOpen } = useLogin();
+  const [passwordVisible, setPasswordVisible] = useState(false);
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -54,6 +57,27 @@ export default function SignIn({ cookie }) {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
+          <Collapse in={open}>
+            <Alert
+              variant="filled"
+              severity={color}
+              action={
+                <IconButton
+                  aria-label="close"
+                  color="inherit"
+                  size="small"
+                  onClick={() => {
+                    setOpen(false);
+                  }}
+                >
+                  <CloseIcon fontSize="inherit" />
+                </IconButton>
+              }
+              sx={{ mb: 2 }}
+            >
+              <Typography color={"white"}>{message}</Typography>
+            </Alert>
+          </Collapse>
           <Box>
             <form onSubmit={(e) => handleLogin(e)}>
               <TextField

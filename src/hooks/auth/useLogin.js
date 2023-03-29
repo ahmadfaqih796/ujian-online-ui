@@ -20,7 +20,7 @@ const useLogin = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-
+    setOpen(false);
     handleLoading(true);
 
     const { target } = event;
