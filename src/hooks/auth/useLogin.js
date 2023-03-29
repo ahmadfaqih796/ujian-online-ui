@@ -4,6 +4,9 @@ import Axios from "axios";
 
 const useLogin = () => {
   const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const [color, setColor] = useState("");
+  const [message, setMessage] = useState("");
   const [state, setState] = useState({
     loading: false,
   });
@@ -30,16 +33,23 @@ const useLogin = () => {
     };
 
     try {
-      const res = await Axios.post("/api/auth/login", data);
-
+      const { data: res } = await Axios.post("/api/auth/login", data);
       // if (res.level.level === 1) {
       //   return router.replace("/apps/absent");
       // }
-      console.log("anda berhasil login");
+      setColor("success");
+      setMessage("Berhasil login");
+      setOpen(true);
+      handleLoading(false);
+      console.log("anda berhasil login", res);
       router.replace("/admin/home");
     } catch (error) {
       handleLoading(false);
-      alert(error?.response?.data.message);
+      setColor("error");
+      setMessage(
+        error?.response?.data.message ?? "Terjadi kesalahan pada server"
+      );
+      setOpen(true);
       return;
     }
   };
@@ -47,6 +57,10 @@ const useLogin = () => {
   return {
     loading: state.loading,
     handleLogin,
+    color,
+    message,
+    open,
+    setOpen,
   };
 };
 
