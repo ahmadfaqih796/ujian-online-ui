@@ -42,10 +42,16 @@ export default function SignIn({ cookie }) {
   const { loading, handleLogin, color, message, open, setOpen } = useLogin();
   const [passwordVisible, setPasswordVisible] = useState(false);
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+    <Box
+      display="flex"
+      justifyContent="space-around"
+      flexWrap="wrap"
+      alignItems="center"
+    >
+      <Image src={brand} alt="bg" maxWidth="812" />
+      <Container component="main" maxWidth="xs" sx={{ background: "red" }}>
         <CssBaseline />
-        <Image src={brand} alt="bg" maxWidth="812" />
+
         <Box
           sx={{
             display: "flex",
@@ -132,6 +138,6 @@ export default function SignIn({ cookie }) {
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
+    </Box>
   );
 }
