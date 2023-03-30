@@ -1,11 +1,10 @@
-import {
-  Box,
-  Container,
-  experimentalStyled,
-  useMediaQuery,
-} from "@mui/material";
+import { Box, Button, experimentalStyled } from "@mui/material";
 import React from "react";
+import { useSelector } from "react-redux";
+import Customizer from "./customizer/Customizer";
 import Sidebar from "./sidebar/Sidebar";
+// import { useSelector } from "react-redux";
+// import Sidebar from "./sidebar/Sidebar";
 
 const MainWrapper = experimentalStyled("div")(() => ({
   display: "flex",
@@ -31,10 +30,20 @@ const PageWrapper = experimentalStyled("div")(({ theme }) => ({
 const AdminLayout = ({ children }) => {
   const [isSidebarOpen, setSidebarOpen] = React.useState(true);
   const [isMobileSidebarOpen, setMobileSidebarOpen] = React.useState(false);
-  // const customizer = useSelector((state) => state.CustomizerReducer);
-  // const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
+  const customizer = useSelector((state) => state.CustomizerReducer);
+  const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
   return (
-    <>
+    <MainWrapper>
+      {/* <Header
+        data={data}
+        sx={{
+          paddingLeft: isSidebarOpen && lgUp ? "265px" : "",
+          backgroundColor:
+            customizer.activeMode === "dark" ? "#20232a" : "#fafbfb",
+        }}
+        toggleSidebar={() => setSidebarOpen(!isSidebarOpen)}
+        toggleMobileSidebar={() => setMobileSidebarOpen(true)}
+      /> */}
       <Sidebar
         // data={data}
         isSidebardir={customizer.activeDir === "ltr" ? "left" : "right"}
@@ -42,8 +51,7 @@ const AdminLayout = ({ children }) => {
         isMobileSidebarOpen={isMobileSidebarOpen}
         onSidebarClose={() => setMobileSidebarOpen(false)}
       />
-      <p>ini adalah admin</p>
-      {/* <PageWrapper>
+      <PageWrapper>
         <Container
           maxWidth={false}
           sx={{
@@ -51,13 +59,13 @@ const AdminLayout = ({ children }) => {
             paddingLeft: isSidebarOpen && lgUp ? "280px!important" : "",
           }}
         >
+          <Button onClick={() => setSidebarOpen(!isSidebarOpen)}>aaa</Button>
           <Box sx={{ minHeight: "calc(100vh - 170px)" }}>{children}</Box>
           <Customizer />
-          <Footer />
+          {/* <Footer /> */}
         </Container>
-      </PageWrapper> */}
-      <Box sx={{ color: "red" }}>{children}</Box>
-    </>
+      </PageWrapper>
+    </MainWrapper>
   );
 };
 

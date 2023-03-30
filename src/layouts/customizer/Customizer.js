@@ -9,11 +9,12 @@ import {
   Box,
   Typography,
   Tooltip,
+  Radio,
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import FeatherIcon from "feather-icons-react";
-import { setTheme, setDir, setDarkMode } from "../../store/customizer/Action";
-import CustomRadio from "../../components/forms/custom-elements/CustomRadio";
+import { setTheme, setDir, setDarkMode } from "./Action";
+// import CustomRadio from "../../components/forms/custom-elements/CustomRadio";
 
 const SidebarWidth = "320px";
 
@@ -93,14 +94,10 @@ const Customizer = () => {
             >
               <FormControlLabel
                 value="light"
-                control={<CustomRadio />}
+                control={<Radio />}
                 label="Light"
               />
-              <FormControlLabel
-                value="dark"
-                control={<CustomRadio />}
-                label="Dark"
-              />
+              <FormControlLabel value="dark" control={<Radio />} label="Dark" />
             </RadioGroup>
           </FormControl>
           <Box pt={3} />
@@ -115,16 +112,8 @@ const Customizer = () => {
               value={customizer.activeDir}
               onChange={(event) => dispatch(setDir(event.target.value))}
             >
-              <FormControlLabel
-                value="ltr"
-                control={<CustomRadio />}
-                label="LTR"
-              />
-              <FormControlLabel
-                value="rtl"
-                control={<CustomRadio />}
-                label="RTL"
-              />
+              <FormControlLabel value="ltr" control={<Radio />} label="LTR" />
+              <FormControlLabel value="rtl" control={<Radio />} label="RTL" />
             </RadioGroup>
           </FormControl>
           <Box pt={3} />
