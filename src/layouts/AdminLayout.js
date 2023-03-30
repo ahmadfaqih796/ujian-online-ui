@@ -1,5 +1,11 @@
-import { Box, Container, experimentalStyled } from "@mui/material";
+import {
+  Box,
+  Container,
+  experimentalStyled,
+  useMediaQuery,
+} from "@mui/material";
 import React from "react";
+import Sidebar from "./sidebar/Sidebar";
 
 const MainWrapper = experimentalStyled("div")(() => ({
   display: "flex",
@@ -23,8 +29,19 @@ const PageWrapper = experimentalStyled("div")(({ theme }) => ({
 }));
 
 const AdminLayout = ({ children }) => {
+  const [isSidebarOpen, setSidebarOpen] = React.useState(true);
+  const [isMobileSidebarOpen, setMobileSidebarOpen] = React.useState(false);
+  // const customizer = useSelector((state) => state.CustomizerReducer);
+  // const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
   return (
     <>
+      <Sidebar
+        // data={data}
+        isSidebardir={customizer.activeDir === "ltr" ? "left" : "right"}
+        isSidebarOpen={isSidebarOpen}
+        isMobileSidebarOpen={isMobileSidebarOpen}
+        onSidebarClose={() => setMobileSidebarOpen(false)}
+      />
       <p>ini adalah admin</p>
       {/* <PageWrapper>
         <Container
