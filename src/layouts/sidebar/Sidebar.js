@@ -47,7 +47,7 @@ const Sidebar = ({
     router.pathname.lastIndexOf("/")
   );
 
-  const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
+  //   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
 
   const handleClick = (index) => {
     if (open === index) {
@@ -292,24 +292,24 @@ const Sidebar = ({
       </Box>
     </SimpleBar>
   );
-  if (lgUp) {
-    return (
-      <Drawer
-        anchor="left"
-        open={isSidebarOpen}
-        variant="persistent"
-        PaperProps={{
-          sx: {
-            width: "265px",
-            border: "0 !important",
-            boxShadow: "0px 7px 30px 0px rgb(113 122 131 / 11%)",
-          },
-        }}
-      >
-        {SidebarContent}
-      </Drawer>
-    );
-  }
+  //   if (lgUp) {
+  //     return (
+  //       <Drawer
+  //         anchor="left"
+  //         open={isSidebarOpen}
+  //         variant="persistent"
+  //         PaperProps={{
+  //           sx: {
+  //             width: "265px",
+  //             border: "0 !important",
+  //             boxShadow: "0px 7px 30px 0px rgb(113 122 131 / 11%)",
+  //           },
+  //         }}
+  //       >
+  //         {SidebarContent}
+  //       </Drawer>
+  //     );
+  //   }
   return (
     <Drawer
       anchor="left"

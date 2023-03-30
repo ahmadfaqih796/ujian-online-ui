@@ -1,11 +1,17 @@
-import { THEME_COLOR, NAVBAR_BG, SIDEBAR_BG, DIRECTION, DARK_THEME } from '../constants';
+import {
+  THEME_COLOR,
+  NAVBAR_BG,
+  SIDEBAR_BG,
+  DIRECTION,
+  DARK_THEME,
+} from "./constants/index";
 
 const INIT_STATE = {
-  activeDir: 'ltr',
-  activeNavbarBg: '#0b70fb', // This can be any color,
-  activeSidebarBg: '#ffffff', // This can be any color
-  activeMode: 'light', // This can be light or dark
-  activeTheme: 'ORANGE_THEME', // BLUE_THEME, GREEN_THEME, RED_THEME, BLACK_THEME, PURPLE_THEME, INDIGO_THEME
+  activeDir: "ltr",
+  activeNavbarBg: "#0b70fb", // This can be any color,
+  activeSidebarBg: "#ffffff", // This can be any color
+  activeMode: "light", // This can be light or dark
+  activeTheme: "ORANGE_THEME", // BLUE_THEME, GREEN_THEME, RED_THEME, BLACK_THEME, PURPLE_THEME, INDIGO_THEME
   SidebarWidth: 240,
 };
 
