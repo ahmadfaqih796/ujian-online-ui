@@ -12,7 +12,16 @@ const Menuitems = [
   {
     title: "Dashboard",
     icon: "grid",
-    href: "/dashboards/dashboard",
+    href: "/admin/home",
+    collapse: true,
+    isAdmin: false,
+    isSPV: true,
+    isStaff: false,
+  },
+  {
+    title: "Siswa",
+    icon: "grid",
+    href: "/admin/siswa",
     collapse: true,
     isAdmin: false,
     isSPV: true,
@@ -30,7 +39,7 @@ const Menuitems = [
       {
         title: "Semua",
         icon: "activity",
-        href: "/laporan/all",
+        href: "/admin/siswa",
         isAdmin: true,
         isSPV: true,
         isStaff: true,
