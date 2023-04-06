@@ -24,28 +24,7 @@ import { useRouter } from "next/router";
 import FeatherIcon from "feather-icons-react";
 import { Collapse } from "@mui/material";
 
-const drawerWidth = 240;
-
-// const MainWrapper = experimentalStyled("div")(() => ({
-//   display: "flex",
-//   minHeight: "100vh",
-//   overflow: "hidden",
-//   width: "100%",
-// }));
-
-// const PageWrapper = experimentalStyled("div")(({ theme }) => ({
-//   display: "flex",
-//   flex: "1 1 auto",
-//   overflow: "hidden",
-
-//   backgroundColor: theme.palette.background.default,
-//   [theme.breakpoints.up("lg")]: {
-//     paddingTop: "64px",
-//   },
-//   [theme.breakpoints.down("lg")]: {
-//     paddingTop: "64px",
-//   },
-// }));
+const drawerWidth = 265;
 
 const AdminLayout = ({ children, window }) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -137,7 +116,9 @@ const AdminLayout = ({ children, window }) => {
                       <ListItemText>
                         <Typography
                           sx={{
-                            color: (theme) => theme.palette.text.primary,
+                            ...(pathWithoutLastPart === item.href && {
+                              color: "white",
+                            }),
                           }}
                         >
                           {item.title}
@@ -272,13 +253,7 @@ const AdminLayout = ({ children, window }) => {
                         <ListItemText
                         //  onClick={onSidebarClose}
                         >
-                          <Typography
-                          // sx={{
-                          //   color: (theme) => theme.palette.text.primary,
-                          // }}
-                          >
-                            {item.title}
-                          </Typography>
+                          <Typography>{item.title}</Typography>
                         </ListItemText>
                       </ListItem>
                     </NextLink>
@@ -289,64 +264,12 @@ const AdminLayout = ({ children, window }) => {
           }
         </List>
       </Box>
-
-      {/* <Buynow /> */}
     </Box>
-  );
-
-  const drawer = (
-    <>
-      <Toolbar />
-      <Divider />
-
-      <List>
-        {[
-          "Inbox",
-          "Starred",
-          "Send email",
-          "Drafts",
-          "Inbox",
-          "Starred",
-          "Send email",
-          "Drafts",
-          "Inbox",
-          "Starred",
-          "Send email",
-          "Drafts",
-        ].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </>
   );
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
-  const [isSidebarOpen, setSidebarOpen] = React.useState(true);
-  const [isMobileSidebarOpen, setMobileSidebarOpen] = React.useState(false);
-  // const customizer = useSelector(CustomizerReducer);
-  // const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
