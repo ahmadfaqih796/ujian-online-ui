@@ -1,4 +1,4 @@
-import { getHome } from "@/lib/services/admin/home";
+import { getHome } from "@/lib/services/admin/Home";
 import WithAuth from "@/lib/sessions/withAuth";
 import { Button } from "@mui/material";
 import axios from "axios";
