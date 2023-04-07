@@ -201,13 +201,7 @@ const AdminLayout = ({ children, window }) => {
                                     />
                                   </ListItemIcon>
                                   <ListItemText>
-                                    <Typography
-                                      variant="body1"
-                                      // sx={{
-                                      //   color: (theme) =>
-                                      //     theme.palette.text.primary,
-                                      // }}
-                                    >
+                                    <Typography variant="body1">
                                       {child.title}
                                     </Typography>
                                   </ListItemText>
