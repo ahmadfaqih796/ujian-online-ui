@@ -285,7 +285,7 @@ const AdminLayout = ({ children, window }) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            hello Adminku
+            hello Admin
           </Typography>
         </Toolbar>
       </AppBar>
