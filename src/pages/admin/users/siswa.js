@@ -36,12 +36,18 @@ export const getServerSideProps = WithAuth(async ({ query, req }) => {
 const Siswa = ({ users }) => {
   const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } =
     usePagination();
-  const pageContent = users.data.slice(
-    (page - 1) * rowsPerPage,
-    page * rowsPerPage
-  );
+
   return (
     <>
+      <Box display="flex">
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={() => handleOpenModal("add")}
+        >
+          Tambahkan
+        </Button>
+      </Box>
       <Box
         sx={{
           overflow: "auto",
