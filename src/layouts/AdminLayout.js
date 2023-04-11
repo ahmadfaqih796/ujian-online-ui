@@ -20,6 +20,8 @@ import SimpleBar from "simplebar-react";
 import Menuitems from "./sidebar/MenuItems";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
+import Image from "next/image";
+import logo from "../../assets/images/logo-ujian-blue.png";
 
 import FeatherIcon from "feather-icons-react";
 import { Collapse } from "@mui/material";
@@ -51,6 +53,7 @@ const AdminLayout = ({ children, window }) => {
 
   const SidebarContent = (
     <Box p={2} height="100%">
+      <Image className="logo" src={logo} alt="bg" />
       <Box mt={-2}>
         <List sx={{ p: 0 }}>
           {
