@@ -54,11 +54,36 @@ const Menuitems = [
       },
     ],
   },
-
+  {
+    title: "Data",
+    icon: "user-check",
+    href: "/data",
+    collapse: true,
+    isAdmin: true,
+    isStaff: true,
+    children: [
+      {
+        title: "Pelajaran",
+        icon: "users",
+        href: "/data/pelajaran",
+        isAdmin: true,
+        isSPV: true,
+        isStaff: true,
+      },
+      {
+        title: "Kelas",
+        icon: "user-plus",
+        href: "/data/kelas",
+        isAdmin: true,
+        isSPV: true,
+        isStaff: true,
+      },
+    ],
+  },
   {
     title: "Pengaturan",
     icon: "user-check",
-    href: "/company",
+    href: "/pengaturan",
     collapse: true,
     isSuperAdmin: true,
     role: "admin",
@@ -68,7 +93,7 @@ const Menuitems = [
       {
         title: "Akun",
         icon: "compass",
-        href: "/company/add-company",
+        href: "/pengaturan/akun",
         isAdmin: true,
         isSPV: true,
         isStaff: true,
@@ -76,7 +101,7 @@ const Menuitems = [
       {
         title: "Template",
         icon: "settings",
-        href: "/company/company-setting",
+        href: "/pengaturan/template",
         isAdmin: true,
         isSPV: true,
         isStaff: true,
