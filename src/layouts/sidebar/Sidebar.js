@@ -268,10 +268,10 @@ const Sidebar = ({
   );
 };
 
-// Sidebar.propTypes = {
-//   isMobileSidebarOpen: PropTypes.bool,
-//   onSidebarClose: PropTypes.func,
-//   isSidebarOpen: PropTypes.bool,
-// };
+Sidebar.propTypes = {
+  isMobileSidebarOpen: PropTypes.bool,
+  onSidebarClose: PropTypes.func,
+  isSidebarOpen: PropTypes.bool,
+};
 
 export default Sidebar;

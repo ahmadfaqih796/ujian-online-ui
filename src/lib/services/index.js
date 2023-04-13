@@ -16,15 +16,14 @@ function ServiceAdapter() {
   //validate response
   instance.interceptors.response.use(
     (response) => {
-      console.log("mesum", response);
-      if (response.status === 401) {
-        alert("You are not authorized");
-      }
+      // if (response.status === 401) {
+      //   alert("You are not authorized");
+      // }
       return response;
     },
     (error) => {
       if (error?.code === "ECONNREFUSED") {
-        // return Promise.reject("Terjadi pada kesalahan server");
+        return Promise.reject("Terjadi pada kesalahan server");
         // return (window.location.href = "/authentication/login");
       }
       if (error?.response?.status === 401) {
