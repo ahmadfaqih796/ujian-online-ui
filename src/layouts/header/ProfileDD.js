@@ -1,21 +1,9 @@
-import React from "react";
-import FeatherIcon from "feather-icons-react";
-import Image from "next/image";
-import NextLink from "next/link";
-import userimg from "../../../assets/images/users/user2.jpg";
+import { Avatar, Box, Button, Divider, Menu, Typography } from "@mui/material";
 import axios from "axios";
-import {
-  Box,
-  Menu,
-  Typography,
-  MenuItem,
-  Button,
-  Divider,
-  Avatar,
-} from "@mui/material";
+import FeatherIcon from "feather-icons-react";
 import { useRouter } from "next/dist/client/router";
-import { useUserSession } from "../../hooks/useUserSession";
-import APP_CONFIG from "../../../app.config";
+import React from "react";
+import Gambar from "../../../assets/images/ujianOnline.png";
 
 const imageURL = process.env.NEXT_PUBLIC_BASE_IMAGE_URL;
 
@@ -48,7 +36,11 @@ const ProfileDD = ({ data }) => {
         onClick={handleClick4}
       >
         <Box display="flex" alignItems="center">
-          <Avatar src={`${imageURL}/${user?.photo}`} alt={user?.fullname} />
+          <Avatar
+            src={Gambar}
+            // `${imageURL}/${user?.photo}`
+            alt={"aaaaa"}
+          />
           <Box
             sx={{
               display: {
@@ -165,151 +157,6 @@ const ProfileDD = ({ data }) => {
             }}
           />
 
-          {/* <Box>
-            <MenuItem
-              sx={{
-                pt: 3,
-                pb: 3,
-              }}
-            >
-              <Box display="flex" alignItems="center">
-                <Button
-                  sx={{
-                    backgroundColor: (theme) => theme.palette.primary.light,
-                    color: (theme) => theme.palette.primary.main,
-                    boxShadow: "none",
-                    minWidth: "50px",
-                    width: "45px",
-                    height: "40px",
-                    borderRadius: "10px",
-                  }}
-                >
-                  <FeatherIcon icon="dollar-sign" width="18" height="18" />
-                </Button>
-                <Box
-                  sx={{
-                    ml: 2,
-                  }}
-                >
-                  <Typography
-                    variant="h5"
-                    sx={{
-                      lineHeight: "1.235",
-                    }}
-                  >
-                    My Profile
-                  </Typography>
-                  <Typography
-                    color="textSecondary"
-                    variant="h6"
-                    fontWeight="400"
-                  >
-                    Account Settings
-                  </Typography>
-                </Box>
-              </Box>
-            </MenuItem>
-            <Divider
-              style={{
-                marginTop: 0,
-                marginBottom: 0,
-              }}
-            />
-            <MenuItem
-              sx={{
-                pt: 3,
-                pb: 3,
-              }}
-            >
-              <Box display="flex" alignItems="center">
-                <Button
-                  sx={{
-                    backgroundColor: (theme) => theme.palette.success.light,
-                    color: (theme) => theme.palette.success.main,
-                    boxShadow: "none",
-                    minWidth: "50px",
-                    width: "45px",
-                    height: "40px",
-                    borderRadius: "10px",
-                  }}
-                >
-                  <FeatherIcon icon="shield" width="18" height="18" />
-                </Button>
-                <Box
-                  sx={{
-                    ml: 2,
-                  }}
-                >
-                  <Typography
-                    variant="h5"
-                    sx={{
-                      lineHeight: "1.235",
-                    }}
-                  >
-                    My Inbox
-                  </Typography>
-                  <Typography
-                    color="textSecondary"
-                    variant="h6"
-                    fontWeight="400"
-                  >
-                    Messages & Emails
-                  </Typography>
-                </Box>
-              </Box>
-            </MenuItem>
-            <Divider
-              style={{
-                marginTop: 0,
-                marginBottom: 0,
-              }}
-            />
-            <MenuItem
-              sx={{
-                pt: 3,
-                pb: 3,
-              }}
-            >
-              <Box display="flex" alignItems="center">
-                <Button
-                  sx={{
-                    backgroundColor: (theme) => theme.palette.error.light,
-                    color: (theme) => theme.palette.error.main,
-                    boxShadow: "none",
-                    minWidth: "50px",
-                    width: "45px",
-                    height: "40px",
-                    borderRadius: "10px",
-                  }}
-                >
-                  <FeatherIcon icon="credit-card" width="18" height="18" />
-                </Button>
-                <Box
-                  sx={{
-                    ml: 2,
-                  }}
-                >
-                  <Typography
-                    variant="h5"
-                    sx={{
-                      lineHeight: "1.235",
-                    }}
-                  >
-                    My Tasks
-                  </Typography>
-                  <Typography
-                    color="textSecondary"
-                    variant="h6"
-                    fontWeight="400"
-                  >
-                    To-do and Daily Tasks
-                  </Typography>
-                </Box>
-              </Box>
-            </MenuItem>
-          </Box> */}
-
-          {/* <NextLink href="/authentication/login"> */}
           <Button
             sx={{
               mt: 2,
@@ -322,7 +169,6 @@ const ProfileDD = ({ data }) => {
           >
             Logout
           </Button>
-          {/* </NextLink> */}
         </Box>
       </Menu>
     </>

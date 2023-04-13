@@ -1,30 +1,26 @@
-import * as React from "react";
-import PropTypes from "prop-types";
+import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import MailIcon from "@mui/icons-material/Mail";
-import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import SimpleBar from "simplebar-react";
-import Menuitems from "./sidebar/MenuItems";
+import Image from "next/image";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import Image from "next/image";
+import * as React from "react";
 import logo from "../../assets/images/logo-ujian-blue.png";
+import Menuitems from "./sidebar/MenuItems";
 
-import FeatherIcon from "feather-icons-react";
 import { Collapse } from "@mui/material";
+import FeatherIcon from "feather-icons-react";
+import ProfileDD from "./header/ProfileDD";
 
 const drawerWidth = 265;
 
@@ -275,6 +271,7 @@ const AdminLayout = ({ children, window }) => {
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
+          // borderRadius: "20px",
         }}
       >
         <Toolbar>
@@ -287,9 +284,9 @@ const AdminLayout = ({ children, window }) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            hello Adminku
-          </Typography>
+          {/* posisi profile ada di kanan */}
+          <Box flexGrow={1} />
+          <ProfileDD />
         </Toolbar>
       </AppBar>
 
