@@ -5,18 +5,18 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  FormLabel,
   IconButton,
   Snackbar,
+  TextField,
 } from "@mui/material";
 import { useRouter } from "next/dist/client/router";
 import React, { useState } from "react";
-import { useSnackbar } from "../../../hooks/useSnackbar";
 import axios from "axios";
 import FeatherIcon from "feather-icons-react";
 import Transition from "../../transition";
-import CustomFormLabel from "../../forms/custom-elements/CustomFormLabel";
-import CustomTextField from "../../forms/custom-elements/CustomTextField";
 import APP_CONFIG from "../../../../app.config";
+import { useSnackbar } from "@/hooks/useSnackbar";
 const upTransition = Transition("up");
 
 const AddUserModal = ({ open = false, closeModalHandler, type }) => {
@@ -86,8 +86,8 @@ const AddUserModal = ({ open = false, closeModalHandler, type }) => {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-slide-description" component="div">
-              <CustomFormLabel htmlFor="nama">Nama Jabatan</CustomFormLabel>
-              <CustomTextField
+              <FormLabel htmlFor="nama">Nama Jabatan</FormLabel>
+              <TextField
                 required
                 id="name"
                 name="name"
@@ -97,8 +97,8 @@ const AddUserModal = ({ open = false, closeModalHandler, type }) => {
                 placeholder="STAFF"
               />
 
-              <CustomFormLabel htmlFor="level">level Jabatan</CustomFormLabel>
-              <CustomTextField
+              <FormLabel htmlFor="level">level Jabatan</FormLabel>
+              <TextField
                 required
                 id="level"
                 name="level"
