@@ -16,7 +16,6 @@ import FeatherIcon from "feather-icons-react";
 import Transition from "../../transition";
 import CustomFormLabel from "../../forms/custom-elements/CustomFormLabel";
 import CustomTextField from "../../forms/custom-elements/CustomTextField";
-import BaseService from "../../../services/base";
 import APP_CONFIG from "../../../../app.config";
 const upTransition = Transition("up");
 
@@ -24,7 +23,6 @@ const AddUserModal = ({ open = false, closeModalHandler, type }) => {
   const router = useRouter();
   const { isActive, message, openSnackBar, closeSnackBar } = useSnackbar();
   const [loading, setLoading] = useState(false);
-  const service = new BaseService("users");
 
   const action = (
     <React.Fragment>
