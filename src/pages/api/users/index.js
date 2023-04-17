@@ -19,12 +19,13 @@ async function handler(req, res) {
   if (req.method === "POST") {
     try {
       const { body } = req;
-      body.company_id = company_id;
       const response = await addUser(body);
-      return res.json(response);
+      return res.json({
+        message: "berhasil menambhakan user",
+        response,
+      });
     } catch (error) {
-      console.log(error);
-      return res.status(500).json({ ok: false });
+      return res.status(500).json({ ok: false, message: error });
     }
   }
 }
