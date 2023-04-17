@@ -42,6 +42,11 @@ const Siswa = ({ users }) => {
 
   return (
     <>
+      <AddJobLevelModal
+        open={openModal}
+        type={modalType}
+        closeModalHandler={handleCloseModal}
+      />
       <Box display="flex">
         <Button
           color="primary"
