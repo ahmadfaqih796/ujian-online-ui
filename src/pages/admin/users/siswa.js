@@ -16,6 +16,7 @@ import React from "react";
 import moment from "moment";
 import usePagination from "@/hooks/usePagination";
 import useHandleModal from "@/hooks/useHandleModal";
+import AddUserModal from "@/components/modal/user/AddUserModal";
 
 export const getServerSideProps = WithAuth(async ({ query, req }) => {
   const users = await pagination(
@@ -42,7 +43,7 @@ const Siswa = ({ users }) => {
 
   return (
     <>
-      <AddJobLevelModal
+      <AddUserModal
         open={openModal}
         type={modalType}
         closeModalHandler={handleCloseModal}

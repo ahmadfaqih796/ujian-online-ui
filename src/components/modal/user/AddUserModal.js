@@ -1,3 +1,4 @@
+import { useSnackbar } from "@/hooks/useSnackbar";
 import {
   Button,
   Dialog,
@@ -10,13 +11,11 @@ import {
   Snackbar,
   TextField,
 } from "@mui/material";
-import { useRouter } from "next/dist/client/router";
-import React, { useState } from "react";
 import axios from "axios";
 import FeatherIcon from "feather-icons-react";
+import { useRouter } from "next/dist/client/router";
+import React, { useState } from "react";
 import Transition from "../../transition";
-import APP_CONFIG from "../../../../app.config";
-import { useSnackbar } from "@/hooks/useSnackbar";
 const upTransition = Transition("up");
 
 const AddUserModal = ({ open = false, closeModalHandler, type }) => {
@@ -42,23 +41,23 @@ const AddUserModal = ({ open = false, closeModalHandler, type }) => {
     event.preventDefault();
     try {
       const { target } = event;
-      const { name, level } = target;
+      const { name, email, password } = target;
 
       const data = {
-        //company_id: APP_CONFIG.companyID,
         name: name.value,
-        level: level.value,
+        email: email.value,
+        password: password.value,
       };
       await axios.post("/api/joblevels", data);
       setLoading(false);
-      openSnackBar("Berhasil Menambahkan Job Level");
+      openSnackBar("Berhasil Menambahkan Users");
       closeModalHandler();
       router.replace(router.pathname);
       return;
     } catch (error) {
       console.log(error);
       setLoading(false);
-      openSnackBar("Gagal Menambahkan Job Level");
+      openSnackBar("Gagal Menambahkan User");
       return;
     }
   };
@@ -82,11 +81,11 @@ const AddUserModal = ({ open = false, closeModalHandler, type }) => {
       >
         <form onSubmit={create}>
           <DialogTitle id="alert-dialog-title" variant="h4">
-            Tambah Jabatan
+            Tambah Siswa
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-slide-description" component="div">
-              <FormLabel htmlFor="nama">Nama Jabatan</FormLabel>
+              <FormLabel htmlFor="nama">Nama</FormLabel>
               <TextField
                 required
                 id="name"
@@ -94,18 +93,27 @@ const AddUserModal = ({ open = false, closeModalHandler, type }) => {
                 fullWidth
                 size="small"
                 variant="outlined"
-                placeholder="STAFF"
+                placeholder="nama"
               />
-
-              <FormLabel htmlFor="level">level Jabatan</FormLabel>
+              <FormLabel htmlFor="email">Email</FormLabel>
               <TextField
                 required
-                id="level"
-                name="level"
+                id="email"
+                name="email"
                 fullWidth
                 size="small"
                 variant="outlined"
-                placeholder="100"
+                placeholder="email"
+              />
+              <FormLabel htmlFor="password">Password</FormLabel>
+              <TextField
+                required
+                id="password"
+                name="password"
+                fullWidth
+                size="small"
+                variant="outlined"
+                placeholder="password"
               />
             </DialogContentText>
           </DialogContent>
