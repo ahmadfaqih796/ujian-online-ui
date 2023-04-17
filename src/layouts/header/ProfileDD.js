@@ -4,6 +4,7 @@ import FeatherIcon from "feather-icons-react";
 import { useRouter } from "next/dist/client/router";
 import React from "react";
 import Gambar from "../../../assets/images/ujianOnline.png";
+import typography from "@/utils/Typography,";
 
 // const imageURL = process.env.NEXT_PUBLIC_BASE_IMAGE_URL;
 
@@ -11,14 +12,28 @@ const ProfileDD = ({ data }) => {
   const user = data?.data;
 
   const router = useRouter();
-  const [anchorEl4, setAnchorEl4] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleClick4 = (event) => {
-    setAnchorEl4(event.currentTarget);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
   const handleClose4 = () => {
-    setAnchorEl4(null);
+    setAnchorEl(null);
+  };
+
+  const stringAvatar = (name, size) => {
+    return {
+      sx: {
+        bgcolor: "gray",
+        width: size,
+        height: size,
+      },
+      children: `${name
+        .split(" ")
+        .map((n) => n[0])
+        .join("")}`,
+    };
   };
 
   const handleLogout = async () => {
@@ -33,13 +48,14 @@ const ProfileDD = ({ data }) => {
         color="inherit"
         aria-controls="profile-menu"
         aria-haspopup="true"
-        onClick={handleClick4}
+        onClick={handleClick}
       >
         <Box display="flex" alignItems="center">
           <Avatar
-            src={Gambar}
+            // src={Gambar}
             // `${imageURL}/${user?.photo}`
-            alt={user?.name}
+            // alt={user?.name}
+            {...stringAvatar(user?.name)}
           />
           <Box
             sx={{
@@ -51,15 +67,14 @@ const ProfileDD = ({ data }) => {
             }}
           >
             <Typography
-              color="textSecondary"
-              variant="h5"
+              fontSize={typography.h5.fontSize}
               fontWeight="400"
               sx={{ ml: 1 }}
             >
               Hi,
             </Typography>
             <Typography
-              variant="h5"
+              fontSize={typography.h5.fontSize}
               fontWeight="700"
               sx={{
                 ml: 1,
@@ -73,9 +88,9 @@ const ProfileDD = ({ data }) => {
       </Button>
       <Menu
         id="profile-menu"
-        anchorEl={anchorEl4}
+        anchorEl={anchorEl}
         keepMounted
-        open={Boolean(anchorEl4)}
+        open={Boolean(anchorEl)}
         onClose={handleClose4}
         sx={{
           "& .MuiMenu-paper": {
@@ -95,7 +110,7 @@ const ProfileDD = ({ data }) => {
             }}
           >
             <Box display="flex" alignItems="center">
-              <Typography variant="h4" fontWeight="500">
+              <Typography fontSize={typography.h4.fontSize} fontWeight="500">
                 User Profile
               </Typography>
             </Box>
@@ -108,12 +123,13 @@ const ProfileDD = ({ data }) => {
           >
             <Box display="flex" alignItems="center">
               <Avatar
-                // src={`${imageURL}/${user?.photo}`}
-                alt={user?.name}
-                sx={{
-                  height: "90px",
-                  width: "90px",
-                }}
+                // src={Gambar}
+                // alt={user?.name}
+                // sx={{
+                //   height: "70px",
+                //   width: "70px",
+                // }}
+                {...stringAvatar(user?.name, "70px")}
               />
               <Box
                 sx={{
@@ -121,14 +137,18 @@ const ProfileDD = ({ data }) => {
                 }}
               >
                 <Typography
-                  variant="h4"
+                  fontSize={typography.h4.fontSize}
                   sx={{
                     lineHeight: "1.235",
                   }}
                 >
                   {user?.name}
                 </Typography>
-                <Typography color="textSecondary" variant="h6" fontWeight="400">
+                <Typography
+                  color="textSecondary"
+                  fontSize={typography.h6.fontSize}
+                  fontWeight="400"
+                >
                   {user?.role}
                 </Typography>
                 {/* <Box display="flex" alignItems="center">
