@@ -5,7 +5,7 @@ import { useRouter } from "next/dist/client/router";
 import React from "react";
 import Gambar from "../../../assets/images/ujianOnline.png";
 
-const imageURL = process.env.NEXT_PUBLIC_BASE_IMAGE_URL;
+// const imageURL = process.env.NEXT_PUBLIC_BASE_IMAGE_URL;
 
 const ProfileDD = ({ data }) => {
   const user = data?.data;
@@ -22,7 +22,7 @@ const ProfileDD = ({ data }) => {
   };
 
   const handleLogout = async () => {
-    await axios.post("/api/logout");
+    await axios.post("/api/auth/logout");
     router.push("/authentication/login");
   };
 
@@ -108,7 +108,7 @@ const ProfileDD = ({ data }) => {
           >
             <Box display="flex" alignItems="center">
               <Avatar
-                src={`${imageURL}/${user?.photo}`}
+                // src={`${imageURL}/${user?.photo}`}
                 alt={user?.name}
                 sx={{
                   height: "90px",
