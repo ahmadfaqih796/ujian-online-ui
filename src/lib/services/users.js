@@ -13,3 +13,12 @@ export const addUser = async (data) => {
   const { data: response } = await ServiceAdapter().post("/users", data);
   return response;
 };
+
+export const deleteUser = async (id, token) => {
+  const { data: response } = await ServiceAdapter().delete(`/users/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response;
+};
