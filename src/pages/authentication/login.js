@@ -1,30 +1,23 @@
 import useLogin from "@/hooks/auth/useLogin";
+import CloseIcon from "@mui/icons-material/Close";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Alert, Collapse, IconButton } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 // image
-import brand from "../../../assets/images/ujianOnline.png";
 import Image from "next/image";
+import brand from "../../../assets/images/ujianOnline.png";
 
-export default function SignIn({ cookie }) {
+export default function SignIn() {
   const router = useRouter();
-  // useEffect(() => {
-  //   if (cookie != "") {
-  //     router.push("/admin/home");
-  //   }
-  // }, []);
   const { loading, handleLogin, color, message, open, setOpen } = useLogin();
   const [passwordVisible, setPasswordVisible] = useState(false);
   return (
