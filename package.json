@@ -26,6 +26,7 @@
     "react-dom": "18.2.0",
     "react-redux": "^8.0.5",
     "simplebar-react": "^3.2.3",
-    "styled-components": "^5.3.9"
+    "styled-components": "^5.3.9",
+    "swr": "^2.1.3"
   }
 }

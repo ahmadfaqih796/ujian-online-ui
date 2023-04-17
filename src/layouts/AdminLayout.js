@@ -23,51 +23,30 @@ import FeatherIcon from "feather-icons-react";
 import ProfileDD from "./header/ProfileDD";
 import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
+import { useUserSession } from "@/hooks/auth/useUserSession";
 
 const drawerWidth = 265;
 
 const AdminLayout = ({ children, window }) => {
   const [isSidebarOpen, setSidebarOpen] = React.useState(true);
   const [isMobileSidebarOpen, setMobileSidebarOpen] = React.useState(false);
-  // -----------------------------------------------------
-  // const [mobileOpen, setMobileOpen] = React.useState(false);
-  // const [open, setOpen] = React.useState(true);
-  // const router = useRouter();
-  // const pathDirect = router.pathname;
-  // const location = router.pathname;
-  // const pathWithoutLastPart = router.pathname.slice(
-  //   0,
-  //   router.pathname.lastIndexOf("/")
-  // );
+  const { data, error } = useUserSession();
 
-  const handleClick = (index) => {
-    if (open === index) {
-      setOpen((prevopen) => !prevopen);
-    } else {
-      setOpen(index);
-    }
-  };
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-    console.log("aaaaaaaaaa");
-  };
-
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
+  if (!data) {
+    return <>Tunggu Sebentar sedang meload data</>;
+  }
 
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <Header
-        // data={data}
+        data={data}
         drawerWidth={drawerWidth}
         handleDrawerToggle={() => {
           handleDrawerToggle;
         }}
         toggleSidebar={() => setSidebarOpen(!isSidebarOpen)}
         toggleMobileSidebar={() => setMobileSidebarOpen(true)}
-        // toggleMobileSidebar={() => setMobileSidebarOpen(true)}
       />
 
       <Sidebar

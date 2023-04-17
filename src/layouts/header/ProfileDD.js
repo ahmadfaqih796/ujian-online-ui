@@ -39,7 +39,7 @@ const ProfileDD = ({ data }) => {
           <Avatar
             src={Gambar}
             // `${imageURL}/${user?.photo}`
-            alt={"aaaaa"}
+            alt={user?.name}
           />
           <Box
             sx={{
@@ -65,7 +65,7 @@ const ProfileDD = ({ data }) => {
                 ml: 1,
               }}
             >
-              {user?.fullname}
+              {user?.name}
             </Typography>
             <FeatherIcon icon="chevron-down" width="20" height="20" />
           </Box>
@@ -109,7 +109,7 @@ const ProfileDD = ({ data }) => {
             <Box display="flex" alignItems="center">
               <Avatar
                 src={`${imageURL}/${user?.photo}`}
-                alt={user?.fullname}
+                alt={user?.name}
                 sx={{
                   height: "90px",
                   width: "90px",
@@ -126,7 +126,7 @@ const ProfileDD = ({ data }) => {
                     lineHeight: "1.235",
                   }}
                 >
-                  {user?.fullname}
+                  {user?.name}
                 </Typography>
                 <Typography color="textSecondary" variant="h6" fontWeight="400">
                   {user?.role}

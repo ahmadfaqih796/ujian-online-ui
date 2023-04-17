@@ -1,3 +1,4 @@
+import { useUserSession } from "@/hooks/auth/useUserSession";
 import { getHome } from "@/lib/services/admin/Home";
 import WithAuth from "@/lib/sessions/withAuth";
 import { Button } from "@mui/material";
@@ -25,7 +26,6 @@ export const getServerSideProps = WithAuth(async function ({ req }) {
   };
 });
 const Home = ({ dashboard }) => {
-  // console.log("xxxxxxxx", dashboard);
   const router = useRouter();
   const handleLogout = async () => {
     await axios.post("/api/auth/logout");

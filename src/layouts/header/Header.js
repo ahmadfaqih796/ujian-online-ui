@@ -38,7 +38,7 @@ const Header = ({
         </IconButton>
         {/* posisi profile ada di kanan */}
         <Box flexGrow={1} />
-        <ProfileDD />
+        <ProfileDD data={data} />
       </Toolbar>
     </AppBar>
   );

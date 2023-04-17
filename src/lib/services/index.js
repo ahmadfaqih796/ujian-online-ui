@@ -27,9 +27,9 @@ function ServiceAdapter() {
         // return (window.location.href = "/authentication/login");
       }
       if (error?.response?.status === 401) {
-        return Promise.reject(
-          "Silahkan login kembali, masa token anda sudah habis"
-        );
+        // return Promise.reject(
+        //   "Silahkan login kembali, masa token anda sudah habis"
+        // );
         // return (window.location.href = "/authentication/login");
       }
       return Promise.reject(error);
