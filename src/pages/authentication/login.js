@@ -18,18 +18,6 @@ import { useEffect, useState } from "react";
 import brand from "../../../assets/images/ujianOnline.png";
 import Image from "next/image";
 
-export const getServerSideProps = async ({ req }) => {
-  const { cookies } = req;
-  // console.log("vvvvvvvvvv", req);
-  return {
-    props: {
-      cookie: cookies.ujian_online ?? "",
-    },
-  };
-};
-
-const theme = createTheme();
-
 export default function SignIn({ cookie }) {
   const router = useRouter();
   // useEffect(() => {
@@ -37,8 +25,6 @@ export default function SignIn({ cookie }) {
   //     router.push("/admin/home");
   //   }
   // }, []);
-
-  console.log("mooooo", cookie);
   const { loading, handleLogin, color, message, open, setOpen } = useLogin();
   const [passwordVisible, setPasswordVisible] = useState(false);
   return (
