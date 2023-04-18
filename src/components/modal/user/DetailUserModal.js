@@ -14,7 +14,7 @@ import React from "react";
 import Transition from "../transition";
 const upTransition = Transition("up");
 
-const DeleteModal = ({
+const DetailUserModal = ({
   open = false,
   closeModalHandler,
   type,
@@ -73,4 +73,4 @@ const DeleteModal = ({
   );
 };
 
-export default DeleteModal;
+export default DetailUserModal;
