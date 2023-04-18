@@ -51,6 +51,7 @@ const Siswa = ({ users }) => {
         type={modalType}
         closeModalHandler={handleCloseModal}
       />
+      <DetailUs
       <DeleteModal
         open={openModal}
         type={modalType}
