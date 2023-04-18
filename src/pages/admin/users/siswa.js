@@ -19,6 +19,7 @@ import useHandleModal from "@/hooks/useHandleModal";
 import AddUserModal from "@/components/modal/user/AddUserModal";
 import DeleteModal from "@/components/modal/DeleteModal";
 import ThreeDotsMenu from "@/components/menu-items/ThreeDotsMenu";
+import DetailUserModal from "@/components/modal/user/DetailUserModal";
 
 export const getServerSideProps = WithAuth(async ({ query, req }) => {
   const users = await pagination(
@@ -51,7 +52,12 @@ const Siswa = ({ users }) => {
         type={modalType}
         closeModalHandler={handleCloseModal}
       />
-      <DetailUs
+      <DetailUserModal
+        open={openModal}
+        type={modalType}
+        data={userData}
+        closeModalHandler={handleCloseModal}
+      />
       <DeleteModal
         open={openModal}
         type={modalType}
