@@ -17,6 +17,7 @@ import moment from "moment";
 import usePagination from "@/hooks/usePagination";
 import useHandleModal from "@/hooks/useHandleModal";
 import AddUserModal from "@/components/modal/user/AddUserModal";
+import DeleteModal from "@/components/modal/DeleteModal";
 
 export const getServerSideProps = WithAuth(async ({ query, req }) => {
   const users = await pagination(
@@ -36,6 +37,7 @@ export const getServerSideProps = WithAuth(async ({ query, req }) => {
 });
 
 const Siswa = ({ users }) => {
+  const [userData, setUserData] = React.useState();
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
     useHandleModal(false);
   const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } =
@@ -46,6 +48,12 @@ const Siswa = ({ users }) => {
       <AddUserModal
         open={openModal}
         type={modalType}
+        closeModalHandler={handleCloseModal}
+      />
+      <DeleteModal
+        open={openModal}
+        type={modalType}
+        data={userData}
         closeModalHandler={handleCloseModal}
       />
       <Box display="flex">
@@ -118,6 +126,7 @@ const Siswa = ({ users }) => {
                     textAlign="center"
                     color="textSecondary"
                   >
+                    {console.log("aaaa", typeof rowsPerPage)}
                     {index + 1 + ((page - 1) * rowsPerPage, page * rowsPerPage)}
                   </Typography>
                 </TableCell>
@@ -131,6 +140,17 @@ const Siswa = ({ users }) => {
                     color="textSecondary"
                   >
                     {data.name}
+                  </Typography>
+                </TableCell>
+
+                <TableCell>
+                  <Typography
+                    variant="h6"
+                    fontWeight="600"
+                    textAlign="center"
+                    color="textSecondary"
+                  >
+                    {data.email}
                   </Typography>
                 </TableCell>
 
@@ -160,7 +180,7 @@ const Siswa = ({ users }) => {
                 </TableCell>
 
                 {/* data update_at */}
-                <TableCell>
+                {/* <TableCell>
                   <Typography
                     variant="h6"
                     fontWeight="600"
@@ -171,7 +191,7 @@ const Siswa = ({ users }) => {
                       ? moment(data.updatedAt).format("DD MMM YYYY, HH:mm:ss")
                       : "-"}
                   </Typography>
-                </TableCell>
+                </TableCell> */}
 
                 <TableCell align="center">
                   {/* <ThreeDotsMenu
@@ -180,7 +200,14 @@ const Siswa = ({ users }) => {
                     onClickEdit={() => usersEdit(data)}
                     onClickDelete={() => usersDelete(data)}
                   /> */}
-                  sss
+                  <Button
+                    onClick={() => {
+                      setUserData(data);
+                      handleOpenModal("delete");
+                    }}
+                  >
+                    Hapus
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}

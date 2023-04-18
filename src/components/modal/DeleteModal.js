@@ -14,9 +14,9 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import FeatherIcon from "feather-icons-react";
-import { useRouter } from "next/dist/client/router";
 import React, { useState } from "react";
-import Transition from "../../transition";
+import Transition from "../transition";
+import { useRouter } from "next/router";
 const upTransition = Transition("up");
 
 const DeleteModal = ({
@@ -30,6 +30,7 @@ const DeleteModal = ({
   const router = useRouter();
   const { isActive, message, openSnackBar, closeSnackBar } = useSnackbar();
   const [loading, setLoading] = useState(false);
+  console.log("ccacacac", data);
 
   const action = (
     <React.Fragment>
@@ -50,11 +51,16 @@ const DeleteModal = ({
 
     try {
       // await deleteUser(data.id, token);
-      const res = await axios.delete(`/api/users/${data.id}`);
+      await axios.delete(`/api/users/${data.id_user}`);
       setLoading(false);
       openSnackBar("Berhasil menghapus user");
       closeModalHandler();
-      router.replace(router.pathname);
+      router.replace({
+        pathname: router.pathname,
+        query: {
+          ...router.query,
+        },
+      });
       return;
     } catch (error) {
       console.log(error);
@@ -98,7 +104,7 @@ const DeleteModal = ({
                     fontWeight: 700,
                   }}
                 >
-                  {data.fullname}
+                  {data?.name}
                 </span>
               </Typography>
             </DialogContentText>

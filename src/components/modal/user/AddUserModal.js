@@ -53,7 +53,12 @@ const AddUserModal = ({ open = false, closeModalHandler, type }) => {
       setLoading(false);
       openSnackBar("Berhasil Menambahkan Users");
       closeModalHandler();
-      router.replace(router.pathname);
+      router.replace({
+        pathname: router.pathname,
+        query: {
+          ...router.query,
+        },
+      });
       return;
     } catch (error) {
       console.log(error.response);

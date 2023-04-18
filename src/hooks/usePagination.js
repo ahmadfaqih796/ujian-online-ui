@@ -5,8 +5,8 @@ const usePagination = () => {
   const router = useRouter();
   const currentPage = router.query?.page ?? 1;
   const currentRowPerPage = router.query?.per_page ?? 10;
-  const [page, setPage] = useState(currentPage - 1);
-  const [rowsPerPage, setRowsPerPage] = useState(currentRowPerPage);
+  const [page, setPage] = useState(parseInt(currentPage - 1));
+  const [rowsPerPage, setRowsPerPage] = useState(parseInt(currentRowPerPage));
 
   const handleChangePage = async (event, newPage) => {
     await router.replace({
@@ -21,7 +21,7 @@ const usePagination = () => {
 
   const handleChangeRowsPerPage = async (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    setPage(parseInt(0));
     await router.replace({
       pathname: router.pathname,
       query: {
