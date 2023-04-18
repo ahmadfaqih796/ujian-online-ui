@@ -18,6 +18,7 @@ import usePagination from "@/hooks/usePagination";
 import useHandleModal from "@/hooks/useHandleModal";
 import AddUserModal from "@/components/modal/user/AddUserModal";
 import DeleteModal from "@/components/modal/DeleteModal";
+import ThreeDotsMenu from "@/components/menu-items/ThreeDotsMenu";
 
 export const getServerSideProps = WithAuth(async ({ query, req }) => {
   const users = await pagination(
@@ -208,6 +209,18 @@ const Siswa = ({ users }) => {
                   >
                     Hapus
                   </Button>
+                  <ThreeDotsMenu
+                    // data={user}
+                    // token={data}
+                    onClickDetail={() => {
+                      console.log("ssssss");
+                    }}
+                    onClickEdit={() => console.log("aaaaaa")}
+                    onClickDelete={() => {
+                      setUserData(data);
+                      handleOpenModal("delete");
+                    }}
+                  />
                 </TableCell>
               </TableRow>
             ))}
