@@ -92,7 +92,7 @@ const Guru = ({ users }) => {
                   margin={2}
                   sx={{ justifyContent: "center", display: "flex" }}
                 >
-                  <Avatar {...stringAvatar(data.name, 200)} />
+                  <Avatar {...stringAvatar(data.name, 80)} />
                 </Box>
                 <Typography>{data.name}</Typography>
                 <Typography>{data.email}</Typography>
