@@ -203,10 +203,9 @@ const Siswa = ({ users }) => {
 
                 <TableCell align="center">
                   <ThreeDotsMenu
-                    // data={user}
-                    // token={data}
                     onClickDetail={() => {
-                      console.log("ssssss");
+                      setUserData(data);
+                      handleOpenModal("detail");
                     }}
                     onClickEdit={() => console.log("aaaaaa")}
                     onClickDelete={() => {

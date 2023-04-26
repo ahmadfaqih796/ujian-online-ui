@@ -9,9 +9,8 @@ import React from "react";
 export const getServerSideProps = WithAuth(async function ({ req }) {
   const { id } = req.session.user;
   const { token } = req.session.user;
-  console.log("first", token);
   const dashboard = await getHome(token);
-  //   const user = req.session.user;
+  // const user = req.session.user;
 
   //   if (user.level === "STAFF") {
   //     return {
