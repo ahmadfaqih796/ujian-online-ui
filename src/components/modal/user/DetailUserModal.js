@@ -12,6 +12,7 @@ const upTransition = Transition("up");
 
 const DetailUserModal = ({ open = false, closeModalHandler, type, data }) => {
   const { name } = data;
+  console.log("daaaaaa", data);
   return (
     <>
       <Dialog
@@ -23,7 +24,7 @@ const DetailUserModal = ({ open = false, closeModalHandler, type, data }) => {
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogTitle id="alert-dialog-slide-title" variant="h4">
-          Detail User {name}
+          Detail User {name || "-"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText

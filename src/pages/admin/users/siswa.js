@@ -39,7 +39,7 @@ export const getServerSideProps = WithAuth(async ({ query, req }) => {
 });
 
 const Siswa = ({ users }) => {
-  const [userData, setUserData] = React.useState();
+  const [userData, setUserData] = React.useState({});
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
     useHandleModal(false);
   const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } =
