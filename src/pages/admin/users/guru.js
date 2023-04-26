@@ -1,5 +1,8 @@
-import { CustomButtonRed } from "@/components/custom/button/CustomButtonRed";
-import { CustomButtonView } from "@/components/custom/button/CustomButtonView";
+import {
+  CustomButtonBlue,
+  CustomButtonRed,
+  CustomButtonYellow,
+} from "@/components/custom/customButton";
 import DeleteModal from "@/components/modal/DeleteModal";
 import AddUserModal from "@/components/modal/user/AddUserModal";
 import DetailUserModal from "@/components/modal/user/DetailUserModal";
@@ -89,17 +92,17 @@ const Guru = ({ users }) => {
                   margin={2}
                   sx={{ justifyContent: "center", display: "flex" }}
                 >
-                  <Avatar {...stringAvatar(data.name, 80)} />
+                  <Avatar {...stringAvatar(data.name, 200)} />
                 </Box>
                 <Typography>{data.name}</Typography>
                 <Typography>{data.email}</Typography>
                 <Typography>{data.role ?? "-"}</Typography>
                 <Grid container spacing={2} padding={2}>
                   <Grid item xs={4}>
-                    <CustomButtonView fullWidth>Detail</CustomButtonView>
+                    <CustomButtonBlue fullWidth>Detail</CustomButtonBlue>
                   </Grid>
                   <Grid item xs={4}>
-                    <Button fullWidth>Ubah</Button>
+                    <CustomButtonYellow fullWidth>Ubah</CustomButtonYellow>
                   </Grid>
                   <Grid item xs={4}>
                     <CustomButtonRed
