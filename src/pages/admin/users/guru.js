@@ -1,29 +1,22 @@
+import { CustomButtonView } from "@/components/custom/button/CustomButtonView";
+import DeleteModal from "@/components/modal/DeleteModal";
+import AddUserModal from "@/components/modal/user/AddUserModal";
+import DetailUserModal from "@/components/modal/user/DetailUserModal";
+import useHandleModal from "@/hooks/useHandleModal";
+import usePagination from "@/hooks/usePagination";
+import { stringAvatar } from "@/layouts/header/stringAvatar";
+import pagination from "@/lib/services/pagination/pagination";
+import WithAuth from "@/lib/sessions/withAuth";
 import {
   Avatar,
   Button,
   Card,
-  CardContent,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
   TablePagination,
-  TableRow,
   Typography,
 } from "@mui/material";
-import { Box } from "@mui/system";
-import pagination from "@/lib/services/pagination/pagination";
-import WithAuth from "@/lib/sessions/withAuth";
-import React from "react";
-import moment from "moment";
-import usePagination from "@/hooks/usePagination";
-import useHandleModal from "@/hooks/useHandleModal";
-import AddUserModal from "@/components/modal/user/AddUserModal";
-import DeleteModal from "@/components/modal/DeleteModal";
-import ThreeDotsMenu from "@/components/menu-items/ThreeDotsMenu";
-import DetailUserModal from "@/components/modal/user/DetailUserModal";
 import Grid from "@mui/material/Grid";
-import { stringAvatar } from "@/layouts/header/stringAvatar";
+import { Box } from "@mui/system";
+import React from "react";
 
 export const getServerSideProps = WithAuth(async ({ query, req }) => {
   const users = await pagination(
@@ -102,7 +95,7 @@ const Guru = ({ users }) => {
                 <Typography>{data.role ?? "-"}</Typography>
                 <Grid container spacing={2} padding={2}>
                   <Grid item xs={4}>
-                    <Button fullWidth>Detail</Button>
+                    <CustomButtonView fullWidth>Detail</CustomButtonView>
                   </Grid>
                   <Grid item xs={4}>
                     <Button fullWidth>Ubah</Button>
