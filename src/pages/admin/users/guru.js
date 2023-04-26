@@ -9,7 +9,6 @@ import DetailUserModal from "@/components/modal/user/DetailUserModal";
 import useHandleModal from "@/hooks/useHandleModal";
 import usePagination from "@/hooks/usePagination";
 import { stringAvatar } from "@/layouts/header/stringAvatar";
-import pagination from "@/lib/services/pagination/pagination";
 import WithAuth from "@/lib/sessions/withAuth";
 import {
   Avatar,
@@ -21,9 +20,19 @@ import {
 import Grid from "@mui/material/Grid";
 import { Box } from "@mui/system";
 import React from "react";
+// import usePagination from "@mui/material/usePagination";
+import paginationUser from "@/lib/services/pagination/paginationUser";
+import { styled } from "@mui/material/styles";
+
+const List = styled("ul")({
+  listStyle: "none",
+  padding: 0,
+  margin: 0,
+  display: "flex",
+});
 
 export const getServerSideProps = WithAuth(async ({ query, req }) => {
-  const users = await pagination(
+  const users = await paginationUser(
     "/users",
     {
       ...query,
@@ -116,26 +125,10 @@ const Guru = ({ users }) => {
               </Card>
             </Grid>
           ))}
-          {/* <Grid item xs={8}>
-            <Box>xs=8</Box>
-          </Grid>
-          <Grid item xs={4}>
-            <Box>xs=4</Box>
-          </Grid>
-          <Grid item xs={4}>
-            <Box>xs=4</Box>
-          </Grid>
-          <Grid item xs={8}>
-            <Box>xs=8</Box>
-          </Grid> */}
-          {/* {users.data.map((data, index) => (
-            <Card key={index} sx={{ width: "200px" }}>
-              aaaa
-            </Card>
-          ))} */}
         </Grid>
+
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={[]}
           component="div"
           count={users.total}
           rowsPerPage={rowsPerPage}
