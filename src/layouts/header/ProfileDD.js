@@ -5,6 +5,7 @@ import { useRouter } from "next/dist/client/router";
 import React from "react";
 import Gambar from "../../../assets/images/ujianOnline.png";
 import typography from "@/utils/Typography,";
+import { stringAvatar } from "./stringAvatar";
 
 // const imageURL = process.env.NEXT_PUBLIC_BASE_IMAGE_URL;
 
@@ -20,20 +21,6 @@ const ProfileDD = ({ data }) => {
 
   const handleClose4 = () => {
     setAnchorEl(null);
-  };
-
-  const stringAvatar = (name, size) => {
-    return {
-      sx: {
-        bgcolor: "gray",
-        width: size,
-        height: size,
-      },
-      children: `${name
-        .split(" ")
-        .map((n) => n[0])
-        .join("")}`,
-    };
   };
 
   const handleLogout = async () => {

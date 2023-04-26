@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Button,
   Card,
   CardContent,
@@ -22,6 +23,7 @@ import DeleteModal from "@/components/modal/DeleteModal";
 import ThreeDotsMenu from "@/components/menu-items/ThreeDotsMenu";
 import DetailUserModal from "@/components/modal/user/DetailUserModal";
 import Grid from "@mui/material/Grid";
+import { stringAvatar } from "@/layouts/header/stringAvatar";
 
 export const getServerSideProps = WithAuth(async ({ query, req }) => {
   const users = await pagination(
@@ -81,10 +83,35 @@ const Guru = ({ users }) => {
           sm: "unset",
         }}
       >
-        <Grid container spacing={2}>
+        <Grid container spacing={5}>
           {users.data.map((data, index) => (
-            <Grid key={index} item xs={3}>
-              <Card>{data.name}</Card>
+            <Grid key={index} item xs={4}>
+              <Card
+                sx={{
+                  textAlign: "center",
+                }}
+              >
+                <Box
+                  margin={2}
+                  sx={{ justifyContent: "center", display: "flex" }}
+                >
+                  <Avatar {...stringAvatar(data.name)} />
+                </Box>
+                <Typography>{data.name}</Typography>
+                <Typography>{data.email}</Typography>
+                <Typography>{data.role ?? "-"}</Typography>
+                <Grid container spacing={2} padding={2}>
+                  <Grid item xs={4}>
+                    <Button fullWidth>Detail</Button>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Button fullWidth>Ubah</Button>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Button fullWidth>Hapus</Button>
+                  </Grid>
+                </Grid>
+              </Card>
             </Grid>
           ))}
           {/* <Grid item xs={8}>
