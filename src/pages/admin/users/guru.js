@@ -1,3 +1,4 @@
+import { CustomButtonRed } from "@/components/custom/button/CustomButtonRed";
 import { CustomButtonView } from "@/components/custom/button/CustomButtonView";
 import DeleteModal from "@/components/modal/DeleteModal";
 import AddUserModal from "@/components/modal/user/AddUserModal";
@@ -101,7 +102,12 @@ const Guru = ({ users }) => {
                     <Button fullWidth>Ubah</Button>
                   </Grid>
                   <Grid item xs={4}>
-                    <Button fullWidth>Hapus</Button>
+                    <CustomButtonRed
+                      fullWidth
+                      onClick={() => handleOpenModal("delete")}
+                    >
+                      Hapus
+                    </CustomButtonRed>
                   </Grid>
                 </Grid>
               </Card>
