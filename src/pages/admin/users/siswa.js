@@ -15,6 +15,7 @@ import WithAuth from "@/lib/sessions/withAuth";
 import React from "react";
 import moment from "moment";
 import usePagination from "@/hooks/usePagination";
+import useHandleModal from "@/hooks/useHandleModal";
 
 export const getServerSideProps = WithAuth(async ({ query, req }) => {
   const users = await pagination(
@@ -34,6 +35,8 @@ export const getServerSideProps = WithAuth(async ({ query, req }) => {
 });
 
 const Siswa = ({ users }) => {
+  const { openModal, modalType, handleCloseModal, handleOpenModal } =
+    useHandleModal(false);
   const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } =
     usePagination();
 
