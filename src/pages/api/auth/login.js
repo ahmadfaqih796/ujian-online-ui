@@ -4,18 +4,22 @@ import { withSessionRoute } from "@/lib/sessions/withSession";
 async function loginRoute(req, res) {
   try {
     const response = await loginService(req.body);
-    const { nik, name } = response.user;
+    const { user, siswa, guru, authentication } = response;
+    const { nik, name, role } = user;
+    const { accessToken, payload } = authentication;
     // if (role_id != "admin") {
     //   if (job_level.level === 1 || job_level.name === "STAFF") {
     //     return res.redirect("/404").end();
     //   }
     // }
-    // console.log("xxxxxxxx", response);
+    console.log("xxxxxxxx", response);
     req.session.user = {
       id: response.user.id_user,
       nik: nik,
       name: name,
-      token: response.accessToken,
+      iat: payload.iat,
+      exp: payload.exp,
+      token: accessToken,
     };
 
     await req.session.save();

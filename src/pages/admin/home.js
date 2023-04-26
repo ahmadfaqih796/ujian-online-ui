@@ -10,6 +10,7 @@ export const getServerSideProps = WithAuth(async function ({ req }) {
   const { id } = req.session.user;
   const { token } = req.session.user;
   const dashboard = await getHome(token);
+  console.log("wwww", req.session);
   // const user = req.session.user;
 
   //   if (user.level === "STAFF") {
