@@ -31,9 +31,7 @@ const DetailUserModal = ({ open = false, closeModalHandler, type, data }) => {
             id="alert-dialog-slide-description"
             component="div"
           >
-            <Typography variant="body1">
-              Apakah anda ingin menghapus User
-            </Typography>
+            <Typography variant="body1">Detail user modal</Typography>
           </DialogContentText>
         </DialogContent>
 

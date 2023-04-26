@@ -108,7 +108,12 @@ const Guru = ({ users }) => {
                 <Typography>{data.role ?? "-"}</Typography>
                 <Grid container spacing={2} padding={2}>
                   <Grid item xs={4}>
-                    <CustomButtonBlue fullWidth>Detail</CustomButtonBlue>
+                    <CustomButtonBlue
+                      fullWidth
+                      onClick={() => handleOpenModal("detail")}
+                    >
+                      Detail
+                    </CustomButtonBlue>
                   </Grid>
                   <Grid item xs={4}>
                     <CustomButtonYellow fullWidth>Ubah</CustomButtonYellow>
@@ -131,7 +136,7 @@ const Guru = ({ users }) => {
           rowsPerPageOptions={[]}
           component="div"
           count={users.total}
-          rowsPerPage={rowsPerPage}
+          rowsPerPage={6}
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}

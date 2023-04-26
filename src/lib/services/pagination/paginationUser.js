@@ -3,7 +3,7 @@ import ServiceAdapter from "..";
 
 const paginationUser = async (url, context, headers = {}) => {
   const newQuery = clone(context);
-  const perPage = newQuery?.per_page ?? 5;
+  const perPage = newQuery?.per_page ?? 6;
   const page = newQuery?.page ?? 1;
 
   newQuery.$skip = page * perPage - perPage;
