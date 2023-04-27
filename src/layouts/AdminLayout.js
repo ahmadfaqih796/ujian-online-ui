@@ -24,6 +24,7 @@ import ProfileDD from "./header/ProfileDD";
 import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
 import { useUserSession } from "@/hooks/auth/useUserSession";
+import LoadingSpinner from "@/components/loading/LoadingSpinner";
 
 const drawerWidth = 265;
 
@@ -33,7 +34,7 @@ const AdminLayout = ({ children, window }) => {
   const { data, error } = useUserSession();
 
   if (!data) {
-    return <>Tunggu Sebentar sedang meload data</>;
+    return <LoadingSpinner show={true} />;
   }
 
   return (

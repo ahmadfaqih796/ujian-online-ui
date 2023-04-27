@@ -15,6 +15,7 @@ import {
   Button,
   Card,
   TablePagination,
+  TextField,
   Typography,
 } from "@mui/material";
 import Grid from "@mui/material/Grid";
@@ -74,7 +75,15 @@ const Guru = ({ users }) => {
         data={userData}
         closeModalHandler={handleCloseModal}
       />
-      <Box display="flex">
+      <Grid container spacing={5}>
+        <Grid item xs={4}>
+          <TextField placeholder="cari" />
+        </Grid>
+      </Grid>
+      <Box display={"flex"}>
+        <Typography>sssssss</Typography>
+        <Typography>ssssaaaas</Typography>
+        <Box flexGrow={1} />
         <Button
           color="primary"
           variant="contained"
@@ -83,6 +92,7 @@ const Guru = ({ users }) => {
           Tambahkan
         </Button>
       </Box>
+      <Box display="flex"></Box>
       <Box
         sx={{
           overflow: "auto",
