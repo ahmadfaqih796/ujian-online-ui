@@ -53,7 +53,6 @@ export const getServerSideProps = WithAuth(async ({ query, req }) => {
 
 const Guru = ({ users }) => {
   const router = useRouter();
-  console.log("aaaaa", router.query);
   const [userData, setUserData] = React.useState({});
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
     useHandleModal(false);
@@ -109,7 +108,7 @@ const Guru = ({ users }) => {
               <Grid key={index} item xs>
                 <Card
                   sx={{
-                    width: "320px",
+                    width: "300px",
                     textAlign: "center",
                   }}
                 >
@@ -151,15 +150,16 @@ const Guru = ({ users }) => {
           </Grid>
         </Box>
 
-        <Pagination
-          count={Math.ceil(users.total / 6)}
-          page={page}
+        {/* <Pagination
+          count={Math.ceil(users.total / 7)}
+          // page={page}
+          defaultPage={router.query ? router.query.page : 1}
           onChange={handleChangePage}
           color="primary"
           variant="outlined"
-        />
+        /> */}
 
-        {/* <TablePagination
+        <TablePagination
           rowsPerPageOptions={[]}
           component="div"
           count={users.total}
@@ -172,9 +172,9 @@ const Guru = ({ users }) => {
               count != -1 ? count : `more than ${to}`
             } data`;
           }}
-          showFirstButton
-          showLastButton
-        /> */}
+          // showFirstButton
+          // showLastButton
+        />
       </Box>
     </>
   );
