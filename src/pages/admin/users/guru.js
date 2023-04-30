@@ -14,7 +14,6 @@ import {
   Avatar,
   Button,
   Card,
-  Pagination,
   TablePagination,
   TextField,
   Typography,
@@ -25,7 +24,6 @@ import React from "react";
 // import usePagination from "@mui/material/usePagination";
 import paginationUser from "@/lib/services/pagination/paginationUser";
 import { styled } from "@mui/material/styles";
-import { useRouter } from "next/router";
 
 const List = styled("ul")({
   listStyle: "none",
@@ -52,12 +50,10 @@ export const getServerSideProps = WithAuth(async ({ query, req }) => {
 });
 
 const Guru = ({ users }) => {
-  const router = useRouter();
   const [userData, setUserData] = React.useState({});
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
     useHandleModal(false);
-  const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } =
-    usePagination();
+  const { page, handleChangePage, handleChangeRowsPerPage } = usePagination();
 
   return (
     <>
