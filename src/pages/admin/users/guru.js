@@ -80,8 +80,6 @@ const Guru = ({ users }) => {
         </Grid>
       </Grid>
       <Box display={"flex"}>
-        <Typography>sssssss</Typography>
-        <Typography>ssssaaaas</Typography>
         <Box flexGrow={1} />
         <Button
           color="primary"
