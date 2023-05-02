@@ -37,6 +37,7 @@ export const getServerSideProps = WithAuth(async ({ query, req }) => {
     "/users",
     {
       ...query,
+      "$sort[createdAt]": -1,
     },
     {
       Authorization: req.session.user.token,

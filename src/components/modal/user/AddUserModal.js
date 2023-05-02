@@ -46,12 +46,13 @@ const AddUserModal = ({ open = false, closeModalHandler, type }) => {
       const data = {
         name: name.value,
         email: email.value,
-        nik: "0",
+        nik: "D12340",
+        role: "siswa",
         password: password.value,
       };
       await axios.post("/api/users", data);
       setLoading(false);
-      openSnackBar("Berhasil Menambahkan Users");
+      openSnackBar("Berhasil menambahkan users");
       closeModalHandler();
       router.replace({
         pathname: router.pathname,
@@ -66,7 +67,7 @@ const AddUserModal = ({ open = false, closeModalHandler, type }) => {
       // if (error.response.data.message.status === 409) {
       //   return openSnackBar("Email ini sudah digunakan");
       // }
-      openSnackBar("Gagal Menambahkan User");
+      openSnackBar("Gagal menambahkan user");
       return;
     }
   };
