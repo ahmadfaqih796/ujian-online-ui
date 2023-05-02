@@ -131,9 +131,29 @@ a {
   height: 35px;
   margin: 0 auto;
 }
+
+/* search */
+.search-user {
+  width: 350px;
+  display: flex;
+  justify-content: space-between;
+}
+
 @media screen and (max-width: 1200px) {
   .brand-login {
     display: none;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .title-mobile {
+    width: 100%;
+    text-align: center;
+    padding-bottom: 10px;
+  }
+  .search-user {
+    width: 100%;
+    justify-content: center;
   }
 }
 

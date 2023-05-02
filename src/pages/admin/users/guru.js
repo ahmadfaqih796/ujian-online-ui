@@ -3,6 +3,7 @@ import {
   CustomButtonRed,
   CustomButtonYellow,
 } from "@/components/custom/customButton";
+import FeatherIcon from "feather-icons-react";
 import DeleteModal from "@/components/modal/DeleteModal";
 import AddUserModal from "@/components/modal/user/AddUserModal";
 import DetailUserModal from "@/components/modal/user/DetailUserModal";
@@ -24,6 +25,7 @@ import React from "react";
 // import usePagination from "@mui/material/usePagination";
 import paginationUser from "@/lib/services/pagination/paginationUser";
 import { styled } from "@mui/material/styles";
+import SearchUser from "@/components/search/SearchUser";
 
 const List = styled("ul")({
   listStyle: "none",
@@ -75,21 +77,24 @@ const Guru = ({ users }) => {
         data={userData}
         closeModalHandler={handleCloseModal}
       />
-      <Grid container spacing={5}>
-        <Grid item xs={4}>
-          <TextField placeholder="cari" />
-        </Grid>
-      </Grid>
-      <Box display={"flex"}>
+      <Box display={"flex"} alignItems={"center"} flexWrap={"wrap"} mb={2}>
+        <Typography className="title-mobile" fontSize={24} fontWeight={700}>
+          Guru Management
+        </Typography>
         <Box flexGrow={1} />
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={() => handleOpenModal("add")}
-        >
-          Tambahkan
-        </Button>
+        <Box component={"div"} className="search-user">
+          <SearchUser />
+          <Button
+            sx={{ ml: "20px" }}
+            color="primary"
+            variant="contained"
+            onClick={() => handleOpenModal("add")}
+          >
+            Tambahkan
+          </Button>
+        </Box>
       </Box>
+
       <Box display="flex"></Box>
       <Box
         sx={{
@@ -130,9 +135,10 @@ const Guru = ({ users }) => {
                       handleOpenModal("detail");
                     }}
                   >
-                    Detail
+                    <FeatherIcon icon="database" /> Detail
                   </CustomButtonBlue>
                   <CustomButtonYellow sx={{ width: "80px" }}>
+                    <FeatherIcon icon="edit-3" />
                     Ubah
                   </CustomButtonYellow>
                   <CustomButtonRed
@@ -142,6 +148,7 @@ const Guru = ({ users }) => {
                       handleOpenModal("delete");
                     }}
                   >
+                    <FeatherIcon icon="trash-2" />
                     Hapus
                   </CustomButtonRed>
                 </Box>
