@@ -141,56 +141,6 @@ const Guru = ({ users }) => {
               </Card>
             ))}
           </Box>
-
-          <Grid container spacing={5}>
-            {users.data.map((data, index) => (
-              <>
-                <Grid key={index} item xs>
-                  <Card
-                    sx={{
-                      width: "300px",
-                      textAlign: "center",
-                    }}
-                  >
-                    <Box
-                      margin={2}
-                      sx={{ justifyContent: "center", display: "flex" }}
-                    >
-                      <Avatar {...stringAvatar(data.name, 80)} />
-                    </Box>
-                    <Typography>{data.name}</Typography>
-                    <Typography>{data.email}</Typography>
-                    <Typography>{data.role ?? "-"}</Typography>
-                    <Box sx={{ flexGrow: 1 }}>
-                      <Grid container spacing={2} padding={2}>
-                        <Grid item xs={"auto"}>
-                          <CustomButtonBlue
-                            fullWidth
-                            onClick={() => handleOpenModal("detail")}
-                          >
-                            Detail
-                          </CustomButtonBlue>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <CustomButtonYellow fullWidth>
-                            Ubah
-                          </CustomButtonYellow>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <CustomButtonRed
-                            fullWidth
-                            onClick={() => handleOpenModal("delete")}
-                          >
-                            Hapus
-                          </CustomButtonRed>
-                        </Grid>
-                      </Grid>
-                    </Box>
-                  </Card>
-                </Grid>
-              </>
-            ))}
-          </Grid>
         </Box>
 
         {/* <Pagination
