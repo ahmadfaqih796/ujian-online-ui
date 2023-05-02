@@ -103,15 +103,16 @@ body {
 }
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
-  width: 16px;
+  width: 12px;
 }
 *::-webkit-scrollbar-track {
-  background: #ffffff;
+  border-radius: 5px;
+
+  border: 10px solid #ffffff;
 }
 *::-webkit-scrollbar-thumb {
   background-color: #1565c0;
   border-radius: 10px;
-  border: 3px solid #ffffff;
 }
 
 a {

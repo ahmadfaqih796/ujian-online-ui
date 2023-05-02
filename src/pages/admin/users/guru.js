@@ -14,6 +14,7 @@ import {
   Avatar,
   Button,
   Card,
+  Pagination,
   TablePagination,
   TextField,
   Typography,
@@ -24,6 +25,7 @@ import React from "react";
 // import usePagination from "@mui/material/usePagination";
 import paginationUser from "@/lib/services/pagination/paginationUser";
 import { styled } from "@mui/material/styles";
+import { useRouter } from "next/router";
 
 const List = styled("ul")({
   listStyle: "none",
@@ -50,6 +52,8 @@ export const getServerSideProps = WithAuth(async ({ query, req }) => {
 });
 
 const Guru = ({ users }) => {
+  const router = useRouter();
+  console.log("aaaaa", router.query);
   const [userData, setUserData] = React.useState({});
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
     useHandleModal(false);
@@ -99,50 +103,63 @@ const Guru = ({ users }) => {
           sm: "unset",
         }}
       >
-        <Grid container spacing={5}>
-          {users.data.map((data, index) => (
-            <Grid key={index} item xs={4}>
-              <Card
-                sx={{
-                  textAlign: "center",
-                }}
-              >
-                <Box
-                  margin={2}
-                  sx={{ justifyContent: "center", display: "flex" }}
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid container spacing={5}>
+            {users.data.map((data, index) => (
+              <Grid key={index} item xs>
+                <Card
+                  sx={{
+                    width: "320px",
+                    textAlign: "center",
+                  }}
                 >
-                  <Avatar {...stringAvatar(data.name, 80)} />
-                </Box>
-                <Typography>{data.name}</Typography>
-                <Typography>{data.email}</Typography>
-                <Typography>{data.role ?? "-"}</Typography>
-                <Grid container spacing={2} padding={2}>
-                  <Grid item xs={4}>
-                    <CustomButtonBlue
-                      fullWidth
-                      onClick={() => handleOpenModal("detail")}
-                    >
-                      Detail
-                    </CustomButtonBlue>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <CustomButtonYellow fullWidth>Ubah</CustomButtonYellow>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <CustomButtonRed
-                      fullWidth
-                      onClick={() => handleOpenModal("delete")}
-                    >
-                      Hapus
-                    </CustomButtonRed>
-                  </Grid>
-                </Grid>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
+                  <Box
+                    margin={2}
+                    sx={{ justifyContent: "center", display: "flex" }}
+                  >
+                    <Avatar {...stringAvatar(data.name, 80)} />
+                  </Box>
+                  <Typography>{data.name}</Typography>
+                  <Typography>{data.email}</Typography>
+                  <Typography>{data.role ?? "-"}</Typography>
+                  <Box sx={{ flexGrow: 1 }}>
+                    <Grid container spacing={2} padding={2}>
+                      <Grid item xs={"auto"}>
+                        <CustomButtonBlue
+                          fullWidth
+                          onClick={() => handleOpenModal("detail")}
+                        >
+                          Detail
+                        </CustomButtonBlue>
+                      </Grid>
+                      <Grid item xs={4}>
+                        <CustomButtonYellow fullWidth>Ubah</CustomButtonYellow>
+                      </Grid>
+                      <Grid item xs={4}>
+                        <CustomButtonRed
+                          fullWidth
+                          onClick={() => handleOpenModal("delete")}
+                        >
+                          Hapus
+                        </CustomButtonRed>
+                      </Grid>
+                    </Grid>
+                  </Box>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
 
-        <TablePagination
+        <Pagination
+          count={Math.ceil(users.total / 6)}
+          page={page}
+          onChange={handleChangePage}
+          color="primary"
+          variant="outlined"
+        />
+
+        {/* <TablePagination
           rowsPerPageOptions={[]}
           component="div"
           count={users.total}
@@ -157,7 +174,7 @@ const Guru = ({ users }) => {
           }}
           showFirstButton
           showLastButton
-        />
+        /> */}
       </Box>
     </>
   );
