@@ -97,49 +97,98 @@ const Guru = ({ users }) => {
         }}
       >
         <Box sx={{ flexGrow: 1 }}>
+          <Box
+            display={"flex"}
+            justifyContent={"space-around"}
+            flexWrap={"wrap"}
+          >
+            {users.data.map((data, index) => (
+              <Card
+                key={index}
+                sx={{
+                  width: "320px",
+                  margin: "10px 0",
+                  padding: "15px",
+                  textAlign: "center",
+                }}
+              >
+                <Box
+                  margin={2}
+                  sx={{ justifyContent: "center", display: "flex" }}
+                >
+                  <Avatar {...stringAvatar(data.name, 80)} />
+                </Box>
+                <Typography>{data.name}</Typography>
+                <Typography>{data.email}</Typography>
+                <Typography>{data.role ?? "-"}</Typography>
+                <Box display={"flex"} justifyContent={"space-around"} mt={2}>
+                  <CustomButtonBlue
+                    sx={{ width: "100px" }}
+                    onClick={() => handleOpenModal("detail")}
+                  >
+                    Detail
+                  </CustomButtonBlue>
+                  <CustomButtonYellow sx={{ width: "80px" }}>
+                    Ubah
+                  </CustomButtonYellow>
+                  <CustomButtonRed
+                    sx={{ width: "80px" }}
+                    onClick={() => handleOpenModal("delete")}
+                  >
+                    Hapus
+                  </CustomButtonRed>
+                </Box>
+              </Card>
+            ))}
+          </Box>
+
           <Grid container spacing={5}>
             {users.data.map((data, index) => (
-              <Grid key={index} item xs>
-                <Card
-                  sx={{
-                    width: "300px",
-                    textAlign: "center",
-                  }}
-                >
-                  <Box
-                    margin={2}
-                    sx={{ justifyContent: "center", display: "flex" }}
+              <>
+                <Grid key={index} item xs>
+                  <Card
+                    sx={{
+                      width: "300px",
+                      textAlign: "center",
+                    }}
                   >
-                    <Avatar {...stringAvatar(data.name, 80)} />
-                  </Box>
-                  <Typography>{data.name}</Typography>
-                  <Typography>{data.email}</Typography>
-                  <Typography>{data.role ?? "-"}</Typography>
-                  <Box sx={{ flexGrow: 1 }}>
-                    <Grid container spacing={2} padding={2}>
-                      <Grid item xs={"auto"}>
-                        <CustomButtonBlue
-                          fullWidth
-                          onClick={() => handleOpenModal("detail")}
-                        >
-                          Detail
-                        </CustomButtonBlue>
+                    <Box
+                      margin={2}
+                      sx={{ justifyContent: "center", display: "flex" }}
+                    >
+                      <Avatar {...stringAvatar(data.name, 80)} />
+                    </Box>
+                    <Typography>{data.name}</Typography>
+                    <Typography>{data.email}</Typography>
+                    <Typography>{data.role ?? "-"}</Typography>
+                    <Box sx={{ flexGrow: 1 }}>
+                      <Grid container spacing={2} padding={2}>
+                        <Grid item xs={"auto"}>
+                          <CustomButtonBlue
+                            fullWidth
+                            onClick={() => handleOpenModal("detail")}
+                          >
+                            Detail
+                          </CustomButtonBlue>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <CustomButtonYellow fullWidth>
+                            Ubah
+                          </CustomButtonYellow>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <CustomButtonRed
+                            fullWidth
+                            onClick={() => handleOpenModal("delete")}
+                          >
+                            Hapus
+                          </CustomButtonRed>
+                        </Grid>
                       </Grid>
-                      <Grid item xs={4}>
-                        <CustomButtonYellow fullWidth>Ubah</CustomButtonYellow>
-                      </Grid>
-                      <Grid item xs={4}>
-                        <CustomButtonRed
-                          fullWidth
-                          onClick={() => handleOpenModal("delete")}
-                        >
-                          Hapus
-                        </CustomButtonRed>
-                      </Grid>
-                    </Grid>
-                  </Box>
-                </Card>
-              </Grid>
+                    </Box>
+                  </Card>
+                </Grid>
+              </>
             ))}
           </Grid>
         </Box>
