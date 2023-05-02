@@ -125,7 +125,10 @@ const Guru = ({ users }) => {
                 <Box display={"flex"} justifyContent={"space-around"} mt={2}>
                   <CustomButtonBlue
                     sx={{ width: "100px" }}
-                    onClick={() => handleOpenModal("detail")}
+                    onClick={() => {
+                      setUserData(data);
+                      handleOpenModal("detail");
+                    }}
                   >
                     Detail
                   </CustomButtonBlue>
@@ -134,7 +137,10 @@ const Guru = ({ users }) => {
                   </CustomButtonYellow>
                   <CustomButtonRed
                     sx={{ width: "80px" }}
-                    onClick={() => handleOpenModal("delete")}
+                    onClick={() => {
+                      setUserData(data);
+                      handleOpenModal("delete");
+                    }}
                   >
                     Hapus
                   </CustomButtonRed>
