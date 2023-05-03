@@ -102,59 +102,53 @@ const Guru = ({ users }) => {
           sm: "unset",
         }}
       >
-        <Box sx={{ flexGrow: 1 }}>
-          <Box
-            display={"flex"}
-            justifyContent={"space-around"}
-            flexWrap={"wrap"}
-          >
-            {users.data.map((data, index) => (
-              <Card
-                key={index}
-                sx={{
-                  width: "320px",
-                  margin: "10px 0",
-                  padding: "15px",
-                  textAlign: "center",
-                }}
+        <Box display={"flex"} justifyContent={"space-around"} flexWrap={"wrap"}>
+          {users.data.map((data, index) => (
+            <Card
+              key={index}
+              sx={{
+                width: "320px",
+                margin: "10px 0",
+                padding: "15px",
+                textAlign: "center",
+              }}
+            >
+              <Box
+                margin={2}
+                sx={{ justifyContent: "center", display: "flex" }}
               >
-                <Box
-                  margin={2}
-                  sx={{ justifyContent: "center", display: "flex" }}
+                <Avatar {...stringAvatar(data.name, 80)} />
+              </Box>
+              <Typography>{data.name}</Typography>
+              <Typography>{data.email}</Typography>
+              <Typography>{data.role ?? "-"}</Typography>
+              <Box display={"flex"} justifyContent={"space-around"} mt={2}>
+                <CustomButtonBlue
+                  sx={{ width: "100px" }}
+                  onClick={() => {
+                    setUserData(data);
+                    handleOpenModal("detail");
+                  }}
                 >
-                  <Avatar {...stringAvatar(data.name, 80)} />
-                </Box>
-                <Typography>{data.name}</Typography>
-                <Typography>{data.email}</Typography>
-                <Typography>{data.role ?? "-"}</Typography>
-                <Box display={"flex"} justifyContent={"space-around"} mt={2}>
-                  <CustomButtonBlue
-                    sx={{ width: "100px" }}
-                    onClick={() => {
-                      setUserData(data);
-                      handleOpenModal("detail");
-                    }}
-                  >
-                    <FeatherIcon icon="database" /> Detail
-                  </CustomButtonBlue>
-                  <CustomButtonYellow sx={{ width: "80px" }}>
-                    <FeatherIcon icon="edit-3" />
-                    Ubah
-                  </CustomButtonYellow>
-                  <CustomButtonRed
-                    sx={{ width: "80px" }}
-                    onClick={() => {
-                      setUserData(data);
-                      handleOpenModal("delete");
-                    }}
-                  >
-                    <FeatherIcon icon="trash-2" />
-                    Hapus
-                  </CustomButtonRed>
-                </Box>
-              </Card>
-            ))}
-          </Box>
+                  <FeatherIcon icon="database" /> Detail
+                </CustomButtonBlue>
+                <CustomButtonYellow sx={{ width: "80px" }}>
+                  <FeatherIcon icon="edit-3" />
+                  Ubah
+                </CustomButtonYellow>
+                <CustomButtonRed
+                  sx={{ width: "80px" }}
+                  onClick={() => {
+                    setUserData(data);
+                    handleOpenModal("delete");
+                  }}
+                >
+                  <FeatherIcon icon="trash-2" />
+                  Hapus
+                </CustomButtonRed>
+              </Box>
+            </Card>
+          ))}
         </Box>
 
         {/* <Pagination
