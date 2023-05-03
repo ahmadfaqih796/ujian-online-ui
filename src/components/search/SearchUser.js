@@ -6,10 +6,8 @@ import React from "react";
 const SearchUser = ({ path, placeholder }) => {
   const router = useRouter();
   const [icon, setIcon] = React.useState("");
-  console.log("xxxxx", icon);
 
   const keyPress = (e) => {
-    console.log("sssss", e);
     if (e.key == "Enter" || e.type === "click") {
       if (e.target.value) {
         const searchName = router.push({
