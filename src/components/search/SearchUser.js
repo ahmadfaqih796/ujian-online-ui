@@ -1,28 +1,25 @@
-import {
-  Box,
-  Button,
-  IconButton,
-  InputAdornment,
-  TextField,
-} from "@mui/material";
-import { useRouter } from "next/router";
+import { Box, IconButton, InputAdornment, TextField } from "@mui/material";
 import FeatherIcon from "feather-icons-react";
+import { useRouter } from "next/router";
 import React from "react";
 
-const SearchUser = ({ path }) => {
+const SearchUser = ({ path, placeholder }) => {
   const router = useRouter();
+  const [icon, setIcon] = React.useState("");
+  console.log("xxxxx", icon);
 
   const keyPress = (e) => {
-    if (e.key == "Enter") {
+    console.log("sssss", e);
+    if (e.key == "Enter" || e.type === "click") {
       if (e.target.value) {
-        const cariNama = router.push({
+        const searchName = router.push({
           pathname: "/admin/users/guru",
           query: {
             ...router.query,
             "name[$like]": `%${e.target.value}%`,
           },
         });
-        return cariNama;
+        return searchName;
       }
 
       return router.replace({
@@ -41,18 +38,24 @@ const SearchUser = ({ path }) => {
         placeholder="cari siswa"
         size="small"
         onKeyPress={keyPress}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment>
-              <IconButton
-                sx={{ ml: "-5px", mr: "-10px" }}
-                onKeyPress={keyPress}
-              >
-                <FeatherIcon icon="search" />
-              </IconButton>
-            </InputAdornment>
-          ),
-        }}
+        value={icon}
+        onChange={(e) => setIcon(e.target.value)}
+        InputProps={
+          !icon
+            ? {
+                endAdornment: (
+                  <InputAdornment position="start">
+                    <IconButton
+                      sx={{ ml: "-10px", mr: "-20px" }}
+                      onClick={keyPress}
+                    >
+                      <FeatherIcon icon="search" />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }
+            : null
+        }
       />
     </Box>
   );
