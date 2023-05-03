@@ -9,38 +9,51 @@ import { useRouter } from "next/router";
 import FeatherIcon from "feather-icons-react";
 import React from "react";
 
-const SearchUser = () => {
+const SearchUser = ({ path }) => {
   const router = useRouter();
 
-  const formRef = React.useRef(null);
+  const keyPress = (e) => {
+    if (e.key == "Enter") {
+      if (e.target.value) {
+        const cariNama = router.push({
+          pathname: "/admin/users/guru",
+          query: {
+            ...router.query,
+            "name[$like]": `%${e.target.value}%`,
+          },
+        });
+        return cariNama;
+      }
 
-  const handleResetFilter = () => {
-    formRef.current.reset();
-    router.replace({
-      shallow: true,
-    });
+      return router.replace({
+        pathname: "/admin/users/guru",
+      });
+    }
   };
+
   return (
     <Box>
-      <form ref={formRef}>
-        <TextField
-          fullWidth
-          sx={{ backgroundColor: "#ffff" }}
-          type="search"
-          id="search"
-          placeholder="cari siswa"
-          size="small"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment>
-                <IconButton sx={{ ml: "-5px", mr: "-10px" }}>
-                  <FeatherIcon icon="search" />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-      </form>
+      <TextField
+        fullWidth
+        sx={{ backgroundColor: "#ffff" }}
+        type="search"
+        id="search"
+        placeholder="cari siswa"
+        size="small"
+        onKeyPress={keyPress}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment>
+              <IconButton
+                sx={{ ml: "-5px", mr: "-10px" }}
+                onKeyPress={keyPress}
+              >
+                <FeatherIcon icon="search" />
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+      />
     </Box>
   );
 };
