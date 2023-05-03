@@ -126,6 +126,7 @@ a {
   text-decoration: none;
 }
 
+/* gambar */
 .brand-login {
   width: 700px;
   height: 100%;
@@ -137,6 +138,13 @@ a {
   height: 35px;
   margin: 0 auto;
 }
+.image-no-data {
+  display: block;
+  width: 34vw;
+  height: 68vh;
+  margin: 0 auto;
+  border-radius: 20px;
+}
 
 /* search */
 .search-user {
@@ -145,9 +153,20 @@ a {
   justify-content: space-between;
 }
 
+/* card */
+.card {
+  width: 350px;
+  margin: 10px 0;
+  padding: 10px;
+  text-align: center;
+}
+
 @media screen and (max-width: 1200px) {
   .brand-login {
     display: none;
+  }
+  .card {
+    width: 300px;
   }
 }
 
@@ -160,6 +179,9 @@ a {
   .search-user {
     width: 100%;
     justify-content: center;
+  }
+  .image-no-data {
+    width: 68vw;
   }
 }
 

@@ -25,6 +25,8 @@ import React from "react";
 // import usePagination from "@mui/material/usePagination";
 import paginationUser from "@/lib/services/pagination/paginationUser";
 import { styled } from "@mui/material/styles";
+import noDataImg from "../../../../assets/images/no-data.jpg";
+import Image from "next/image";
 import SearchUser from "@/components/search/SearchUser";
 
 const List = styled("ul")({
@@ -95,63 +97,71 @@ const Guru = ({ users }) => {
         </Box>
       </Box>
 
-      <Box display="flex"></Box>
-      <Box
-        sx={{
-          overflow: "auto",
-          sm: "unset",
-        }}
-      >
-        <Box display={"flex"} justifyContent={"space-around"} flexWrap={"wrap"}>
-          {users.data.map((data, index) => (
-            <Card
-              key={index}
-              sx={{
-                width: "320px",
-                margin: "10px 0",
-                padding: "15px",
-                textAlign: "center",
-              }}
-            >
-              <Box
-                margin={2}
-                sx={{ justifyContent: "center", display: "flex" }}
-              >
-                <Avatar {...stringAvatar(data.name, 80)} />
-              </Box>
-              <Typography>{data.name}</Typography>
-              <Typography>{data.email}</Typography>
-              <Typography>{data.role ?? "-"}</Typography>
-              <Box display={"flex"} justifyContent={"space-around"} mt={2}>
-                <CustomButtonBlue
-                  sx={{ width: "100px" }}
-                  onClick={() => {
-                    setUserData(data);
-                    handleOpenModal("detail");
-                  }}
+      {users && users.data.length === 0 ? (
+        <Image
+          className="image-no-data"
+          src={noDataImg}
+          alt="data kosong"
+          priority={true}
+        />
+      ) : (
+        <Box
+          sx={{
+            overflow: "auto",
+            sm: "unset",
+          }}
+        >
+          <Box
+            display={"flex"}
+            justifyContent={"space-around"}
+            flexWrap={"wrap"}
+          >
+            {users.data.map((data, index) => (
+              <Card key={index} className="card">
+                <Box
+                  margin={2}
+                  sx={{ justifyContent: "center", display: "flex" }}
                 >
-                  <FeatherIcon icon="database" /> Detail
-                </CustomButtonBlue>
-                <CustomButtonYellow sx={{ width: "80px" }}>
-                  <FeatherIcon icon="edit-3" />
-                  Ubah
-                </CustomButtonYellow>
-                <CustomButtonRed
-                  sx={{ width: "80px" }}
-                  onClick={() => {
-                    setUserData(data);
-                    handleOpenModal("delete");
-                  }}
+                  <Avatar {...stringAvatar(data.name, 80)} />
+                </Box>
+                <Typography>{data.name}</Typography>
+                <Typography>{data.email}</Typography>
+                <Typography>{data.role ?? "-"}</Typography>
+                <Box
+                  display={"flex"}
+                  flexWrap={"wrap"}
+                  justifyContent={"space-around"}
+                  mt={2}
                 >
-                  <FeatherIcon icon="trash-2" />
-                  Hapus
-                </CustomButtonRed>
-              </Box>
-            </Card>
-          ))}
-        </Box>
+                  <CustomButtonBlue
+                    className="button-detail"
+                    onClick={() => {
+                      setUserData(data);
+                      handleOpenModal("detail");
+                    }}
+                  >
+                    <FeatherIcon icon="database" /> Detail
+                  </CustomButtonBlue>
+                  <CustomButtonYellow sx={{ width: "80px" }}>
+                    <FeatherIcon icon="edit-3" />
+                    Ubah
+                  </CustomButtonYellow>
+                  <CustomButtonRed
+                    sx={{ width: "100px" }}
+                    onClick={() => {
+                      setUserData(data);
+                      handleOpenModal("delete");
+                    }}
+                  >
+                    <FeatherIcon icon="trash-2" />
+                    Hapus
+                  </CustomButtonRed>
+                </Box>
+              </Card>
+            ))}
+          </Box>
 
-        {/* <Pagination
+          {/* <Pagination
           count={Math.ceil(users.total / 7)}
           // page={page}
           defaultPage={router.query ? router.query.page : 1}
@@ -160,23 +170,24 @@ const Guru = ({ users }) => {
           variant="outlined"
         /> */}
 
-        <TablePagination
-          rowsPerPageOptions={[]}
-          component="div"
-          count={users.total}
-          rowsPerPage={6}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          labelDisplayedRows={({ from, to, count }) => {
-            return `Menampilkan ${from}-${to} dari ${
-              count != -1 ? count : `more than ${to}`
-            } data`;
-          }}
-          // showFirstButton
-          // showLastButton
-        />
-      </Box>
+          <TablePagination
+            rowsPerPageOptions={[]}
+            component="div"
+            count={users.total}
+            rowsPerPage={6}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+            labelDisplayedRows={({ from, to, count }) => {
+              return `Menampilkan ${from}-${to} dari ${
+                count != -1 ? count : `more than ${to}`
+              } data`;
+            }}
+            // showFirstButton
+            // showLastButton
+          />
+        </Box>
+      )}
     </>
   );
 };
