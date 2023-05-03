@@ -90,7 +90,7 @@ const Guru = ({ users }) => {
             variant="contained"
             onClick={() => handleOpenModal("add")}
           >
-            Tambahkan
+            <FeatherIcon icon="user-plus" /> Siswa
           </Button>
         </Box>
       </Box>
