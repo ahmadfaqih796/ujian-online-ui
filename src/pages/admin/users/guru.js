@@ -108,6 +108,9 @@ const Guru = ({ users }) => {
             display={"flex"}
             justifyContent={"space-around"}
             flexWrap={"wrap"}
+            // display={"grid"}
+            // gridTemplateColumns={"1fr 1fr 1fr"}
+            // justifyItems={"stretch"}
           >
             {users.data.map((data, index) => (
               <Card key={index} className="card">
@@ -122,7 +125,7 @@ const Guru = ({ users }) => {
                     //   sizes="80"
                     // />
                     <Image
-                      alt="ddd"
+                      alt={data.name}
                       src={`http://localhost:3030/uploads/${data.user_siswa?.photo}`}
                       width="80"
                       height="80"

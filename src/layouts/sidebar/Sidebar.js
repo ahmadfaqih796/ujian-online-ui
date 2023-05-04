@@ -47,7 +47,7 @@ const Sidebar = ({
   };
 
   const SidebarContent = (
-    <Box p={2} height="100%">
+    <Box pt={2} pr={2} height="100%">
       <Image className="logo" src={logo} alt="bg" />
       <Box mt={-2}>
         <List sx={{ p: 0 }}>
@@ -95,6 +95,7 @@ const Sidebar = ({
                       selected={pathWithoutLastPart === item.href}
                       sx={{
                         mb: 1,
+                        borderRadius: "0 20px 20px 0",
                         ...(pathWithoutLastPart === item.href && {
                           color: "white",
                           backgroundColor: (theme) =>
@@ -174,6 +175,7 @@ const Sidebar = ({
                                 }
                                 sx={{
                                   mb: 1,
+                                  borderRadius: "0 20px 20px 0",
                                   ...(pathDirect === child.href && {
                                     color: "primary.main",
                                     backgroundColor: "transparent!important",
@@ -220,6 +222,7 @@ const Sidebar = ({
                         selected={pathDirect === item.href}
                         sx={{
                           mb: 1,
+                          borderRadius: "0 20px 20px 0",
                           ...(pathDirect === item.href && {
                             color: "white",
                             backgroundColor: (theme) =>
