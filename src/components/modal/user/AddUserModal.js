@@ -1,5 +1,6 @@
 import { useSnackbar } from "@/hooks/useSnackbar";
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
@@ -82,7 +83,6 @@ const AddUserModal = ({ open = false, closeModalHandler, type }) => {
           ...router.query,
         },
       });
-      return;
     } catch (error) {
       console.log(error.response);
       setLoading(false);
@@ -93,7 +93,6 @@ const AddUserModal = ({ open = false, closeModalHandler, type }) => {
         error.response.data.message ||
           "Gagal menambahkan, silahkan coba kembali nanti"
       );
-      return;
     }
   };
 
@@ -121,38 +120,42 @@ const AddUserModal = ({ open = false, closeModalHandler, type }) => {
           <DialogContent>
             <DialogContentText id="alert-slide-description" component="div">
               {preview && (
-                <Grid container sx={{ mt: 2 }}>
-                  <Grid item>
-                    <Image
-                      src={preview}
-                      alt="company_logo"
-                      width={200}
-                      height={200}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <Tooltip title="Hapus">
-                      <IconButton onClick={handleDeletePoster}>
-                        <FeatherIcon icon="x" />
-                      </IconButton>
-                    </Tooltip>
-                  </Grid>
-                </Grid>
+                <Box
+                  sx={{
+                    justifyContent: "center",
+                    display: "flex",
+                    alignItems: "flex-start",
+                  }}
+                >
+                  <Image
+                    src={preview}
+                    alt="company_logo"
+                    width={180}
+                    height={180}
+                    style={{
+                      objectFit: "contain",
+                      border: "2px solid gray",
+                      borderRadius: "50%",
+                    }}
+                  />
+                  <Tooltip title="Hapus">
+                    <IconButton onClick={handleDeletePoster}>
+                      <FeatherIcon icon="x" />
+                    </IconButton>
+                  </Tooltip>
+                </Box>
               )}
-              <FormLabel
-                htmlFor="image"
-                sx={{ color: "#1BA0E2", fontWeight: "700", mt: "3vh" }}
-              >
-                Upload gambar
-              </FormLabel>
+              {/* Gambar */}
               <TextField
                 required
+                focused
+                margin="normal"
                 type="file"
+                label="Gambar"
                 name="image"
                 accept="image/*"
                 onChange={onSelectFile}
                 fullWidth
-                size="small"
                 variant="outlined"
                 sx={{
                   background: "#1ba0e20d",
@@ -163,33 +166,34 @@ const AddUserModal = ({ open = false, closeModalHandler, type }) => {
               <Typography color="red" fontSize="small">
                 {!gambar ? pesan : ""}
               </Typography>
-              <FormLabel htmlFor="nama">Nama</FormLabel>
+              {/* Nama */}
               <TextField
                 required
+                label="Nama"
                 id="name"
                 name="name"
+                margin="normal"
                 fullWidth
-                size="small"
                 variant="outlined"
-                placeholder="nama"
+                placeholder="Masukkan nama lengkap anda"
               />
-              <FormLabel htmlFor="email">Email</FormLabel>
+              {/* Email */}
               <TextField
                 required
+                label="Email"
                 id="email"
                 name="email"
                 fullWidth
-                size="small"
+                margin="normal"
                 variant="outlined"
-                placeholder="email"
+                placeholder="Masukkan alamat Email anda"
               />
-              <FormLabel htmlFor="password">Password</FormLabel>
               <TextField
                 required
                 id="password"
                 name="password"
                 fullWidth
-                size="small"
+                margin="normal"
                 variant="outlined"
                 placeholder="password"
               />
@@ -205,7 +209,13 @@ const AddUserModal = ({ open = false, closeModalHandler, type }) => {
             >
               {loading ? "Submitting..." : "Tambah"}
             </Button>
-            <Button onClick={closeModalHandler} color="secondary">
+            <Button
+              onClick={() => {
+                closeModalHandler();
+                handleDeletePoster();
+              }}
+              color="secondary"
+            >
               Batal
             </Button>
           </DialogActions>
