@@ -3,7 +3,6 @@ import {
   CustomButtonRed,
   CustomButtonYellow,
 } from "@/components/custom/customButton";
-import FeatherIcon from "feather-icons-react";
 import DeleteModal from "@/components/modal/DeleteModal";
 import AddUserModal from "@/components/modal/user/AddUserModal";
 import DetailUserModal from "@/components/modal/user/DetailUserModal";
@@ -16,25 +15,16 @@ import {
   Button,
   Card,
   TablePagination,
-  TextField,
   Typography,
 } from "@mui/material";
-import Grid from "@mui/material/Grid";
 import { Box } from "@mui/system";
+import FeatherIcon from "feather-icons-react";
 import React from "react";
 // import usePagination from "@mui/material/usePagination";
-import paginationUser from "@/lib/services/pagination/paginationUser";
-import { styled } from "@mui/material/styles";
-import noDataImg from "../../../../assets/images/no-data.jpg";
-import Image from "next/image";
 import SearchUser from "@/components/search/SearchUser";
-
-const List = styled("ul")({
-  listStyle: "none",
-  padding: 0,
-  margin: 0,
-  display: "flex",
-});
+import paginationUser from "@/lib/services/pagination/paginationUser";
+import Image from "next/image";
+import noDataImg from "../../../../assets/images/no-data.jpg";
 
 export const getServerSideProps = WithAuth(async ({ query, req }) => {
   const users = await paginationUser(
@@ -60,6 +50,9 @@ const Guru = ({ users }) => {
     useHandleModal(false);
   const { page, handleChangePage, handleChangeRowsPerPage } = usePagination();
 
+  const myLoader = ({ src }) => {
+    return `http://localhost:3030/uploads/${data.user_siswa?.photo}`;
+  };
   return (
     <>
       <AddUserModal
@@ -122,7 +115,26 @@ const Guru = ({ users }) => {
                   margin={2}
                   sx={{ justifyContent: "center", display: "flex" }}
                 >
-                  <Avatar {...stringAvatar(data.name, 80)} />
+                  {data.user_siswa?.photo ? (
+                    // <Avatar
+                    //   src={`http://localhost:3030/uploads/${data.user_siswa?.photo}`}
+                    //   alt={`http://localhost:3030/uploads/${data.user_siswa?.photo}`}
+                    //   sizes="80"
+                    // />
+                    <Image
+                      alt="ddd"
+                      src={`http://localhost:3030/uploads/${data.user_siswa?.photo}`}
+                      width="80"
+                      height="80"
+                      style={{
+                        objectFit: "contain",
+                        border: "2px solid gray",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  ) : (
+                    <Avatar {...stringAvatar(data.name, 80)} />
+                  )}
                 </Box>
                 <Typography>{data.name}</Typography>
                 <Typography>{data.email}</Typography>
