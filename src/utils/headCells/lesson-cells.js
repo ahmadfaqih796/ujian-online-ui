@@ -14,6 +14,11 @@ const LESSON_CELLS = [
     disablePadding: false,
     label: "Tanggal diubah",
   },
+  {
+    numeric: false,
+    disablePadding: false,
+    label: "Aksi",
+  },
 ];
 
 export default LESSON_CELLS;

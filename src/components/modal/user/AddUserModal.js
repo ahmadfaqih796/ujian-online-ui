@@ -199,21 +199,28 @@ const AddUserModal = ({ open = false, closeModalHandler, type }) => {
             </DialogContentText>
           </DialogContent>
 
-          <DialogActions>
+          <DialogActions
+            sx={{
+              margin: "0 16px 16px",
+            }}
+          >
             <Button
               color="primary"
               variant="contained"
               disabled={loading}
               type="submit"
+              sx={{ marginRight: "16px", width: "100px" }}
             >
               {loading ? "Submitting..." : "Tambah"}
             </Button>
             <Button
+              sx={{ width: "100px" }}
               onClick={() => {
                 closeModalHandler();
                 handleDeletePoster();
               }}
-              color="secondary"
+              variant="contained"
+              color="error"
             >
               Batal
             </Button>

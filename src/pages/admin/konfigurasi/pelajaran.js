@@ -1,5 +1,6 @@
 import ThreeDotsMenu from "@/components/menu-items/ThreeDotsMenu";
 import DeleteModal from "@/components/modal/DeleteModal";
+import AddLessonModal from "@/components/modal/lesson/AddLessonModal";
 import AddUserModal from "@/components/modal/user/AddUserModal";
 import DetailUserModal from "@/components/modal/user/DetailUserModal";
 import useHandleModal from "@/hooks/useHandleModal";
@@ -48,7 +49,7 @@ const Pelajaran = ({ lesson }) => {
 
   return (
     <>
-      <AddUserModal
+      <AddLessonModal
         open={openModal}
         type={modalType}
         closeModalHandler={handleCloseModal}
@@ -98,12 +99,6 @@ const Pelajaran = ({ lesson }) => {
                   {head.label}
                 </TableCell>
               ))}
-
-              <TableCell>
-                <Typography align="center" variant="h5">
-                  Nama
-                </Typography>
-              </TableCell>
             </TableRow>
           </TableHead>
 
@@ -117,7 +112,6 @@ const Pelajaran = ({ lesson }) => {
                     textAlign="center"
                     color="textSecondary"
                   >
-                    {console.log("aaaa", typeof rowsPerPage)}
                     {index + 1 + ((page - 1) * rowsPerPage, page * rowsPerPage)}
                   </Typography>
                 </TableCell>
