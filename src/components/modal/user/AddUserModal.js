@@ -33,7 +33,6 @@ const AddUserModal = ({ open = false, closeModalHandler, type }) => {
 
   const { handleDeletePoster, onSelectFile, preview, gambar, pesan } =
     useUploadPhoto();
-  console.log("zzzz", preview);
 
   const action = (
     <React.Fragment>
@@ -56,9 +55,9 @@ const AddUserModal = ({ open = false, closeModalHandler, type }) => {
     const payload = {
       name: name.value,
       email: email.value,
-      nik: "D12340",
-      role: "siswa",
-      agama: "konghuxu",
+      nip: "D12340",
+      role: "guru",
+      agama: "islam",
       password: password.value,
     };
     try {
@@ -115,7 +114,7 @@ const AddUserModal = ({ open = false, closeModalHandler, type }) => {
       >
         <form onSubmit={create}>
           <DialogTitle id="alert-dialog-title" variant="h4">
-            Tambah Siswa
+            Tambah Guru
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-slide-description" component="div">

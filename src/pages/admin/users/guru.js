@@ -32,7 +32,9 @@ export const getServerSideProps = WithAuth(async ({ query, req }) => {
     {
       ...query,
       "$sort[createdAt]": -1,
-      role: "guru",
+      role: {
+        $in: ["guru"],
+      },
     },
     {
       Authorization: req.session.user.token,
@@ -51,9 +53,6 @@ const Guru = ({ users }) => {
     useHandleModal(false);
   const { page, handleChangePage, handleChangeRowsPerPage } = usePagination();
 
-  const myLoader = ({ src }) => {
-    return `http://localhost:3030/uploads/${data.user_siswa?.photo}`;
-  };
   return (
     <>
       <AddUserModal
@@ -86,7 +85,7 @@ const Guru = ({ users }) => {
             variant="contained"
             onClick={() => handleOpenModal("add")}
           >
-            <FeatherIcon icon="user-plus" /> Siswa
+            <FeatherIcon icon="user-plus" /> Guru
           </Button>
         </Box>
       </Box>
@@ -119,15 +118,15 @@ const Guru = ({ users }) => {
                   margin={2}
                   sx={{ justifyContent: "center", display: "flex" }}
                 >
-                  {data.user_siswa?.photo ? (
+                  {data.user_guru?.photo ? (
                     // <Avatar
-                    //   src={`http://localhost:3030/uploads/${data.user_siswa?.photo}`}
-                    //   alt={`http://localhost:3030/uploads/${data.user_siswa?.photo}`}
+                    //   src={`http://localhost:3030/uploads/${data.user_guru?.photo}`}
+                    //   alt={`http://localhost:3030/uploads/${data.user_guru?.photo}`}
                     //   sizes="80"
                     // />
                     <Image
                       alt={data.name}
-                      src={`http://localhost:3030/uploads/${data.user_siswa?.photo}`}
+                      src={`http://localhost:3030/uploads/${data.user_guru?.photo}`}
                       width="80"
                       height="80"
                       style={{

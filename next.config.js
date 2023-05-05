@@ -14,7 +14,7 @@ module.exports = {
     return [
       {
         source: "/",
-        destination: "/ads/menu",
+        destination: "/admin/menu",
         permanent: false,
       },
     ];
