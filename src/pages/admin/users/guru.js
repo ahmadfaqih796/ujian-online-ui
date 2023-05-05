@@ -129,6 +129,7 @@ const Guru = ({ users }) => {
                       src={`http://localhost:3030/uploads/${data.user_guru?.photo}`}
                       width="80"
                       height="80"
+                      priority={true}
                       style={{
                         objectFit: "contain",
                         border: "2px solid gray",

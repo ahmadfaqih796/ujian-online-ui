@@ -48,7 +48,7 @@ const Sidebar = ({
 
   const SidebarContent = (
     <Box pt={2} pr={2} height="100%">
-      <Image className="logo" src={logo} alt="bg" />
+      <Image className="logo" src={logo} alt="bg" priority={true} />
       <Box mt={-2}>
         <List sx={{ p: 0 }}>
           {

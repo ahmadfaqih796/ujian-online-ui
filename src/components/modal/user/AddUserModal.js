@@ -128,6 +128,7 @@ const AddUserModal = ({ open = false, closeModalHandler, type }) => {
                 >
                   <Image
                     src={preview}
+                    priority={true}
                     alt="company_logo"
                     width={180}
                     height={180}

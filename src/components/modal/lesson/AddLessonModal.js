@@ -98,7 +98,7 @@ const AddLessonModal = ({ open = false, closeModalHandler, type }) => {
                 fullWidth
                 margin="normal"
                 variant="outlined"
-                placeholder="Masukkan alamat Pelajaran anda"
+                placeholder="Masukkan nama pelajaran"
               />
             </DialogContentText>
           </DialogContent>
