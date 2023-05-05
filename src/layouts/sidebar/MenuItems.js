@@ -55,9 +55,9 @@ const Menuitems = [
     ],
   },
   {
-    title: "Data",
+    title: "Konfigurasi",
     icon: "user-check",
-    href: "/data",
+    href: "/admin/konfigurasi",
     collapse: true,
     isAdmin: true,
     isStaff: true,
@@ -65,7 +65,7 @@ const Menuitems = [
       {
         title: "Pelajaran",
         icon: "users",
-        href: "/data/pelajaran",
+        href: "/admin/konfigurasi/pelajaran",
         isAdmin: true,
         isSPV: true,
         isStaff: true,
@@ -73,7 +73,7 @@ const Menuitems = [
       {
         title: "Kelas",
         icon: "user-plus",
-        href: "/data/kelas",
+        href: "/admin/konfigurasi/kelas",
         isAdmin: true,
         isSPV: true,
         isStaff: true,
