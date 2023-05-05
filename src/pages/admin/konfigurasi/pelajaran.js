@@ -64,6 +64,9 @@ const Pelajaran = ({ lesson }) => {
         open={openModal}
         type={modalType}
         data={userData}
+        name={userData?.nama_pelajaran}
+        title={"Pelajaran"}
+        url={`/api/lesson/${userData?.id_pelajaran}`}
         closeModalHandler={handleCloseModal}
       />
       <Box display="flex">

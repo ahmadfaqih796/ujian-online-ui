@@ -23,14 +23,13 @@ const DeleteModal = ({
   open = false,
   closeModalHandler,
   type,
-  data,
+  url,
+  name,
   title,
-  api,
 }) => {
   const router = useRouter();
   const { isActive, message, openSnackBar, closeSnackBar } = useSnackbar();
   const [loading, setLoading] = useState(false);
-  console.log("ccacacac", data);
 
   const action = (
     <React.Fragment>
@@ -51,7 +50,7 @@ const DeleteModal = ({
 
     try {
       // await deleteUser(data.id, token);
-      await axios.delete(`/api/users/${data.id_user}`);
+      await axios.delete(url);
       setLoading(false);
       openSnackBar("Berhasil menghapus user");
       closeModalHandler();
@@ -89,7 +88,7 @@ const DeleteModal = ({
       >
         <form onSubmit={remove}>
           <DialogTitle id="alert-dialog-slide-title" variant="h4">
-            Hapus User
+            Hapus {title ?? "Data"}
           </DialogTitle>
           <DialogContent>
             <DialogContentText
@@ -97,14 +96,14 @@ const DeleteModal = ({
               component="div"
             >
               <Typography variant="body1">
-                Apakah anda ingin menghapus User
+                Apakah anda ingin menghapus {title}
                 <span
                   style={{
                     marginLeft: "5px",
                     fontWeight: 700,
                   }}
                 >
-                  {data?.name}
+                  {name}
                 </span>
               </Typography>
             </DialogContentText>
