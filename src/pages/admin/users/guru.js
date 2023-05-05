@@ -148,6 +148,7 @@ const Guru = ({ users }) => {
                   flexWrap={"wrap"}
                   justifyContent={"space-around"}
                   mt={2}
+                  mb={1}
                 >
                   <CustomButtonBlue
                     className="button-detail"
