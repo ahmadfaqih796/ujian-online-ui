@@ -106,58 +106,21 @@ const Pelajaran = ({ lesson }) => {
             {lesson.data.map((data, index) => (
               <TableRow key={index}>
                 <TableCell>
-                  <Typography
-                    variant="h6"
-                    fontWeight="600"
-                    textAlign="center"
-                    color="textSecondary"
-                  >
+                  <Typography fontWeight="600">
                     {index + 1 + ((page - 1) * rowsPerPage, page * rowsPerPage)}
                   </Typography>
                 </TableCell>
 
                 {/* data name */}
                 <TableCell>
-                  <Typography
-                    variant="h6"
-                    fontWeight="600"
-                    textAlign="center"
-                    color="textSecondary"
-                  >
-                    {data.name}
-                  </Typography>
-                </TableCell>
-
-                <TableCell>
-                  <Typography
-                    variant="h6"
-                    fontWeight="600"
-                    textAlign="center"
-                    color="textSecondary"
-                  >
-                    {data.email}
-                  </Typography>
-                </TableCell>
-
-                <TableCell>
-                  <Typography
-                    variant="h6"
-                    fontWeight="600"
-                    textAlign="center"
-                    color="textSecondary"
-                  >
-                    {data.nik}
+                  <Typography fontWeight="600">
+                    {data.nama_pelajaran}
                   </Typography>
                 </TableCell>
 
                 {/* data created at */}
                 <TableCell>
-                  <Typography
-                    variant="h6"
-                    fontWeight="600"
-                    textAlign="center"
-                    color="textSecondary"
-                  >
+                  <Typography fontWeight="600">
                     {data.createdAt
                       ? moment(data.createdAt).format("DD MMM YYYY, HH:mm:ss")
                       : "-"}
@@ -165,20 +128,15 @@ const Pelajaran = ({ lesson }) => {
                 </TableCell>
 
                 {/* data update_at */}
-                {/* <TableCell>
-                   <Typography
-                     variant="h6"
-                     fontWeight="600"
-                     textAlign="center"
-                     color="textSecondary"
-                   >
-                     {data.updatedAt
-                       ? moment(data.updatedAt).format("DD MMM YYYY, HH:mm:ss")
-                       : "-"}
-                   </Typography>
-                 </TableCell> */}
+                <TableCell>
+                  <Typography fontWeight="600">
+                    {data.updatedAt
+                      ? moment(data.updatedAt).format("DD MMM YYYY, HH:mm:ss")
+                      : "-"}
+                  </Typography>
+                </TableCell>
 
-                <TableCell align="center">
+                <TableCell>
                   <ThreeDotsMenu
                     onClickDetail={() => {
                       setUserData(data);

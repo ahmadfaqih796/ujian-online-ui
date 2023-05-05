@@ -2,6 +2,11 @@ const LESSON_CELLS = [
   {
     numeric: false,
     disablePadding: false,
+    label: "No",
+  },
+  {
+    numeric: false,
+    disablePadding: false,
     label: "Pelajaran",
   },
   {
