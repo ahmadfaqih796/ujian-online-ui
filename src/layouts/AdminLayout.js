@@ -20,8 +20,6 @@ const AdminLayout = ({ children, window }) => {
     return <LoadingSpinner show={true} />;
   }
 
-  console.log("title", title);
-
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />

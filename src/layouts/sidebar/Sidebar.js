@@ -39,8 +39,6 @@ const Sidebar = ({
     router.pathname.lastIndexOf("/")
   );
 
-  console.log("vvvv", pathWithoutLastPart);
-
   const handleClick = (index) => {
     if (open === index) {
       setOpen((prevopen) => !prevopen);

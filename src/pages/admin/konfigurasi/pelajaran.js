@@ -40,7 +40,6 @@ export const getServerSideProps = WithAuth(async ({ query, req }) => {
 });
 
 const Pelajaran = ({ lesson }) => {
-  console.log("ssss", LESSON_CELLS);
   const [userData, setUserData] = React.useState({});
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
     useHandleModal(false);
