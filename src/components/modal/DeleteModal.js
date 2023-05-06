@@ -135,10 +135,7 @@ const DeleteModal = ({
             </Button>
             <Button
               sx={{ width: "100px" }}
-              onClick={() => {
-                closeModalHandler();
-                handleDeletePoster();
-              }}
+              onClick={() => closeModalHandler()}
               variant="contained"
               color="error"
             >
