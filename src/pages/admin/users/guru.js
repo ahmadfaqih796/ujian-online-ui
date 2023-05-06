@@ -76,21 +76,31 @@ const Guru = ({ users }) => {
         closeModalHandler={handleCloseModal}
       />
       <Box display={"flex"} alignItems={"center"} flexWrap={"wrap"} mb={2}>
-        <Typography className="title-mobile" fontSize={24} fontWeight={700}>
+        {/* <Typography className="title-mobile" fontSize={24} fontWeight={700}>
           Guru Management
-        </Typography>
+        </Typography> */}
+        <Button
+          sx={{ zIndex: "1" }}
+          color="success"
+          variant="contained"
+          onClick={() => handleOpenModal("add")}
+        >
+          <FeatherIcon icon="clipboard" />
+          Export
+        </Button>
+        <Button
+          sx={{ ml: "20px", zIndex: "1" }}
+          color="primary"
+          variant="contained"
+          onClick={() => handleOpenModal("add")}
+        >
+          <FeatherIcon icon="user-plus" /> Guru
+        </Button>
         <Box flexGrow={1} />
-        <Box component={"div"} className="search-user">
+        <SearchUser />
+        {/* <Box component={"div"} className="search-user">
           <SearchUser />
-          <Button
-            sx={{ ml: "20px" }}
-            color="primary"
-            variant="contained"
-            onClick={() => handleOpenModal("add")}
-          >
-            <FeatherIcon icon="user-plus" /> Guru
-          </Button>
-        </Box>
+        </Box> */}
       </Box>
 
       {users && users.data.length === 0 ? (
