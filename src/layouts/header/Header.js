@@ -6,6 +6,7 @@ import ProfileDD from "./ProfileDD";
 // Dropdown Component
 
 const Header = ({
+  title,
   data,
   sx,
   drawerWidth,
@@ -36,7 +37,7 @@ const Header = ({
           <MenuIcon />
         </IconButton>
         <Typography variant="h5" fontWeight={700}>
-          Guru
+          {title ?? "Data"}
         </Typography>
         {/* posisi profile ada di kanan */}
         <Box flexGrow={1} />

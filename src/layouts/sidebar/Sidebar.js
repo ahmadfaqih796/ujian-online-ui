@@ -25,6 +25,7 @@ const Sidebar = ({
   isMobileSidebarOpen,
   onSidebarClose,
   isSidebarOpen,
+  handleTitle,
   isUrl,
   data,
 }) => {
@@ -37,6 +38,8 @@ const Sidebar = ({
     0,
     router.pathname.lastIndexOf("/")
   );
+
+  console.log("vvvv", pathWithoutLastPart);
 
   const handleClick = (index) => {
     if (open === index) {
@@ -171,7 +174,11 @@ const Sidebar = ({
                                 onClick={
                                   pathDirect === child.href
                                     ? null
-                                    : () => router.replace(child.href)
+                                    : () => {
+                                        router.replace(child.href);
+                                        // untuk mendapatkan judul di header
+                                        handleTitle?.(child.title);
+                                      }
                                 }
                                 sx={{
                                   mb: 1,
@@ -217,7 +224,10 @@ const Sidebar = ({
                   <List component="li" disablePadding key={item.title}>
                     <NextLink href={item.href}>
                       <ListItem
-                        onClick={() => handleClick(index)}
+                        onClick={() => {
+                          handleClick(index);
+                          handleTitle?.(item.title);
+                        }}
                         button
                         selected={pathDirect === item.href}
                         sx={{

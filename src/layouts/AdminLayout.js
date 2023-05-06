@@ -13,16 +13,20 @@ const drawerWidth = 265;
 const AdminLayout = ({ children, window }) => {
   const [isSidebarOpen, setSidebarOpen] = React.useState(true);
   const [isMobileSidebarOpen, setMobileSidebarOpen] = React.useState(false);
+  const [title, setTitle] = React.useState("");
   const { data, error } = useUserSession();
 
   if (!data) {
     return <LoadingSpinner show={true} />;
   }
 
+  console.log("title", title);
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <Header
+        title={title}
         data={data}
         drawerWidth={drawerWidth}
         handleDrawerToggle={() => {
@@ -36,6 +40,9 @@ const AdminLayout = ({ children, window }) => {
         isSidebarOpen={isSidebarOpen}
         isMobileSidebarOpen={isMobileSidebarOpen}
         onSidebarClose={() => setMobileSidebarOpen(false)}
+        handleTitle={(field) => {
+          setTitle(field);
+        }}
       />
 
       <Box
