@@ -1,7 +1,6 @@
-import { AppBar, Box, IconButton, Toolbar } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
 
-import FeatherIcon from "feather-icons-react";
 import PropTypes from "prop-types";
 import ProfileDD from "./ProfileDD";
 // Dropdown Component
@@ -36,6 +35,9 @@ const Header = ({
         >
           <MenuIcon />
         </IconButton>
+        <Typography variant="h5" fontWeight={700}>
+          Guru
+        </Typography>
         {/* posisi profile ada di kanan */}
         <Box flexGrow={1} />
         <ProfileDD data={data} />

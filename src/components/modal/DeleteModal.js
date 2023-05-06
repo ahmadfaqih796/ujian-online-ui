@@ -87,7 +87,17 @@ const DeleteModal = ({
         aria-describedby="alert-dialog-slide-description"
       >
         <form onSubmit={remove}>
-          <DialogTitle id="alert-dialog-slide-title" variant="h4">
+          <DialogTitle
+            id="alert-dialog-title"
+            variant="h5"
+            mb={2}
+            fontWeight={700}
+            color={"white"}
+            sx={{
+              backgroundColor: (theme) =>
+                `${theme.palette.primary.main}!important`,
+            }}
+          >
             Hapus {title ?? "Data"}
           </DialogTitle>
           <DialogContent>
@@ -109,17 +119,30 @@ const DeleteModal = ({
             </DialogContentText>
           </DialogContent>
 
-          <DialogActions>
+          <DialogActions
+            sx={{
+              margin: "0 16px 16px",
+            }}
+          >
             <Button
               color="primary"
               variant="contained"
               disabled={loading}
               type="submit"
+              sx={{ marginRight: "16px", width: "100px" }}
             >
-              {loading ? "Submitting..." : "Ya"}
+              {loading ? "Loading..." : "Ya"}
             </Button>
-            <Button onClick={closeModalHandler} color="secondary">
-              Tidak
+            <Button
+              sx={{ width: "100px" }}
+              onClick={() => {
+                closeModalHandler();
+                handleDeletePoster();
+              }}
+              variant="contained"
+              color="error"
+            >
+              Batal
             </Button>
           </DialogActions>
         </form>

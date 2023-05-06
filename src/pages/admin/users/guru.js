@@ -70,6 +70,9 @@ const Guru = ({ users }) => {
         open={openModal}
         type={modalType}
         data={userData}
+        name={userData?.name}
+        title={"User"}
+        url={`/api/users/${userData?.id_user}`}
         closeModalHandler={handleCloseModal}
       />
       <Box display={"flex"} alignItems={"center"} flexWrap={"wrap"} mb={2}>

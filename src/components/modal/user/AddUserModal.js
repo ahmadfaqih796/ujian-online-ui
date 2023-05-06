@@ -113,7 +113,17 @@ const AddUserModal = ({ open = false, closeModalHandler, type }) => {
         aria-describedby="alert-dialog-slide-description"
       >
         <form onSubmit={create}>
-          <DialogTitle id="alert-dialog-title" variant="h4">
+          <DialogTitle
+            id="alert-dialog-title"
+            variant="h5"
+            mb={2}
+            fontWeight={700}
+            color={"white"}
+            sx={{
+              backgroundColor: (theme) =>
+                `${theme.palette.primary.main}!important`,
+            }}
+          >
             Tambah Guru
           </DialogTitle>
           <DialogContent>
