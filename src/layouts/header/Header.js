@@ -35,9 +35,9 @@ const Header = ({
         >
           <MenuIcon />
         </IconButton>
-        {/* <Typography variant="h5" fontWeight={700}>
+        <Typography variant="h5" fontWeight={700}>
           Guru
-        </Typography> */}
+        </Typography>
         {/* posisi profile ada di kanan */}
         <Box flexGrow={1} />
         <ProfileDD data={data} />
