@@ -40,9 +40,7 @@ const AdminLayout = ({ children, window }) => {
         isSidebarOpen={isSidebarOpen}
         isMobileSidebarOpen={isMobileSidebarOpen}
         onSidebarClose={() => setMobileSidebarOpen(false)}
-        handleTitle={(field) => {
-          setTitle(field);
-        }}
+        handleTitle={(field) => setTitle(field)}
       />
 
       <Box
