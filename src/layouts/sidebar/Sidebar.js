@@ -175,7 +175,7 @@ const Sidebar = ({
                                     : () => {
                                         router.replace(child.href);
                                         // untuk mendapatkan judul di header
-                                        handleTitle?.(child.title);
+                                        // handleTitle?.(child.title);
                                       }
                                 }
                                 sx={{
@@ -205,6 +205,8 @@ const Sidebar = ({
                                   />
                                 </ListItemIcon>
                                 <ListItemText>
+                                  {pathDirect === child.href &&
+                                    handleTitle?.(child.title)}
                                   <Typography variant="body1">
                                     {child.title}
                                   </Typography>
@@ -224,7 +226,7 @@ const Sidebar = ({
                       <ListItem
                         onClick={() => {
                           handleClick(index);
-                          handleTitle?.(item.title);
+                          // handleTitle?.(item.title);
                         }}
                         button
                         selected={pathDirect === item.href}
@@ -254,6 +256,8 @@ const Sidebar = ({
                         <ListItemText
                         //  onClick={onSidebarClose}
                         >
+                          {pathDirect === item.href &&
+                            handleTitle?.(item.title)}
                           <Typography>{item.title}</Typography>
                         </ListItemText>
                       </ListItem>

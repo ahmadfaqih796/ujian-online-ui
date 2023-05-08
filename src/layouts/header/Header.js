@@ -20,6 +20,7 @@ const Header = ({
     <AppBar
       position="fixed"
       sx={{
+        // backgroundColor: "red",
         width: { sm: `calc(100% - ${drawerWidth}px)` },
         ml: { sm: `${drawerWidth}px` },
         // borderRadius: "20px",
@@ -37,7 +38,7 @@ const Header = ({
           <MenuIcon />
         </IconButton>
         <Typography variant="h5" fontWeight={700}>
-          {title ?? "Data"}
+          {title || "Data"}
         </Typography>
         {/* posisi profile ada di kanan */}
         <Box flexGrow={1} />
