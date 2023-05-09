@@ -109,7 +109,7 @@ body {
 }
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
-  width: 12px;
+  width: 8px;
 }
 *::-webkit-scrollbar-track {
   border-radius: 5px;
@@ -182,6 +182,16 @@ a {
   }
   .image-no-data {
     width: 68vw;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  /* button group in search data */
+  .button-group {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 16px;
   }
 }
 

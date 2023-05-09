@@ -75,27 +75,35 @@ const Guru = ({ users }) => {
         url={`/api/users/${userData?.id_user}`}
         closeModalHandler={handleCloseModal}
       />
-      <Box display={"flex"} alignItems={"center"} flexWrap={"wrap"} mb={2}>
+      <Box
+        display={"flex"}
+        alignItems={"center"}
+        flexWrap={"wrap"}
+        mb={2}
+        justifyContent={"space-around"}
+      >
         {/* <Typography className="title-mobile" fontSize={24} fontWeight={700}>
           Guru Management
         </Typography> */}
-        <Button
-          sx={{ zIndex: "1" }}
-          color="success"
-          variant="contained"
-          onClick={() => handleOpenModal("add")}
-        >
-          <FeatherIcon icon="clipboard" />
-          Export
-        </Button>
-        <Button
-          sx={{ ml: "20px", zIndex: "1" }}
-          color="primary"
-          variant="contained"
-          onClick={() => handleOpenModal("add")}
-        >
-          <FeatherIcon icon="user-plus" /> Guru
-        </Button>
+        <Box component={"div"} className="button-group">
+          <Button
+            sx={{ zIndex: "1" }}
+            color="success"
+            variant="contained"
+            onClick={() => handleOpenModal("add")}
+          >
+            <FeatherIcon icon="clipboard" />
+            Export
+          </Button>
+          <Button
+            sx={{ ml: "20px", zIndex: "1" }}
+            color="primary"
+            variant="contained"
+            onClick={() => handleOpenModal("add")}
+          >
+            <FeatherIcon icon="user-plus" /> Guru
+          </Button>
+        </Box>
         <Box flexGrow={1} />
         <SearchUser />
         {/* <Box component={"div"} className="search-user">

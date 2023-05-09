@@ -164,6 +164,9 @@ const Sidebar = ({
                           //   "sssss"
                           // })
                           .map((child) => {
+                            // untuk mendapatkan judul di header
+                            pathDirect === child.href &&
+                              handleTitle?.(child.title);
                             return (
                               <ListItem
                                 key={child.title}
@@ -174,8 +177,6 @@ const Sidebar = ({
                                     ? null
                                     : () => {
                                         router.replace(child.href);
-                                        // untuk mendapatkan judul di header
-                                        // handleTitle?.(child.title);
                                       }
                                 }
                                 sx={{
@@ -205,8 +206,6 @@ const Sidebar = ({
                                   />
                                 </ListItemIcon>
                                 <ListItemText>
-                                  {pathDirect === child.href &&
-                                    handleTitle?.(child.title)}
                                   <Typography variant="body1">
                                     {child.title}
                                   </Typography>
@@ -220,13 +219,13 @@ const Sidebar = ({
                 );
                 // {/********If Sub No Menu**********/}
               } else {
+                pathDirect === item.href && handleTitle?.(item.title);
                 return (
                   <List component="li" disablePadding key={item.title}>
                     <NextLink href={item.href}>
                       <ListItem
                         onClick={() => {
                           handleClick(index);
-                          // handleTitle?.(item.title);
                         }}
                         button
                         selected={pathDirect === item.href}
@@ -256,8 +255,6 @@ const Sidebar = ({
                         <ListItemText
                         //  onClick={onSidebarClose}
                         >
-                          {pathDirect === item.href &&
-                            handleTitle?.(item.title)}
                           <Typography>{item.title}</Typography>
                         </ListItemText>
                       </ListItem>
