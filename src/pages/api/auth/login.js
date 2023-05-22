@@ -4,7 +4,7 @@ import { withSessionRoute } from "@/lib/sessions/withSession";
 async function loginRoute(req, res) {
   try {
     const response = await loginService(req.body);
-    const { user, siswa, guru, authentication } = response;
+    const { user, admin, siswa, guru, authentication } = response;
     const { nik, name, role } = user;
     const { accessToken, payload } = authentication;
     // if (role_id != "admin") {
@@ -16,7 +16,9 @@ async function loginRoute(req, res) {
     req.session.user = {
       id: response.user.id_user,
       nik: nik,
-      name: name,
+      ...(role === "admin" && {
+        name: admin.nama_admin,
+      }),
       iat: payload.iat,
       exp: payload.exp,
       token: accessToken,
@@ -27,6 +29,8 @@ async function loginRoute(req, res) {
     return res.json({
       success: true,
       message: "Berhasil login",
+      data: req.session.user,
+
       // level: job_level,
     });
   } catch (error) {

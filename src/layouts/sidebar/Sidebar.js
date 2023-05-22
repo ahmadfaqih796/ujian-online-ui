@@ -165,8 +165,9 @@ const Sidebar = ({
                           // })
                           .map((child) => {
                             // untuk mendapatkan judul di header
-                            pathDirect === child.href &&
-                              handleTitle?.(child.title);
+                            if (pathDirect === child.href) {
+                              handleTitle(child.title);
+                            }
                             return (
                               <ListItem
                                 key={child.title}
@@ -318,6 +319,7 @@ Sidebar.propTypes = {
   isMobileSidebarOpen: PropTypes.bool,
   onSidebarClose: PropTypes.func,
   isSidebarOpen: PropTypes.bool,
+  handleTitle: PropTypes.func,
 };
 
 export default Sidebar;

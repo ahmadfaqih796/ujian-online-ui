@@ -38,7 +38,7 @@ const Header = ({
           <MenuIcon />
         </IconButton>
         <Typography variant="h5" fontWeight={700}>
-          {title || "Data"}
+          {title ?? "Data"}
         </Typography>
         {/* posisi profile ada di kanan */}
         <Box flexGrow={1} />
@@ -55,6 +55,7 @@ Header.propTypes = {
   handleDrawerToggle: PropTypes.func,
   toggleSidebar: PropTypes.func,
   toggleMobileSidebar: PropTypes.func,
+  title: PropTypes.string,
 };
 
 export default Header;

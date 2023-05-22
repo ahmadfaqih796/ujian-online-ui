@@ -1,4 +1,5 @@
 import { getOneUser } from "@/lib/services/users";
+import { getOneAdmin } from "@/lib/services/users/admin";
 import { withSessionRoute } from "@/lib/sessions/withSession";
 import { ConvertBase64 } from "@/utils/convertBase64";
 
@@ -14,18 +15,17 @@ async function userRoute(req, res) {
     //    });
     //  }
     const response = await getOneUser(session.user.id, session.user.token);
+    const resAdmin = await getOneAdmin(session.user.id, session.user.token);
 
     const tempToken = session && new ConvertBase64(session.user.token);
     const token = tempToken.encode();
 
     const data = {
       id: response.id,
-      name: response.name,
-      // photo: response.photo,
+      ...(response.role === "admin" && {
+        name: resAdmin.nama_admin,
+      }),
       email: response.email,
-      // role: response.role_id,
-      // companyId: response.company_id,
-      // jobLevel: response.job_level,
       token: token,
     };
 
