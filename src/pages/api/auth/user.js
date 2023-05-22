@@ -9,11 +9,12 @@ async function userRoute(req, res) {
   try {
     const { session } = req;
     if (!session.user) return res.status(401).json({});
-    //  if (session.user.role == "staff") {
-    //    return res.status(400).json({
-    //      message: "Tidak bisa login karna role anda staff",
-    //    });
-    //  }
+    console.log("dddd", session);
+    if (session.user.role == "siswa") {
+      return res.status(400).json({
+        message: "Tidak bisa login karna role anda adalah siswa",
+      });
+    }
     const response = await getOneUser(session.user.id, session.user.token);
     const resAdmin = await getOneAdmin(session.user.id, session.user.token);
 
