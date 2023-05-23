@@ -158,7 +158,12 @@ const Guru = ({ users }) => {
                       }}
                     />
                   ) : (
-                    <Avatar {...stringAvatar(data.name, 80)} />
+                    <Avatar
+                      {...stringAvatar(
+                        data.user_guru?.nama_guru ?? "Faqih",
+                        80
+                      )}
+                    />
                   )}
                 </Box>
                 <Typography>{data.name}</Typography>
