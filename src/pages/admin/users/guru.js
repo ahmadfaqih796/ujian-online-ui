@@ -28,6 +28,7 @@ import noDataImg from "../../../../assets/images/no-data.jpg";
 import ExportExcelModal from "@/components/modal/ExportExcelModal";
 
 export const getServerSideProps = WithAuth(async ({ query, req }) => {
+  const token = req.session.user.token;
   const users = await paginationUser(
     "/users",
     {
@@ -38,17 +39,18 @@ export const getServerSideProps = WithAuth(async ({ query, req }) => {
       },
     },
     {
-      Authorization: req.session.user.token,
+      Authorization: token,
     }
   );
   return {
     props: {
       users,
+      token,
     },
   };
 });
 
-const Guru = ({ users }) => {
+const Guru = ({ users, token }) => {
   const [userData, setUserData] = React.useState({});
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
     useHandleModal(false);
@@ -59,6 +61,7 @@ const Guru = ({ users }) => {
       <ExportExcelModal
         open={openModal}
         type={modalType}
+        token={token}
         closeModalHandler={handleCloseModal}
       />
       <AddUserModal
@@ -96,7 +99,7 @@ const Guru = ({ users }) => {
             sx={{ zIndex: "1" }}
             color="success"
             variant="contained"
-            onClick={() => handleOpenModal("add")}
+            onClick={() => handleOpenModal("report")}
           >
             <FeatherIcon icon="clipboard" />
             Export

@@ -18,7 +18,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 moment.locale("id");
 
-const ExportExcelModal = ({ open = false, closeModalHandler, type }) => {
+const ExportExcelModal = ({ open = false, closeModalHandler, type, token }) => {
   const router = useRouter();
   const { start_date, end_date } = router.query;
   const [error, setError] = useState(false);
@@ -35,6 +35,7 @@ const ExportExcelModal = ({ open = false, closeModalHandler, type }) => {
       data: {
         role: "guru",
       },
+      token: token,
       onSuccess: () => openSnackBar("Berhasil generate report"),
       onError: (msg) => openSnackBar(msg),
     });
