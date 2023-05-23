@@ -19,6 +19,7 @@
     "dotenv": "^16.0.3",
     "feather-icons-react": "^0.6.2",
     "iron-session": "^6.3.1",
+    "js-file-download": "^0.4.12",
     "moment": "^2.29.4",
     "next": "13.2.4",
     "ramda": "^0.29.0",
