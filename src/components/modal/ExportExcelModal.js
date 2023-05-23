@@ -1,3 +1,5 @@
+import useGenerateReport from "@/hooks/useGenerateReport";
+import { useSnackbar } from "@/hooks/useSnackbar";
 import {
   Button,
   Dialog,
@@ -14,8 +16,6 @@ import moment from "moment";
 import "moment/locale/id";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import useGenerateLaporan from "../../../hooks/report/useGenerateLaporan";
-import { useSnackbar } from "../../../hooks/useSnackbar";
 moment.locale("id");
 
 const ExportExcelModal = ({ open = false, closeModalHandler, type }) => {
@@ -24,7 +24,7 @@ const ExportExcelModal = ({ open = false, closeModalHandler, type }) => {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
   const { isActive, message, openSnackBar, closeSnackBar } = useSnackbar();
-  const { generate, loading } = useGenerateLaporan();
+  const { generate, loading } = useGenerateReport();
 
   const create = async (event) => {
     event.preventDefault();

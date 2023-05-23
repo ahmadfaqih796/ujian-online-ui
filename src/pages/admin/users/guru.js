@@ -25,6 +25,7 @@ import SearchUser from "@/components/search/SearchUser";
 import paginationUser from "@/lib/services/pagination/paginationUser";
 import Image from "next/image";
 import noDataImg from "../../../../assets/images/no-data.jpg";
+import ExportExcelModal from "@/components/modal/ExportExcelModal";
 
 export const getServerSideProps = WithAuth(async ({ query, req }) => {
   const users = await paginationUser(
@@ -55,6 +56,11 @@ const Guru = ({ users }) => {
 
   return (
     <>
+      <ExportExcelModal
+        open={openModal}
+        type={modalType}
+        closeModalHandler={handleCloseModal}
+      />
       <AddUserModal
         open={openModal}
         type={modalType}
