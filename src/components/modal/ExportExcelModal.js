@@ -35,7 +35,12 @@ const ExportExcelModal = ({ open = false, closeModalHandler, type, token }) => {
       data: {
         role: "guru",
       },
-      token: token,
+      config: {
+        responseType: "arraybuffer",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
       onSuccess: () => openSnackBar("Berhasil generate report"),
       onError: (msg) => openSnackBar(msg),
     });

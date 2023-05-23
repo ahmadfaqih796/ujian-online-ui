@@ -3,15 +3,14 @@ import * as FileDownload from "js-file-download";
 import React from "react";
 const useGenerateReport = () => {
   const [loading, setLoading] = React.useState(false);
-  const generate = async ({ data, token, onSuccess, onError }) => {
+  const generate = async ({ data, config, onSuccess, onError }) => {
     setLoading(true);
     try {
-      const response = await ServiceAdapter().post("/export/users", data, {
-        responseType: "arraybuffer",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await ServiceAdapter().post(
+        "/export/users",
+        data,
+        config
+      );
       FileDownload(response.data, `guru.xlsx`);
       setLoading(false);
       onSuccess();
