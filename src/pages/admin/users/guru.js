@@ -20,12 +20,11 @@ import {
 import { Box } from "@mui/system";
 import FeatherIcon from "feather-icons-react";
 import React from "react";
-// import usePagination from "@mui/material/usePagination";
+import ExportExcelModal from "@/components/modal/ExportExcelModal";
 import SearchUser from "@/components/search/SearchUser";
 import paginationUser from "@/lib/services/pagination/paginationUser";
 import Image from "next/image";
 import noDataImg from "../../../../assets/images/no-data.jpg";
-import ExportExcelModal from "@/components/modal/ExportExcelModal";
 
 export const getServerSideProps = WithAuth(async ({ query, req }) => {
   const token = req.session.user.token;
@@ -55,7 +54,6 @@ const Guru = ({ users, token }) => {
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
     useHandleModal(false);
   const { page, handleChangePage, handleChangeRowsPerPage } = usePagination();
-
   return (
     <>
       <ExportExcelModal
