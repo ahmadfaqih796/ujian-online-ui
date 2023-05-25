@@ -173,7 +173,7 @@ const Guru = ({ users, token }) => {
                     />
                   )}
                 </Box>
-                <Typography>{data.name}</Typography>
+                <Typography>{data.user_guru?.nama_guru ?? "-"}</Typography>
                 <Typography>{data.email}</Typography>
                 <Typography>{data.role ?? "-"}</Typography>
                 <Box
