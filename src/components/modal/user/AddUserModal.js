@@ -61,10 +61,10 @@ const AddUserModal = ({ open = false, closeModalHandler, type }) => {
       password: password.value,
     };
     try {
-      if (!gambar) {
-        openSnackBar("Foto tidak boleh kosong");
-        return;
-      }
+      // if (!gambar) {
+      //   openSnackBar("Foto tidak boleh kosong");
+      //   return;
+      // }
       if (gambar) {
         const upload = await uploadFile(gambar);
         payload.photo = upload.id;
