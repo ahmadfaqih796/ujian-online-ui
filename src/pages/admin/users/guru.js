@@ -134,9 +134,17 @@ const Guru = ({ users, token }) => {
           }}
         >
           <Grid container spacing={4}>
-            {users.data.map((data, index) => (
-              <Grid item key={index} lg={4} md={6} xs={12}>
-                <Box sx={{ background: "white", border: "3px solid black" }}>
+            {users.data.map((data) => (
+              <Grid item key={data.id} lg={4} md={6} xs={12}>
+                <Box
+                  sx={{
+                    background: "white",
+                    border: "3px solid black",
+                    borderRadius: "20px",
+                    textAlign: "center",
+                    p: 2,
+                  }}
+                >
                   <Box
                     margin={2}
                     sx={{ justifyContent: "center", display: "flex" }}
@@ -148,7 +156,7 @@ const Guru = ({ users, token }) => {
                       //   sizes="80"
                       // />
                       <Image
-                        alt={data.name}
+                        alt={data.user_guru?.nama_guru ?? "no_image"}
                         src={`http://localhost:3030/uploads/${data.user_guru?.photo}`}
                         width="80"
                         height="80"
