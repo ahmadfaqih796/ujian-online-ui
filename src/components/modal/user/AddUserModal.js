@@ -157,7 +157,6 @@ const AddUserModal = ({ open = false, closeModalHandler, type }) => {
               )}
               {/* Gambar */}
               <TextField
-                required
                 focused
                 margin="normal"
                 type="file"
