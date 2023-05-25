@@ -170,7 +170,7 @@ const Guru = ({ users, token }) => {
                   </Box>
                   <Typography>{data.user_guru?.nama_guru ?? "-"}</Typography>
                   <Typography>{data.email}</Typography>
-                  <Typography>{data.role ?? "-"}</Typography>
+                  {/* <Typography>{data.role ?? "-"}</Typography> */}
                   <Box
                     display={"flex"}
                     flexWrap={"wrap"}
