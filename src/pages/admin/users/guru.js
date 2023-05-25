@@ -207,15 +207,6 @@ const Guru = ({ users, token }) => {
             ))}
           </Grid>
 
-          {/* <Pagination
-          count={Math.ceil(users.total / 7)}
-          // page={page}
-          defaultPage={router.query ? router.query.page : 1}
-          onChange={handleChangePage}
-          color="primary"
-          variant="outlined"
-        /> */}
-
           <TablePagination
             rowsPerPageOptions={[]}
             component="div"
