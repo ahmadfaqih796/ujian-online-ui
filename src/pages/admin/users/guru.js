@@ -14,6 +14,7 @@ import {
   Avatar,
   Button,
   Card,
+  Grid,
   TablePagination,
   Typography,
 } from "@mui/material";
@@ -132,84 +133,79 @@ const Guru = ({ users, token }) => {
             sm: "unset",
           }}
         >
-          <Box
-            display={"flex"}
-            justifyContent={"space-around"}
-            flexWrap={"wrap"}
-            // display={"grid"}
-            // gridTemplateColumns={"1fr 1fr 1fr"}
-            // justifyItems={"stretch"}
-          >
+          <Grid container spacing={4}>
             {users.data.map((data, index) => (
-              <Card key={index} className="card">
-                <Box
-                  margin={2}
-                  sx={{ justifyContent: "center", display: "flex" }}
-                >
-                  {data.user_guru?.photo ? (
-                    // <Avatar
-                    //   src={`http://localhost:3030/uploads/${data.user_guru?.photo}`}
-                    //   alt={`http://localhost:3030/uploads/${data.user_guru?.photo}`}
-                    //   sizes="80"
-                    // />
-                    <Image
-                      alt={data.name}
-                      src={`http://localhost:3030/uploads/${data.user_guru?.photo}`}
-                      width="80"
-                      height="80"
-                      priority={true}
-                      style={{
-                        objectFit: "contain",
-                        border: "2px solid gray",
-                        borderRadius: "50%",
+              <Grid item key={index} lg={4} md={6} xs={12}>
+                <Box sx={{ background: "white", border: "3px solid black" }}>
+                  <Box
+                    margin={2}
+                    sx={{ justifyContent: "center", display: "flex" }}
+                  >
+                    {data.user_guru?.photo ? (
+                      // <Avatar
+                      //   src={`http://localhost:3030/uploads/${data.user_guru?.photo}`}
+                      //   alt={`http://localhost:3030/uploads/${data.user_guru?.photo}`}
+                      //   sizes="80"
+                      // />
+                      <Image
+                        alt={data.name}
+                        src={`http://localhost:3030/uploads/${data.user_guru?.photo}`}
+                        width="80"
+                        height="80"
+                        priority={true}
+                        style={{
+                          objectFit: "contain",
+                          border: "2px solid gray",
+                          borderRadius: "50%",
+                        }}
+                      />
+                    ) : (
+                      <Avatar
+                        {...stringAvatar(
+                          data.user_guru?.nama_guru ?? "Faqih",
+                          80
+                        )}
+                      />
+                    )}
+                  </Box>
+                  <Typography>{data.user_guru?.nama_guru ?? "-"}</Typography>
+                  <Typography>{data.email}</Typography>
+                  <Typography>{data.role ?? "-"}</Typography>
+                  <Box
+                    display={"flex"}
+                    flexWrap={"wrap"}
+                    justifyContent={"space-around"}
+                    mt={2}
+                    mb={1}
+                  >
+                    <CustomButtonBlue
+                      className="button-detail"
+                      onClick={() => {
+                        setUserData(data);
+                        handleOpenModal("detail");
                       }}
-                    />
-                  ) : (
-                    <Avatar
-                      {...stringAvatar(
-                        data.user_guru?.nama_guru ?? "Faqih",
-                        80
-                      )}
-                    />
-                  )}
+                    >
+                      <FeatherIcon icon="database" /> Detail
+                    </CustomButtonBlue>
+                    <CustomButtonYellow sx={{ width: "80px" }}>
+                      <FeatherIcon icon="edit-3" />
+                      Ubah
+                    </CustomButtonYellow>
+                    <CustomButtonRed
+                      sx={{ width: "100px" }}
+                      onClick={() => {
+                        setUserData(data);
+                        handleOpenModal("delete");
+                      }}
+                    >
+                      <FeatherIcon icon="trash-2" />
+                      Hapus
+                    </CustomButtonRed>
+                  </Box>
                 </Box>
-                <Typography>{data.user_guru?.nama_guru ?? "-"}</Typography>
-                <Typography>{data.email}</Typography>
-                <Typography>{data.role ?? "-"}</Typography>
-                <Box
-                  display={"flex"}
-                  flexWrap={"wrap"}
-                  justifyContent={"space-around"}
-                  mt={2}
-                  mb={1}
-                >
-                  <CustomButtonBlue
-                    className="button-detail"
-                    onClick={() => {
-                      setUserData(data);
-                      handleOpenModal("detail");
-                    }}
-                  >
-                    <FeatherIcon icon="database" /> Detail
-                  </CustomButtonBlue>
-                  <CustomButtonYellow sx={{ width: "80px" }}>
-                    <FeatherIcon icon="edit-3" />
-                    Ubah
-                  </CustomButtonYellow>
-                  <CustomButtonRed
-                    sx={{ width: "100px" }}
-                    onClick={() => {
-                      setUserData(data);
-                      handleOpenModal("delete");
-                    }}
-                  >
-                    <FeatherIcon icon="trash-2" />
-                    Hapus
-                  </CustomButtonRed>
-                </Box>
-              </Card>
+              </Grid>
             ))}
-          </Box>
+          </Grid>
 
           {/* <Pagination
           count={Math.ceil(users.total / 7)}
