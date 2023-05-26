@@ -1,3 +1,4 @@
+import ServiceAdapter from "@/lib/services";
 import { Typography } from "@mui/material";
 import React from "react";
 import * as XLSX from "xlsx";
@@ -5,14 +6,6 @@ import * as XLSX from "xlsx";
 const Siswa = () => {
   const [question, setQuestion] = React.useState([]);
   console.log(question);
-
-  const payload = question.map((obj) => ({
-    ...obj,
-    semester: "2",
-    kode_kelas: "IX",
-    kode_pelajaran: "Biologi",
-  }));
-  console.log("mamamama", payload);
 
   const convertToJson = async (headers, data) => {
     const rows = [];
@@ -62,6 +55,22 @@ const Siswa = () => {
     reader.readAsBinaryString(file);
   };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const payload = question.map((obj) => ({
+      ...obj,
+      semester: "2",
+      kode_kelas: "IX",
+      kode_pelajaran: "Biologi",
+    }));
+    console.log("mamamama", payload);
+    try {
+      await ServiceAdapter().post("/soal", payload);
+      alert("Berhasil menambahkan soal");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <input type="file" name="input" id="input" onChange={handleUpload} />
