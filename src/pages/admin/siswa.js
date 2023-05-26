@@ -4,7 +4,6 @@ import * as XLSX from "xlsx";
 
 const Siswa = () => {
   const [table, setTable] = React.useState([]);
-  console.log("qqqq", table);
 
   const convertToJson = async (headers, data) => {
     const rows = [];
@@ -23,7 +22,6 @@ const Siswa = () => {
 
   const handleSubmit = (event) => {
     const file = event.target.files[0];
-    console.log("xxxx", file);
     const reader = new FileReader();
     reader.onload = (e) => {
       const bstr = e.target.result;
