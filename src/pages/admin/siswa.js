@@ -13,7 +13,6 @@ const Siswa = () => {
       row.forEach(async (element, index) => {
         rowData[headers[index]] = element;
       });
-      console.log("rowDatattt", rowData);
       rows.push(rowData);
     });
     setTable(rows);
