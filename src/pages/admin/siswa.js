@@ -3,11 +3,11 @@ import React from "react";
 import * as XLSX from "xlsx";
 
 const Siswa = () => {
-  const [table, setTable] = React.useState([]);
+  const [question, setQuestion] = React.useState([]);
+  console.log(question);
 
   const convertToJson = async (headers, data) => {
     const rows = [];
-    console.log("data", data);
     data.forEach(async (row) => {
       let rowData = {};
       row.forEach(async (element, index) => {
@@ -15,8 +15,32 @@ const Siswa = () => {
       });
       rows.push(rowData);
     });
-    setTable(rows);
+    setQuestion(rows);
     return rows;
+  };
+
+  const HEAD = {
+    SOAL: "pertanyaan",
+    A: "pilihan_a",
+    B: "pilihan_b",
+    KUNCI: "kunci",
+  };
+
+  const convertArrayFormat = (data) => {
+    const newData = data.map((item) => {
+      if (item === "SOAL") {
+        return "pertanyaan";
+      } else if (item === "A") {
+        return "pilihan_a";
+      } else if (item === "B") {
+        return "pilihan_b";
+      } else if (item === "KUNCI") {
+        return "kunci";
+      } else {
+        return item; // Jika ada nilai lain dalam array, biarkan tidak berubah
+      }
+    });
+    return newData;
   };
 
   const handleSubmit = (event) => {
@@ -31,14 +55,15 @@ const Siswa = () => {
       const headers = fileData[0];
       const heads = headers.map((head) => ({ title: head, field: head }));
       fileData.splice(0, 1);
-      convertToJson(headers, fileData);
+      console.log("xxxxxxxxxx", headers);
+      convertToJson(convertArrayFormat(headers), fileData);
     };
     reader.readAsBinaryString(file);
   };
   return (
     <>
       <input type="file" name="input" id="input" onChange={handleSubmit} />
-      {table.map((item, index) => (
+      {question.map((item, index) => (
         <>
           <Typography>{item?.SOAL}</Typography>
         </>
