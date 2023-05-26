@@ -63,11 +63,7 @@ const Siswa = () => {
   return (
     <>
       <input type="file" name="input" id="input" onChange={handleSubmit} />
-      {question.map((item, index) => (
-        <>
-          <Typography>{item?.SOAL}</Typography>
-        </>
-      ))}
+      {JSON.stringify(question)}
       {/* <form onSubmit={handleSubmit}>
         <input type="file" name="input" id="input" />
         <button type="submit">click</button>
