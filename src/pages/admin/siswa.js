@@ -6,6 +6,14 @@ const Siswa = () => {
   const [question, setQuestion] = React.useState([]);
   console.log(question);
 
+  const payload = question.map((obj) => ({
+    ...obj,
+    semester: "2",
+    kode_kelas: "IX",
+    kode_pelajaran: "Biologi",
+  }));
+  console.log("mamamama", payload);
+
   const convertToJson = async (headers, data) => {
     const rows = [];
     data.forEach(async (row) => {
@@ -17,13 +25,6 @@ const Siswa = () => {
     });
     setQuestion(rows);
     return rows;
-  };
-
-  const HEAD = {
-    SOAL: "pertanyaan",
-    A: "pilihan_a",
-    B: "pilihan_b",
-    KUNCI: "kunci",
   };
 
   const convertArrayFormat = (data) => {
@@ -43,7 +44,7 @@ const Siswa = () => {
     return newData;
   };
 
-  const handleSubmit = (event) => {
+  const handleUpload = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -60,14 +61,14 @@ const Siswa = () => {
     };
     reader.readAsBinaryString(file);
   };
+
   return (
     <>
-      <input type="file" name="input" id="input" onChange={handleSubmit} />
+      <input type="file" name="input" id="input" onChange={handleUpload} />
       {JSON.stringify(question)}
-      {/* <form onSubmit={handleSubmit}>
-        <input type="file" name="input" id="input" />
+      <form onSubmit={handleSubmit}>
         <button type="submit">click</button>
-      </form> */}
+      </form>
     </>
   );
 };
