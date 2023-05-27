@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import PropTypes from "prop-types";
 
-const DATA_HEAD = [{ title: "data" }];
+const DATA_HEAD = [{ label: "data" }];
 
 const BaseTable = ({ children, tableHead, data, noWrap }) => {
   const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } =
@@ -40,7 +40,7 @@ const BaseTable = ({ children, tableHead, data, noWrap }) => {
                       color: "white",
                     }}
                   >
-                    <Typography variant="h5">{row.title}</Typography>
+                    <Typography variant="h5">{row.label}</Typography>
                   </TableCell>
                 ))}
               </TableRow>
