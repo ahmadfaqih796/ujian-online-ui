@@ -9,6 +9,7 @@ import pagination from "@/lib/services/pagination/pagination";
 import WithAuth from "@/lib/sessions/withAuth";
 import LESSON_CELLS from "@/utils/headCells/lesson-cells";
 import {
+  Avatar,
   Button,
   Card,
   Table,
@@ -22,6 +23,8 @@ import {
 import { Box } from "@mui/system";
 import moment from "moment";
 import React from "react";
+import BaseTable from "@/components/table/BaseTable";
+import { stringAvatar } from "@/layouts/header/stringAvatar";
 
 export const getServerSideProps = WithAuth(async ({ query, req }) => {
   const lesson = await pagination(
@@ -176,6 +179,104 @@ const Pelajaran = ({ lesson }) => {
             showLastButton
           />
         </Box>
+        <BaseTable tableHead={LESSON_CELLS} data={lesson}>
+          {lesson &&
+            lesson.data.map((activity, index) => (
+              <TableRow key={index} hover role="checkbox" tabIndex={-1}>
+                {/* photo */}
+                <TableCell sx={{ width: "80px" }}>
+                  {activity?.user?.photo ? (
+                    <UserImage path={activity?.user?.photo} />
+                  ) : (
+                    <Avatar
+                      {...stringAvatar(activity?.user?.fullname ?? "faqih", 50)}
+                    />
+                  )}
+                </TableCell>
+                <TableCell>
+                  <Typography
+                    variant="h6"
+                    fontWeight="600"
+                    color="textSecondary"
+                    sx={{ width: "100%" }}
+                  >
+                    {activity?.user?.fullname}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography
+                    variant="h6"
+                    fontWeight="600"
+                    color="textSecondary"
+                    sx={{ width: "100%" }}
+                  >
+                    {activity?.upliner_data?.fullname ?? "-"}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography
+                    variant="h6"
+                    fontWeight="600"
+                    color="textSecondary"
+                    sx={{ width: "100%" }}
+                  >
+                    {activity?.user?.job_departement?.name ?? "-"}
+                  </Typography>
+                </TableCell>
+                {/* menghubungkan time in */}
+                <TableCell>
+                  {activity?.early_time_out ? (
+                    <>
+                      <Typography variant="h6" fontWeight="600">
+                        {moment(activity?.early_time_out).format(
+                          "DD MMM YYYY"
+                        ) ?? "-"}
+                      </Typography>
+                      <Typography
+                        color="textSecondary"
+                        variant="h6"
+                        fontWeight="600"
+                      >
+                        {moment(activity?.early_time_out).format("HH:mm:ss") ??
+                          "-"}
+                      </Typography>
+                    </>
+                  ) : (
+                    "-"
+                  )}
+                </TableCell>
+                <TableCell size="small">
+                  <Typography variant="h6" fontWeight="600">
+                    {activity?.early_leave_reason ?? "-"}
+                  </Typography>
+                </TableCell>
+
+                <TableCell size="small">
+                  {activity?.is_approved_early_leave === null ? (
+                    <StatusPending />
+                  ) : activity?.is_approved_early_leave != null ? (
+                    activity?.is_approved_early_leave ? (
+                      <>
+                        {/* <CheckBoxIcon color="success" /> */}
+                        <StatusAproved
+                          note={activity?.early_leave_reject_reason}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        {/* <CancelIcon color="danger" /> */}
+                        <StatusRejected
+                          note={activity?.early_leave_reject_reason}
+                        />
+                      </>
+                    )
+                  ) : (
+                    "-"
+                  )}
+                </TableCell>
+              </TableRow>
+            ))}
+        </BaseTable>
       </Card>
     </>
   );

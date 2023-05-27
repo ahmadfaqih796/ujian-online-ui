@@ -12,7 +12,6 @@ import {
   Typography,
 } from "@mui/material";
 import PropTypes from "prop-types";
-import React from "react";
 
 const DATA_HEAD = [{ title: "data" }];
 
@@ -83,8 +82,8 @@ const BaseTable = ({ children, tableHead, data, noWrap }) => {
 BaseTable.propTypes = {
   children: PropTypes.node,
   tableHead: PropTypes.array,
-  pagination: PropTypes.object,
   data: PropTypes.object,
+  noWrap: PropTypes.bool,
 };
 
 export default BaseTable;
