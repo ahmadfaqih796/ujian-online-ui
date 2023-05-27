@@ -10,6 +10,7 @@ import WithAuth from "@/lib/sessions/withAuth";
 import LESSON_CELLS from "@/utils/headCells/lesson-cells";
 import {
   Button,
+  Card,
   Table,
   TableBody,
   TableCell,
@@ -68,110 +69,114 @@ const Pelajaran = ({ lesson }) => {
         url={`/api/lesson/${userData?.id_pelajaran}`}
         closeModalHandler={handleCloseModal}
       />
-      <Box display="flex">
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={() => handleOpenModal("add")}
-        >
-          Tambahkan
-        </Button>
-      </Box>
-      <Box
-        sx={{
-          overflow: "auto",
-          sm: "unset",
-        }}
-      >
-        <Table
-          aria-label="simple table"
+      <Card className="card-list">
+        <Box display="flex">
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={() => handleOpenModal("add")}
+          >
+            Tambahkan
+          </Button>
+        </Box>
+        <Box
           sx={{
-            whiteSpace: "nowrap",
+            overflow: "auto",
+            sm: "unset",
           }}
         >
-          <TableHead>
-            <TableRow>
-              {LESSON_CELLS.map((head, index) => (
-                <TableCell
-                  key={index}
-                  align={head.numeric ? "right" : "left"}
-                  padding={head.disablePadding ? "none" : "normal"}
-                  // sortDirection={orderBy === index ? order : false}
-                >
-                  {head.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-
-          <TableBody>
-            {lesson.data.map((data, index) => (
-              <TableRow key={index}>
-                <TableCell>
-                  <Typography fontWeight="600">
-                    {index + 1 + ((page - 1) * rowsPerPage, page * rowsPerPage)}
-                  </Typography>
-                </TableCell>
-
-                {/* data name */}
-                <TableCell>
-                  <Typography fontWeight="600">
-                    {data.nama_pelajaran}
-                  </Typography>
-                </TableCell>
-
-                {/* data created at */}
-                <TableCell>
-                  <Typography fontWeight="600">
-                    {data.createdAt
-                      ? moment(data.createdAt).format("DD MMM YYYY, HH:mm:ss")
-                      : "-"}
-                  </Typography>
-                </TableCell>
-
-                {/* data update_at */}
-                <TableCell>
-                  <Typography fontWeight="600">
-                    {data.updatedAt
-                      ? moment(data.updatedAt).format("DD MMM YYYY, HH:mm:ss")
-                      : "-"}
-                  </Typography>
-                </TableCell>
-
-                <TableCell>
-                  <ThreeDotsMenu
-                    onClickDetail={() => {
-                      setUserData(data);
-                      handleOpenModal("detail");
-                    }}
-                    onClickEdit={() => console.log("aaaaaa")}
-                    onClickDelete={() => {
-                      setUserData(data);
-                      handleOpenModal("delete");
-                    }}
-                  />
-                </TableCell>
+          <Table
+            aria-label="simple table"
+            sx={{
+              whiteSpace: "nowrap",
+            }}
+          >
+            <TableHead>
+              <TableRow>
+                {LESSON_CELLS.map((head, index) => (
+                  <TableCell
+                    key={index}
+                    align={head.numeric ? "right" : "left"}
+                    padding={head.disablePadding ? "none" : "normal"}
+                    // sortDirection={orderBy === index ? order : false}
+                  >
+                    {head.label}
+                  </TableCell>
+                ))}
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={lesson.total}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          labelDisplayedRows={({ from, to, count }) => {
-            return `Menampilkan ${from}-${to} dari ${
-              count != -1 ? count : `more than ${to}`
-            } data`;
-          }}
-          showFirstButton
-          showLastButton
-        />
-      </Box>
+            </TableHead>
+
+            <TableBody>
+              {lesson.data.map((data, index) => (
+                <TableRow key={index}>
+                  <TableCell>
+                    <Typography fontWeight="600">
+                      {index +
+                        1 +
+                        ((page - 1) * rowsPerPage, page * rowsPerPage)}
+                    </Typography>
+                  </TableCell>
+
+                  {/* data name */}
+                  <TableCell>
+                    <Typography fontWeight="600">
+                      {data.nama_pelajaran}
+                    </Typography>
+                  </TableCell>
+
+                  {/* data created at */}
+                  <TableCell>
+                    <Typography fontWeight="600">
+                      {data.createdAt
+                        ? moment(data.createdAt).format("DD MMM YYYY, HH:mm:ss")
+                        : "-"}
+                    </Typography>
+                  </TableCell>
+
+                  {/* data update_at */}
+                  <TableCell>
+                    <Typography fontWeight="600">
+                      {data.updatedAt
+                        ? moment(data.updatedAt).format("DD MMM YYYY, HH:mm:ss")
+                        : "-"}
+                    </Typography>
+                  </TableCell>
+
+                  <TableCell>
+                    <ThreeDotsMenu
+                      onClickDetail={() => {
+                        setUserData(data);
+                        handleOpenModal("detail");
+                      }}
+                      onClickEdit={() => console.log("aaaaaa")}
+                      onClickDelete={() => {
+                        setUserData(data);
+                        handleOpenModal("delete");
+                      }}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={lesson.total}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+            labelDisplayedRows={({ from, to, count }) => {
+              return `Menampilkan ${from}-${to} dari ${
+                count != -1 ? count : `more than ${to}`
+              } data`;
+            }}
+            showFirstButton
+            showLastButton
+          />
+        </Box>
+      </Card>
     </>
   );
 };
