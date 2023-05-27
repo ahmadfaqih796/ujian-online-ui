@@ -1,7 +1,11 @@
 import usePagination from "@/hooks/pagination/usePagination";
 import {
   Box,
+  FormControl,
+  InputLabel,
+  MenuItem,
   Paper,
+  Select,
   Table,
   TableBody,
   TableCell,
@@ -53,13 +57,34 @@ const BaseTable = ({ children, tableHead, data, noWrap }) => {
         sx={{
           width: "100%",
           display: "flex",
-          justifyContent: "end",
+          justifyContent: "space-between",
           //  background: "#3D3D3D",
           borderRadius: "0 0 20px 20px",
         }}
       >
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">Age</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            // value={age}
+            label="Age"
+            // onChange={handleChange}
+          >
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </FormControl>
         <TablePagination
           component={"div"}
+          //  sx={{
+          //    width: "100%",
+          //    display: "flex",
+          //    justifyContent: "space-between",
+          //    background: "green",
+          //  }}
+          labelRowsPerPage={""}
           rowsPerPageOptions={[5, 10, 25]}
           count={data?.total ?? 0}
           rowsPerPage={parseInt(rowsPerPage)}

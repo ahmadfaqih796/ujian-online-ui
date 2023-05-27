@@ -1,30 +1,17 @@
 import ThreeDotsMenu from "@/components/menu-items/ThreeDotsMenu";
 import DeleteModal from "@/components/modal/DeleteModal";
 import AddLessonModal from "@/components/modal/lesson/AddLessonModal";
-import AddUserModal from "@/components/modal/user/AddUserModal";
 import DetailUserModal from "@/components/modal/user/DetailUserModal";
+import BaseTable from "@/components/table/BaseTable";
 import useHandleModal from "@/hooks/useHandleModal";
-import usePagination from "@/hooks/pagination/usePagination";
 import pagination from "@/lib/services/pagination/pagination";
 import WithAuth from "@/lib/sessions/withAuth";
 import LESSON_CELLS from "@/utils/headCells/lesson-cells";
-import {
-  Avatar,
-  Button,
-  Card,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TablePagination,
-  TableRow,
-  Typography,
-} from "@mui/material";
+import { Button, Card, TableCell, TableRow, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import moment from "moment";
+import { useRouter } from "next/router";
 import React from "react";
-import BaseTable from "@/components/table/BaseTable";
-import { stringAvatar } from "@/layouts/header/stringAvatar";
 
 export const getServerSideProps = WithAuth(async ({ query, req }) => {
   const lesson = await pagination(
@@ -44,11 +31,11 @@ export const getServerSideProps = WithAuth(async ({ query, req }) => {
 });
 
 const Pelajaran = ({ lesson }) => {
+  const router = useRouter();
+  const { page, per_page } = router.query;
   const [userData, setUserData] = React.useState({});
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
     useHandleModal(false);
-  const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } =
-    usePagination();
 
   return (
     <>
@@ -185,7 +172,7 @@ const Pelajaran = ({ lesson }) => {
               <TableRow key={index} hover role="checkbox" tabIndex={-1}>
                 <TableCell>
                   <Typography fontWeight="600">
-                    {index + 1 + ((page - 1) * rowsPerPage, page * rowsPerPage)}
+                    {page ? index + 1 + (page - 1) * per_page : index + 1}
                   </Typography>
                 </TableCell>
                 <TableCell>
