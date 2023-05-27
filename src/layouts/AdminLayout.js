@@ -7,10 +7,32 @@ import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import { useUserSession } from "@/hooks/auth/useUserSession";
 import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
+import { Container, experimentalStyled } from "@mui/material";
 
 const drawerWidth = 265;
 
-const AdminLayout = ({ children, window }) => {
+const MainWrapper = experimentalStyled("div")(() => ({
+  display: "flex",
+  minHeight: "100vh",
+  overflow: "hidden",
+  width: "100%",
+}));
+
+const PageWrapper = experimentalStyled("div")(({ theme }) => ({
+  display: "flex",
+  flex: "1 1 auto",
+  overflow: "hidden",
+
+  backgroundColor: theme.palette.background.default,
+  [theme.breakpoints.up("lg")]: {
+    paddingTop: "64px",
+  },
+  [theme.breakpoints.down("lg")]: {
+    paddingTop: "64px",
+  },
+}));
+
+const AdminLayout = ({ children }) => {
   const [isSidebarOpen, setSidebarOpen] = React.useState(true);
   const [isMobileSidebarOpen, setMobileSidebarOpen] = React.useState(false);
   const [title, setTitle] = React.useState("");
@@ -19,10 +41,12 @@ const AdminLayout = ({ children, window }) => {
   if (!data) {
     return <LoadingSpinner show={true} />;
   }
+  if (error) {
+    return "kapan lagi";
+  }
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
+    <MainWrapper>
       <Header
         title={title}
         data={data}
@@ -33,26 +57,18 @@ const AdminLayout = ({ children, window }) => {
         toggleSidebar={() => setSidebarOpen(!isSidebarOpen)}
         toggleMobileSidebar={() => setMobileSidebarOpen(true)}
       />
-
       <Sidebar
         isSidebarOpen={isSidebarOpen}
         isMobileSidebarOpen={isMobileSidebarOpen}
         onSidebarClose={() => setMobileSidebarOpen(false)}
         handleTitle={(field) => setTitle(field)}
       />
-
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-        }}
-      >
-        <Toolbar />
-        {children}
-      </Box>
-    </Box>
+      <PageWrapper>
+        <Container maxWidth={false}>
+          <Box sx={{ minHeight: "calc(100vh - 170px)" }}>{children}</Box>
+        </Container>
+      </PageWrapper>
+    </MainWrapper>
   );
 };
 

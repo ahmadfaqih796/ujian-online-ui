@@ -72,7 +72,13 @@ const Pelajaran = ({ lesson }) => {
         url={`/api/lesson/${userData?.id_pelajaran}`}
         closeModalHandler={handleCloseModal}
       />
-      <Card className="card-list">
+      <Card
+        // className="card-list"
+        sx={{
+          padding: "20px 0 0",
+          overflow: "visible",
+        }}
+      >
         <Box display="flex">
           <Button
             color="primary"
@@ -82,7 +88,7 @@ const Pelajaran = ({ lesson }) => {
             Tambahkan
           </Button>
         </Box>
-        <Box
+        {/* <Box
           sx={{
             overflow: "auto",
             sm: "unset",
@@ -119,15 +125,12 @@ const Pelajaran = ({ lesson }) => {
                         ((page - 1) * rowsPerPage, page * rowsPerPage)}
                     </Typography>
                   </TableCell>
-
-                  {/* data name */}
                   <TableCell>
                     <Typography fontWeight="600">
                       {data.nama_pelajaran}
                     </Typography>
                   </TableCell>
 
-                  {/* data created at */}
                   <TableCell>
                     <Typography fontWeight="600">
                       {data.createdAt
@@ -135,8 +138,6 @@ const Pelajaran = ({ lesson }) => {
                         : "-"}
                     </Typography>
                   </TableCell>
-
-                  {/* data update_at */}
                   <TableCell>
                     <Typography fontWeight="600">
                       {data.updatedAt
@@ -144,7 +145,6 @@ const Pelajaran = ({ lesson }) => {
                         : "-"}
                     </Typography>
                   </TableCell>
-
                   <TableCell>
                     <ThreeDotsMenu
                       onClickDetail={() => {
@@ -178,101 +178,58 @@ const Pelajaran = ({ lesson }) => {
             showFirstButton
             showLastButton
           />
-        </Box>
+        </Box> */}
         <BaseTable tableHead={LESSON_CELLS} data={lesson}>
           {lesson &&
-            lesson.data.map((activity, index) => (
+            lesson.data.map((data, index) => (
               <TableRow key={index} hover role="checkbox" tabIndex={-1}>
-                {/* photo */}
-                <TableCell sx={{ width: "80px" }}>
-                  {activity?.user?.photo ? (
-                    <UserImage path={activity?.user?.photo} />
-                  ) : (
-                    <Avatar
-                      {...stringAvatar(activity?.user?.fullname ?? "faqih", 50)}
-                    />
-                  )}
-                </TableCell>
                 <TableCell>
-                  <Typography
-                    variant="h6"
-                    fontWeight="600"
-                    color="textSecondary"
-                    sx={{ width: "100%" }}
-                  >
-                    {activity?.user?.fullname}
+                  <Typography fontWeight="600">
+                    {index + 1 + ((page - 1) * rowsPerPage, page * rowsPerPage)}
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography
-                    variant="h6"
-                    fontWeight="600"
-                    color="textSecondary"
-                    sx={{ width: "100%" }}
-                  >
-                    {activity?.upliner_data?.fullname ?? "-"}
+                  <Typography fontWeight="600">
+                    {data.nama_pelajaran}
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography
-                    variant="h6"
-                    fontWeight="600"
-                    color="textSecondary"
-                    sx={{ width: "100%" }}
-                  >
-                    {activity?.user?.job_departement?.name ?? "-"}
-                  </Typography>
-                </TableCell>
-                {/* menghubungkan time in */}
-                <TableCell>
-                  {activity?.early_time_out ? (
+                  {data.createdAt ? (
                     <>
                       <Typography variant="h6" fontWeight="600">
-                        {moment(activity?.early_time_out).format(
-                          "DD MMM YYYY"
-                        ) ?? "-"}
+                        {moment(data.createdAt).format("DD MMM YYYY") ?? "-"}
                       </Typography>
                       <Typography
                         color="textSecondary"
                         variant="h6"
                         fontWeight="600"
                       >
-                        {moment(activity?.early_time_out).format("HH:mm:ss") ??
-                          "-"}
+                        {moment(data.createdAt).format("HH:mm:ss") ?? "-"}
                       </Typography>
                     </>
                   ) : (
                     "-"
                   )}
                 </TableCell>
-                <TableCell size="small">
-                  <Typography variant="h6" fontWeight="600">
-                    {activity?.early_leave_reason ?? "-"}
+                <TableCell>
+                  <Typography fontWeight="600">
+                    {data.updatedAt
+                      ? moment(data.updatedAt).format("DD MMM YYYY, HH:mm:ss")
+                      : "-"}
                   </Typography>
                 </TableCell>
-
-                <TableCell size="small">
-                  {activity?.is_approved_early_leave === null ? (
-                    <StatusPending />
-                  ) : activity?.is_approved_early_leave != null ? (
-                    activity?.is_approved_early_leave ? (
-                      <>
-                        {/* <CheckBoxIcon color="success" /> */}
-                        <StatusAproved
-                          note={activity?.early_leave_reject_reason}
-                        />
-                      </>
-                    ) : (
-                      <>
-                        {/* <CancelIcon color="danger" /> */}
-                        <StatusRejected
-                          note={activity?.early_leave_reject_reason}
-                        />
-                      </>
-                    )
-                  ) : (
-                    "-"
-                  )}
+                <TableCell>
+                  <ThreeDotsMenu
+                    onClickDetail={() => {
+                      setUserData(data);
+                      handleOpenModal("detail");
+                    }}
+                    onClickEdit={() => console.log("aaaaaa")}
+                    onClickDelete={() => {
+                      setUserData(data);
+                      handleOpenModal("delete");
+                    }}
+                  />
                 </TableCell>
               </TableRow>
             ))}

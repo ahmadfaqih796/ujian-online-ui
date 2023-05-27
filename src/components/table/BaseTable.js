@@ -54,7 +54,7 @@ const BaseTable = ({ children, tableHead, data, noWrap }) => {
           width: "100%",
           display: "flex",
           justifyContent: "end",
-          background: "#3D3D3D",
+          //  background: "#3D3D3D",
           borderRadius: "0 0 20px 20px",
         }}
       >
