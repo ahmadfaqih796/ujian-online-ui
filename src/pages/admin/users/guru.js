@@ -7,7 +7,7 @@ import DeleteModal from "@/components/modal/DeleteModal";
 import AddUserModal from "@/components/modal/user/AddUserModal";
 import DetailUserModal from "@/components/modal/user/DetailUserModal";
 import useHandleModal from "@/hooks/useHandleModal";
-import usePagination from "@/hooks/usePagination";
+import usePagination from "@/hooks/pagination/usePagination";
 import { stringAvatar } from "@/layouts/header/stringAvatar";
 import WithAuth from "@/lib/sessions/withAuth";
 import {

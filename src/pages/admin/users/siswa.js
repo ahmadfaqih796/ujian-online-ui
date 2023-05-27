@@ -14,7 +14,7 @@ import pagination from "@/lib/services/pagination/pagination";
 import WithAuth from "@/lib/sessions/withAuth";
 import React from "react";
 import moment from "moment";
-import usePagination from "@/hooks/usePagination";
+import usePagination from "@/hooks/pagination/usePagination";
 import useHandleModal from "@/hooks/useHandleModal";
 import AddUserModal from "@/components/modal/user/AddUserModal";
 import DeleteModal from "@/components/modal/DeleteModal";

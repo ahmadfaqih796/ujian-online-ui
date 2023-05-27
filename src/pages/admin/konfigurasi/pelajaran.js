@@ -4,7 +4,7 @@ import AddLessonModal from "@/components/modal/lesson/AddLessonModal";
 import AddUserModal from "@/components/modal/user/AddUserModal";
 import DetailUserModal from "@/components/modal/user/DetailUserModal";
 import useHandleModal from "@/hooks/useHandleModal";
-import usePagination from "@/hooks/usePagination";
+import usePagination from "@/hooks/pagination/usePagination";
 import pagination from "@/lib/services/pagination/pagination";
 import WithAuth from "@/lib/sessions/withAuth";
 import LESSON_CELLS from "@/utils/headCells/lesson-cells";
