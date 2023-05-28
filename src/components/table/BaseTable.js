@@ -15,13 +15,29 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import { useRouter } from "next/router";
 import PropTypes from "prop-types";
+import React from "react";
 
 const DATA_HEAD = [{ label: "data" }];
 
 const BaseTable = ({ children, tableHead, data, noWrap }) => {
+  const router = useRouter();
+  const [row, setRow] = React.useState(router.query?.per_page ?? 10);
   const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } =
     usePagination();
+
+  const handleChange = (e) => {
+    setRow(e.target.value);
+    router.replace({
+      pathname: router.pathname,
+      query: {
+        ...router.query,
+        page: 1,
+        per_page: row,
+      },
+    });
+  };
   return (
     <>
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -67,13 +83,13 @@ const BaseTable = ({ children, tableHead, data, noWrap }) => {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            // value={age}
+            value={row}
             label="Age"
-            // onChange={handleChange}
+            onChange={handleChange}
           >
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            <MenuItem value={5}>Ten</MenuItem>
+            <MenuItem value={10}>Twenty</MenuItem>
+            <MenuItem value={25}>Thirty</MenuItem>
           </Select>
         </FormControl>
         <TablePagination
