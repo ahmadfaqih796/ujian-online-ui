@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-const usePagination = () => {
+const useTablePagination = () => {
   const router = useRouter();
   const currentPage = router.query?.page ?? 1;
   const currentRowPerPage = router.query?.per_page ?? 10;
@@ -13,7 +13,7 @@ const usePagination = () => {
       pathname: router.pathname,
       query: {
         ...router.query,
-        page: newPage,
+        page: newPage + 1,
       },
     });
     setPage(newPage);
@@ -34,4 +34,4 @@ const usePagination = () => {
   return { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage };
 };
 
-export default usePagination;
+export default useTablePagination;

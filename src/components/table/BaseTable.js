@@ -4,8 +4,10 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
+  Pagination,
   Paper,
   Select,
+  Stack,
   Table,
   TableBody,
   TableCell,
@@ -23,21 +25,25 @@ const DATA_HEAD = [{ label: "data" }];
 
 const BaseTable = ({ children, tableHead, data, noWrap }) => {
   const router = useRouter();
-  const [row, setRow] = React.useState(router.query?.per_page ?? 10);
+  // const [row, setRow] = React.useState(router.query?.per_page ?? 10);
+  // const [page, setPage] = React.useState(1);
+  // const handleChange = (event, value) => {
+  //   setPage(value);
+  // };
   const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } =
     usePagination();
 
-  const handleChange = (e) => {
-    setRow(e.target.value);
-    router.replace({
-      pathname: router.pathname,
-      query: {
-        ...router.query,
-        page: 1,
-        per_page: row,
-      },
-    });
-  };
+  // const handleChange = (e) => {
+  //   setRow(e.target.value);
+  //   router.replace({
+  //     pathname: router.pathname,
+  //     query: {
+  //       ...router.query,
+  //       page: 1,
+  //       per_page: row,
+  //     },
+  //   });
+  // };
   return (
     <>
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -83,16 +89,16 @@ const BaseTable = ({ children, tableHead, data, noWrap }) => {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={row}
+            value={rowsPerPage}
             label="Age"
-            onChange={handleChange}
+            onChange={handleChangeRowsPerPage}
           >
             <MenuItem value={5}>Ten</MenuItem>
             <MenuItem value={10}>Twenty</MenuItem>
             <MenuItem value={25}>Thirty</MenuItem>
           </Select>
         </FormControl>
-        <TablePagination
+        {/* <TablePagination
           component={"div"}
           //  sx={{
           //    width: "100%",
@@ -114,7 +120,15 @@ const BaseTable = ({ children, tableHead, data, noWrap }) => {
               count !== -1 ? count : `more than ${to}`
             }`;
           }}
-        />
+        /> */}
+        <Stack spacing={2}>
+          <Typography>Page: {page}</Typography>
+          <Pagination
+            count={data.total % rowsPerPage}
+            page={page}
+            onChange={handleChangePage}
+          />
+        </Stack>
       </Box>
     </>
   );
