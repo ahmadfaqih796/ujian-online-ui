@@ -41,9 +41,6 @@ const AdminLayout = ({ children }) => {
   if (!data) {
     return <LoadingSpinner show={true} />;
   }
-  if (error) {
-    return "kapan lagi";
-  }
 
   return (
     <MainWrapper>
@@ -65,7 +62,7 @@ const AdminLayout = ({ children }) => {
       />
       <PageWrapper>
         <Container maxWidth={false}>
-          <Box sx={{ minHeight: "calc(100vh - 170px)" }}>{children}</Box>
+          <Box sx={{ minHeight: "calc(100vh - 170px)", mt: 3 }}>{children}</Box>
         </Container>
       </PageWrapper>
     </MainWrapper>
