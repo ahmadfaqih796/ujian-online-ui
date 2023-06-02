@@ -81,7 +81,9 @@ const Pelajaran = ({ lesson }) => {
               <TableRow key={index} hover role="checkbox" tabIndex={-1}>
                 <TableCell>
                   <Typography fontWeight="600">
-                    {page ? index + 1 + (page - 1) * per_page : index + 1}
+                    {page && per_page
+                      ? index + 1 + (page - 1) * per_page
+                      : index + 1}
                   </Typography>
                 </TableCell>
                 <TableCell>
