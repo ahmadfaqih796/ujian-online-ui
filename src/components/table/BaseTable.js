@@ -78,36 +78,12 @@ const BaseTable = ({ children, tableHead, data, noWrap }) => {
           <MenuItem value={25}>25</MenuItem>
         </Select>
         <Stack spacing={2}>
-          <Typography>Page: {page}</Typography>
           <Pagination
             count={Math.ceil(data.total / rowsPerPage)}
             page={page}
             onChange={handleChangePage}
           />
         </Stack>
-        {/* <TablePagination
-          component={"div"}
-          //  sx={{
-          //    width: "100%",
-          //    display: "flex",
-          //    justifyContent: "space-between",
-          //    background: "green",
-          //  }}
-          labelRowsPerPage={""}
-          rowsPerPageOptions={[5, 10, 25]}
-          count={data?.total ?? 0}
-          rowsPerPage={parseInt(rowsPerPage)}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          showFirstButton
-          showLastButton
-          labelDisplayedRows={({ from, to, count }) => {
-            return `${from}-${to} of ${
-              count !== -1 ? count : `more than ${to}`
-            }`;
-          }}
-        /> */}
       </Box>
     </>
   );
