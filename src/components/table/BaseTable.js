@@ -1,8 +1,6 @@
 import usePagination from "@/hooks/pagination/usePagination";
 import {
   Box,
-  FormControl,
-  InputLabel,
   MenuItem,
   Pagination,
   Paper,
@@ -13,13 +11,11 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TablePagination,
   TableRow,
   Typography,
 } from "@mui/material";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
-import React from "react";
 
 const DATA_HEAD = [{ label: "data" }];
 
