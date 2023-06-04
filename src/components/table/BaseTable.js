@@ -27,18 +27,6 @@ const BaseTable = ({ children, tableHead, data, noWrap }) => {
   const router = useRouter();
   const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } =
     usePagination();
-
-  // const handleChange = (e) => {
-  //   setRow(e.target.value);
-  //   router.replace({
-  //     pathname: router.pathname,
-  //     query: {
-  //       ...router.query,
-  //       page: 1,
-  //       per_page: row,
-  //     },
-  //   });
-  // };
   return (
     <>
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
