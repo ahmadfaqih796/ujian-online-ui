@@ -72,7 +72,7 @@ const Pelajaran = ({ lesson }) => {
             variant="contained"
             onClick={() => handleOpenModal("add")}
           >
-            Tambahkanaaa
+            Tambahkan
           </Button>
         </Box>
         <BaseTable tableHead={LESSON_CELLS} data={lesson}>
