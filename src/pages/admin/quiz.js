@@ -27,7 +27,6 @@ export const getServerSideProps = WithAuth(async ({ query, req, params }) => {
 const Quiz = ({ question }) => {
   const [selectedOptions, setSelectedOptions] = React.useState({});
   const [score, setScore] = React.useState(0);
-  console.log(score);
 
   const handleSelectOption = (questionId, optionValue) => {
     setSelectedOptions((prevSelectedOptions) => ({
