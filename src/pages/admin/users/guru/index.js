@@ -167,37 +167,38 @@ const Guru = ({ users, token }) => {
                   </Box>
                   <Typography>{data.user_guru?.nama_guru ?? "-"}</Typography>
                   <Typography>{data.email}</Typography>
-                  <Box
-                    display={"flex"}
-                    flexWrap={"wrap"}
-                    justifyContent={"space-around"}
-                    mt={2}
-                    mb={1}
-                  >
-                    <CustomButtonBlue
-                      className="button-detail"
-                      onClick={() => {
-                        setUserData(data);
-                        handleOpenModal("detail");
-                      }}
-                    >
-                      <FeatherIcon icon="database" /> Detail
-                    </CustomButtonBlue>
-                    <CustomButtonYellow sx={{ width: "80px" }}>
-                      <FeatherIcon icon="edit-3" />
-                      Ubah
-                    </CustomButtonYellow>
-                    <CustomButtonRed
-                      sx={{ width: "100px" }}
-                      onClick={() => {
-                        setUserData(data);
-                        handleOpenModal("delete");
-                      }}
-                    >
-                      <FeatherIcon icon="trash-2" />
-                      Hapus
-                    </CustomButtonRed>
-                  </Box>
+                  <Grid container spacing={2}>
+                    <Grid item lg={4} md={6} sm={4} xs={6}>
+                      <CustomButtonBlue
+                        className="button-detail"
+                        fullWidth
+                        onClick={() => {
+                          setUserData(data);
+                          handleOpenModal("detail");
+                        }}
+                      >
+                        <FeatherIcon icon="database" /> Detail
+                      </CustomButtonBlue>
+                    </Grid>
+                    <Grid item lg={4} md={6} sm={4} xs={6}>
+                      <CustomButtonYellow fullWidth>
+                        <FeatherIcon icon="edit-3" />
+                        Ubah
+                      </CustomButtonYellow>
+                    </Grid>
+                    <Grid item lg={4} md={12} sm={4} xs={12}>
+                      <CustomButtonRed
+                        fullWidth
+                        onClick={() => {
+                          setUserData(data);
+                          handleOpenModal("delete");
+                        }}
+                      >
+                        <FeatherIcon icon="trash-2" />
+                        Hapus
+                      </CustomButtonRed>
+                    </Grid>
+                  </Grid>
                 </Box>
               </Grid>
             ))}
