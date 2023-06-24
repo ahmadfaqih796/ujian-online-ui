@@ -4,27 +4,26 @@ import {
   CustomButtonYellow,
 } from "@/components/custom/customButton";
 import DeleteModal from "@/components/modal/DeleteModal";
+import ExportExcelModal from "@/components/modal/ExportExcelModal";
 import AddUserModal from "@/components/modal/user/AddUserModal";
 import DetailUserModal from "@/components/modal/user/DetailUserModal";
+import SearchUser from "@/components/search/SearchUser";
+import usePaginationUser from "@/hooks/pagination/usePaginationUser";
 import useHandleModal from "@/hooks/useHandleModal";
-import usePagination from "@/hooks/pagination/usePagination";
 import { stringAvatar } from "@/layouts/header/stringAvatar";
+import paginationUser from "@/lib/services/pagination/paginationUser";
 import WithAuth from "@/lib/sessions/withAuth";
 import {
   Avatar,
   Button,
-  Card,
   Grid,
   TablePagination,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import FeatherIcon from "feather-icons-react";
-import React from "react";
-import ExportExcelModal from "@/components/modal/ExportExcelModal";
-import SearchUser from "@/components/search/SearchUser";
-import paginationUser from "@/lib/services/pagination/paginationUser";
 import Image from "next/image";
+import React from "react";
 import noDataImg from "../../../../assets/images/no-data.jpg";
 
 export const getServerSideProps = WithAuth(async ({ query, req }) => {
@@ -54,7 +53,8 @@ const Guru = ({ users, token }) => {
   const [userData, setUserData] = React.useState({});
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
     useHandleModal(false);
-  const { page, handleChangePage, handleChangeRowsPerPage } = usePagination();
+  const { page, handleChangePage, handleChangeRowsPerPage } =
+    usePaginationUser();
   return (
     <>
       <ExportExcelModal
@@ -90,9 +90,6 @@ const Guru = ({ users, token }) => {
         mb={2}
         justifyContent={"space-around"}
       >
-        {/* <Typography className="title-mobile" fontSize={24} fontWeight={700}>
-          Guru Management
-        </Typography> */}
         <Box component={"div"} className="button-group">
           <Button
             sx={{ zIndex: "1" }}
@@ -114,9 +111,6 @@ const Guru = ({ users, token }) => {
         </Box>
         <Box flexGrow={1} />
         <SearchUser />
-        {/* <Box component={"div"} className="search-user">
-          <SearchUser />
-        </Box> */}
       </Box>
 
       {users && users.data.length === 0 ? (
@@ -133,7 +127,7 @@ const Guru = ({ users, token }) => {
             sm: "unset",
           }}
         >
-          <Grid container spacing={4}>
+          <Grid container spacing={4} sx={{ minHeight: "calc(100vh - 165px)" }}>
             {users.data.map((data) => (
               <Grid item key={data.id} lg={4} md={6} xs={12}>
                 <Box
@@ -150,11 +144,6 @@ const Guru = ({ users, token }) => {
                     sx={{ justifyContent: "center", display: "flex" }}
                   >
                     {data.user_guru?.photo ? (
-                      // <Avatar
-                      //   src={`http://localhost:3030/uploads/${data.user_guru?.photo}`}
-                      //   alt={`http://localhost:3030/uploads/${data.user_guru?.photo}`}
-                      //   sizes="80"
-                      // />
                       <Image
                         alt={data.user_guru?.nama_guru ?? "no_image"}
                         src={`http://localhost:3030/uploads/${data.user_guru?.photo}`}
@@ -178,7 +167,6 @@ const Guru = ({ users, token }) => {
                   </Box>
                   <Typography>{data.user_guru?.nama_guru ?? "-"}</Typography>
                   <Typography>{data.email}</Typography>
-                  {/* <Typography>{data.role ?? "-"}</Typography> */}
                   <Box
                     display={"flex"}
                     flexWrap={"wrap"}
@@ -228,8 +216,8 @@ const Guru = ({ users, token }) => {
                 count != -1 ? count : `more than ${to}`
               } data`;
             }}
-            // showFirstButton
-            // showLastButton
+            showFirstButton
+            showLastButton
           />
         </Box>
       )}
