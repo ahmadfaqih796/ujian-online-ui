@@ -29,13 +29,13 @@ import noDataImg from "../../../../../assets/images/no-data.jpg";
 export const getServerSideProps = WithAuth(async ({ query, req }) => {
   const token = req.session.user.token;
   const users = await paginationUser(
-    "/users",
+    "/guru",
     {
       ...query,
       "$sort[createdAt]": -1,
-      role: {
-        $in: ["guru"],
-      },
+      // role: {
+      //   $in: ["guru"],
+      // },
     },
     {
       Authorization: token,
@@ -110,7 +110,7 @@ const Guru = ({ users, token }) => {
           </Button>
         </Box>
         <Box flexGrow={1} />
-        <SearchUser />
+        <SearchUser name="guru" />
       </Box>
 
       {users && users.data.length === 0 ? (
@@ -145,7 +145,7 @@ const Guru = ({ users, token }) => {
                   >
                     {data.user_guru?.photo ? (
                       <Image
-                        alt={data.user_guru?.nama_guru ?? "no_image"}
+                        alt={data.nama_guru ?? "no_image"}
                         src={`http://localhost:3030/uploads/${data.user_guru?.photo}`}
                         width="80"
                         height="80"
@@ -158,15 +158,12 @@ const Guru = ({ users, token }) => {
                       />
                     ) : (
                       <Avatar
-                        {...stringAvatar(
-                          data.user_guru?.nama_guru ?? "Faqih",
-                          80
-                        )}
+                        {...stringAvatar(data.nama_guru ?? "Faqih", 80)}
                       />
                     )}
                   </Box>
-                  <Typography>{data.user_guru?.nama_guru ?? "-"}</Typography>
-                  <Typography>{data.email}</Typography>
+                  <Typography>{data.nama_guru ?? "-"}</Typography>
+                  <Typography>{data.user_data?.email ?? "-"}</Typography>
                   <Grid container spacing={2}>
                     <Grid item lg={4} md={6} sm={4} xs={6}>
                       <CustomButtonBlue

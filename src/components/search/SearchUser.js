@@ -3,7 +3,7 @@ import FeatherIcon from "feather-icons-react";
 import { useRouter } from "next/router";
 import React from "react";
 
-const SearchUser = ({ path, placeholder }) => {
+const SearchUser = ({ name, path, placeholder }) => {
   const router = useRouter();
   const [icon, setIcon] = React.useState("");
 
@@ -14,7 +14,9 @@ const SearchUser = ({ path, placeholder }) => {
           pathname: "/admin/users/guru",
           query: {
             ...router.query,
-            "name[$like]": `%${e.target.value}%`,
+            ...(name === "guru" && {
+              "nama_guru[$like]": `%${e.target.value}%`,
+            }),
           },
         });
         return searchName;
