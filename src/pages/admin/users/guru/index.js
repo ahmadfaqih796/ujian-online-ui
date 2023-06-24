@@ -202,7 +202,6 @@ const Guru = ({ users, token }) => {
               </Grid>
             ))}
           </Grid>
-
           <TablePagination
             rowsPerPageOptions={[]}
             component="div"
