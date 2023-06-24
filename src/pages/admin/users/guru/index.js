@@ -24,7 +24,7 @@ import { Box } from "@mui/system";
 import FeatherIcon from "feather-icons-react";
 import Image from "next/image";
 import React from "react";
-import noDataImg from "../../../../assets/images/no-data.jpg";
+import noDataImg from "../../../../../assets/images/no-data.jpg";
 
 export const getServerSideProps = WithAuth(async ({ query, req }) => {
   const token = req.session.user.token;
