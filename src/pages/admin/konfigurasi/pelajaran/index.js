@@ -88,7 +88,6 @@ const Pelajaran = ({ lesson }) => {
         closeModalHandler={handleCloseModal}
       />
       <Card
-        // className="card-list"
         sx={{
           padding: "20px 0 0",
           overflow: "visible",
