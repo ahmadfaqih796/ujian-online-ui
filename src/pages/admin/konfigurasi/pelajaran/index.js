@@ -1,3 +1,4 @@
+import ThreeDots from "@/components/menu-items/ThreeDots";
 import ThreeDotsMenu from "@/components/menu-items/ThreeDotsMenu";
 import DeleteModal from "@/components/modal/DeleteModal";
 import AddLessonModal from "@/components/modal/lesson/AddLessonModal";
@@ -12,6 +13,21 @@ import { Box } from "@mui/system";
 import moment from "moment";
 import { useRouter } from "next/router";
 import React from "react";
+
+const options = [
+  {
+    label: "Edit",
+    type: "edit",
+  },
+  {
+    label: "Lihat Soal",
+    type: "detail",
+  },
+  {
+    label: "Delete",
+    type: "delete",
+  },
+];
 
 export const getServerSideProps = WithAuth(async ({ query, req }) => {
   const lesson = await pagination(
@@ -36,6 +52,19 @@ const Pelajaran = ({ lesson }) => {
   const [userData, setUserData] = React.useState({});
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
     useHandleModal(false);
+
+  const handleClickDot = (userData, type, id) => {
+    if (userData && type === "edit") {
+      setUserData(userData);
+      handleOpenModal("edit");
+    } else if (userData && type === "delete") {
+      setUserData(userData);
+      handleOpenModal("delete");
+    } else if (userData && type === "detail") {
+      router.push(`/admin/konfigurasi/soal/${id}`);
+    }
+    return;
+  };
 
   return (
     <>
@@ -117,16 +146,12 @@ const Pelajaran = ({ lesson }) => {
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  <ThreeDotsMenu
-                    onClickDetail={() => {
-                      setUserData(data);
-                      handleOpenModal("detail");
-                    }}
-                    onClickEdit={() => console.log("aaaaaa")}
-                    onClickDelete={() => {
-                      setUserData(data);
-                      handleOpenModal("delete");
-                    }}
+                  <ThreeDots
+                    sx={{ textAlign: "right" }}
+                    options={options}
+                    onClick={(show) =>
+                      handleClickDot(data, show, data.id_pelajaran)
+                    }
                   />
                 </TableCell>
               </TableRow>
