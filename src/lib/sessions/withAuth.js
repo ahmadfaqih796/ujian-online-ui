@@ -15,7 +15,7 @@ const WithAuth = (gssp) =>
       return await gssp(context);
     } catch (error) {
       console.log(error);
-      if (error.response.data.code === 401) {
+      if (error?.response?.data?.code === 401) {
         return {
           redirect: {
             permanent: false,

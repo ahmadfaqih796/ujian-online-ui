@@ -1,5 +1,4 @@
 import ThreeDots from "@/components/menu-items/ThreeDots";
-import ThreeDotsMenu from "@/components/menu-items/ThreeDotsMenu";
 import DeleteModal from "@/components/modal/DeleteModal";
 import AddLessonModal from "@/components/modal/lesson/AddLessonModal";
 import DetailUserModal from "@/components/modal/user/DetailUserModal";
@@ -106,10 +105,10 @@ const Pelajaran = ({ lesson }) => {
         </Box>
         <BaseTable tableHead={LESSON_CELLS} data={lesson}>
           {lesson &&
-            lesson.data.map((data, index) => (
+            lesson.data.map((row, index) => (
               <TableRow key={index} hover role="checkbox" tabIndex={-1}>
                 <TableCell>
-                  <Typography fontWeight="600">
+                  <Typography fontWeight="600" variant="h6">
                     {page && per_page
                       ? index + 1 + (page - 1) * per_page
                       : index + 1}
@@ -117,21 +116,21 @@ const Pelajaran = ({ lesson }) => {
                 </TableCell>
                 <TableCell>
                   <Typography fontWeight="600">
-                    {data.nama_pelajaran}
+                    {row?.nama_pelajaran}
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  {data.createdAt ? (
+                  {row?.createdAt ? (
                     <>
                       <Typography variant="h6" fontWeight="600">
-                        {moment(data.createdAt).format("DD MMM YYYY") ?? "-"}
+                        {moment(row?.createdAt).format("DD MMM YYYY") ?? "-"}
                       </Typography>
                       <Typography
                         color="textSecondary"
                         variant="h6"
                         fontWeight="600"
                       >
-                        {moment(data.createdAt).format("HH:mm:ss") ?? "-"}
+                        {moment(row?.createdAt).format("HH:mm:ss") ?? "-"}
                       </Typography>
                     </>
                   ) : (
@@ -140,8 +139,8 @@ const Pelajaran = ({ lesson }) => {
                 </TableCell>
                 <TableCell>
                   <Typography fontWeight="600">
-                    {data.updatedAt
-                      ? moment(data.updatedAt).format("DD MMM YYYY, HH:mm:ss")
+                    {row?.updatedAt
+                      ? moment(row?.updatedAt).format("DD MMM YYYY, HH:mm:ss")
                       : "-"}
                   </Typography>
                 </TableCell>
@@ -150,7 +149,7 @@ const Pelajaran = ({ lesson }) => {
                     sx={{ textAlign: "right" }}
                     options={options}
                     onClick={(show) =>
-                      handleClickDot(data, show, data.id_pelajaran)
+                      handleClickDot(row, show, row?.id_pelajaran)
                     }
                   />
                 </TableCell>
