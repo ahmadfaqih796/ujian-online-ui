@@ -75,7 +75,7 @@ const BaseTable = ({ children, tableHead, data, noWrap }) => {
         </Select>
         <Stack spacing={2}>
           <Pagination
-            count={Math.ceil(data.total / rowsPerPage)}
+            count={Math.ceil(data?.total / rowsPerPage)}
             page={page}
             onChange={handleChangePage}
           />
