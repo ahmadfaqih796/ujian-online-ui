@@ -28,7 +28,7 @@ export const getServerSideProps = WithAuth(async ({ query, req, params }) => {
   const question = await pagination(
     "/soal",
     {
-      ...query,
+      kode_pelajaran: id,
     },
     {
       Authorization: token,
@@ -48,18 +48,6 @@ const Question = ({ question }) => {
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
     useHandleModal(false);
 
-  const handleClickDot = (userData, type, id) => {
-    if (userData && type === "edit") {
-      setLessonData(userData);
-      handleOpenModal("edit");
-    } else if (userData && type === "delete") {
-      setLessonData(userData);
-      handleOpenModal("delete");
-    } else if (userData && type === "detail") {
-      router.push(`/admin/konfigurasi/soal/${id}`);
-    }
-    return;
-  };
   return (
     <>
       <AddQuestionModal
@@ -95,18 +83,25 @@ const Question = ({ question }) => {
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography fontWeight="600">
-                    {row?.nama_pelajaran}
-                  </Typography>
+                  <Typography fontWeight="600">{row?.pertanyaan}</Typography>
                 </TableCell>
                 <TableCell>
-                  <ThreeDots
+                  <Typography fontWeight="600">{row?.pilihan_a}</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography fontWeight="600">{row?.pilihan_b}</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography fontWeight="600">{row?.kunci}</Typography>
+                </TableCell>
+                <TableCell>
+                  {/* <ThreeDots
                     sx={{ textAlign: "right" }}
                     options={options}
                     onClick={(show) =>
                       handleClickDot(row, show, row?.id_pelajaran)
                     }
-                  />
+                  /> */}
                 </TableCell>
               </TableRow>
             ))}
