@@ -63,6 +63,20 @@ const Quiz = ({ question }) => {
     setScore(currentScore);
   };
 
+  const shuffleQuestions = () => {
+    const shuffledQuestions = [...question?.data];
+    for (let i = shuffledQuestions.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledQuestions[i], shuffledQuestions[j]] = [
+        shuffledQuestions[j],
+        shuffledQuestions[i],
+      ];
+    }
+    return shuffledQuestions;
+  };
+
+  const shuffledQuestions = shuffleQuestions();
+
   React.useEffect(() => {
     const savedSelectedOptions = JSON.parse(
       localStorage.getItem("selectedOptions")
@@ -78,7 +92,7 @@ const Quiz = ({ question }) => {
 
   return (
     <div>
-      {question.data.map((question) => (
+      {shuffledQuestions.map((question) => (
         <MultipleChoiceQuestion
           key={question.id_soal}
           question={question}
