@@ -64,7 +64,23 @@ const Quiz = ({ question }) => {
   };
 
   const shuffleQuestions = () => {
-    const shuffledQuestions = [...question?.data];
+    const shuffledQuestions = [...question.data];
+    shuffledQuestions.forEach((question) => {
+      const options = [
+        "pilihan_a",
+        "pilihan_b",
+        "pilihan_c",
+        "pilihan_d",
+        "pilihan_e",
+      ];
+      for (let i = options.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [question[options[i]], question[options[j]]] = [
+          question[options[j]],
+          question[options[i]],
+        ];
+      }
+    });
     for (let i = shuffledQuestions.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffledQuestions[i], shuffledQuestions[j]] = [
@@ -101,6 +117,7 @@ const Quiz = ({ question }) => {
         />
       ))}
       <button onClick={handleSubmit}>Submit</button>
+      <Typography>Nilai anda : {score * 10}</Typography>
     </div>
   );
 };

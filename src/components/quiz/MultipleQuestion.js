@@ -31,7 +31,35 @@ const MultipleChoiceQuestion = ({
           {question.pilihan_b}
         </label>
         <br />
-        {/* Tambahkan opsi-opsi jawaban lainnya di sini */}
+        <label>
+          <input
+            type="radio"
+            value="pilihan_c"
+            checked={selectedOption === "pilihan_c"}
+            onChange={handleOptionChange}
+          />
+          {question.pilihan_c}
+        </label>
+        <br />
+        <label>
+          <input
+            type="radio"
+            value="pilihan_d"
+            checked={selectedOption === "pilihan_d"}
+            onChange={handleOptionChange}
+          />
+          {question.pilihan_d}
+        </label>
+        <br />
+        <label>
+          <input
+            type="radio"
+            value="pilihan_e"
+            checked={selectedOption === "pilihan_e"}
+            onChange={handleOptionChange}
+          />
+          {question.pilihan_e}
+        </label>
         <br />
       </form>
     </div>
