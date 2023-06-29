@@ -63,6 +63,19 @@ const Quiz = ({ question }) => {
     setScore(currentScore);
   };
 
+  React.useEffect(() => {
+    const savedSelectedOptions = JSON.parse(
+      localStorage.getItem("selectedOptions")
+    );
+    if (savedSelectedOptions) {
+      setSelectedOptions(savedSelectedOptions);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    localStorage.setItem("selectedOptions", JSON.stringify(selectedOptions));
+  }, [selectedOptions]);
+
   return (
     <div>
       {question.data.map((question) => (
@@ -77,5 +90,5 @@ const Quiz = ({ question }) => {
     </div>
   );
 };
-
+Quiz.layout = "Admin";
 export default Quiz;
