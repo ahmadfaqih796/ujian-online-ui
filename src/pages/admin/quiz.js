@@ -25,20 +25,6 @@ export const getServerSideProps = WithAuth(async ({ query, req, params }) => {
 });
 
 const Quiz = ({ question }) => {
-  const questions = [
-    {
-      id_soal: "279e0fbc-1670-11ee-99a1-ac50de69d382",
-      pertanyaan: "Siapa Presiden pertama di Indonesia?",
-      pilihan_a: "Bung Karno",
-      pilihan_b: "Bung Kirno",
-      pilihan_c: "Sutrison",
-      pilihan_d: "Mson",
-      pilihan_e: "Damni",
-      kunci: "pilihan_a",
-    },
-    // Soal lainnya
-  ];
-
   const [selectedOptions, setSelectedOptions] = React.useState({});
   const [score, setScore] = React.useState(0);
   console.log(score);
@@ -52,10 +38,10 @@ const Quiz = ({ question }) => {
 
   const handleSubmit = () => {
     let currentScore = 0;
+    console.log(shuffledQuestions);
 
     // Melakukan sesuatu dengan selectedOptions, seperti menghitung skor
-    question.data.forEach((question) => {
-      console.log("raaaaaa", selectedOptions[question.id_soal]);
+    shuffledQuestions.forEach((question) => {
       if (question.kunci === selectedOptions[question.id_soal]) {
         currentScore++;
       }
@@ -73,14 +59,11 @@ const Quiz = ({ question }) => {
         "pilihan_d",
         "pilihan_e",
       ];
-      for (let i = options.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [question[options[i]], question[options[j]]] = [
-          question[options[j]],
-          question[options[i]],
-        ];
-      }
+      const shuffledOptions = shuffleArray(options);
+      question = { ...question, ...shuffledOptions };
     });
+
+    // Mengacak posisi pertanyaan secara keseluruhan
     for (let i = shuffledQuestions.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffledQuestions[i], shuffledQuestions[j]] = [
@@ -88,10 +71,23 @@ const Quiz = ({ question }) => {
         shuffledQuestions[i],
       ];
     }
+
     return shuffledQuestions;
   };
 
-  const shuffledQuestions = shuffleQuestions();
+  const shuffleArray = (array) => {
+    const shuffledArray = [...array];
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledArray[i], shuffledArray[j]] = [
+        shuffledArray[j],
+        shuffledArray[i],
+      ];
+    }
+    return shuffledArray;
+  };
+
+  const shuffledQuestions = React.useMemo(() => shuffleQuestions(), []);
 
   React.useEffect(() => {
     const savedSelectedOptions = JSON.parse(
@@ -121,5 +117,6 @@ const Quiz = ({ question }) => {
     </div>
   );
 };
+
 Quiz.layout = "Admin";
 export default Quiz;
