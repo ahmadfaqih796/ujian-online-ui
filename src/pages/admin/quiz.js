@@ -40,7 +40,6 @@ const Quiz = ({ question }) => {
     const currentScore = 0;
     // Melakukan sesuatu dengan selectedOptions, seperti menghitung skor
     shuffledQuestions.forEach((question) => {
-      console.log("hello");
       if (question.kunci === selectedOptions[question.id_soal]) {
         currentScore++;
       }
