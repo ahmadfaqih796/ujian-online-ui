@@ -37,9 +37,7 @@ const Quiz = ({ question }) => {
   };
 
   const handleSubmit = () => {
-    let currentScore = 0;
-    console.log(shuffledQuestions);
-
+    const currentScore = 0;
     // Melakukan sesuatu dengan selectedOptions, seperti menghitung skor
     shuffledQuestions.forEach((question) => {
       console.log("hello");
