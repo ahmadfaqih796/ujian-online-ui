@@ -37,14 +37,7 @@ const BaseTable = ({ children, tableHead, data, noWrap }) => {
             <TableHead>
               <TableRow>
                 {(tableHead ?? DATA_HEAD).map((row, index) => (
-                  <TableCell
-                    key={index}
-                    align="left"
-                    sx={{
-                      backgroundColor: "#3D3D3D",
-                      color: "white",
-                    }}
-                  >
+                  <TableCell key={index} align="left">
                     <Typography variant="h5">{row.label}</Typography>
                   </TableCell>
                 ))}
@@ -59,7 +52,6 @@ const BaseTable = ({ children, tableHead, data, noWrap }) => {
           width: "100%",
           display: "flex",
           justifyContent: "space-between",
-          //  background: "#3D3D3D",
           borderRadius: "0 0 20px 20px",
         }}
       >

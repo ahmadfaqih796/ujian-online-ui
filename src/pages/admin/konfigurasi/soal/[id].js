@@ -6,6 +6,7 @@ import {
   Box,
   Button,
   Card,
+  CardContent,
   TableCell,
   TableRow,
   Typography,
@@ -44,7 +45,6 @@ export const getServerSideProps = WithAuth(async ({ query, req, params }) => {
 const Question = ({ question }) => {
   const router = useRouter();
   const { page, per_page } = router.query;
-  const [userData, setLessonData] = React.useState({});
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
     useHandleModal(false);
 
@@ -59,56 +59,59 @@ const Question = ({ question }) => {
         // className="card-list"
         sx={{
           padding: "20px 0 0",
-          overflow: "visible",
+          // overflow: "visible",
         }}
       >
-        <Box display="flex">
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={() => handleOpenModal("add")}
-          >
-            Tambahkan
-          </Button>
-        </Box>
-        <BaseTable tableHead={QUESTION_CELL} data={question}>
-          {question &&
-            question.data.map((row, index) => (
-              <TableRow key={index} hover role="checkbox" tabIndex={-1}>
-                <TableCell>
-                  <Typography fontWeight="600" variant="h6">
-                    {page && per_page
-                      ? index + 1 + (page - 1) * per_page
-                      : index + 1}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography fontWeight="600">{row?.pertanyaan}</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography fontWeight="600">{row?.pilihan_a}</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography fontWeight="600">{row?.pilihan_b}</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography fontWeight="600">{row?.kunci}</Typography>
-                </TableCell>
-                <TableCell>
-                  {/* <ThreeDots
+        <CardContent>
+          <Box display="flex">
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={() => handleOpenModal("add")}
+            >
+              Tambahkan
+            </Button>
+          </Box>
+          <BaseTable tableHead={QUESTION_CELL} data={question}>
+            {question &&
+              question.data.map((row, index) => (
+                <TableRow key={index} hover role="checkbox" tabIndex={-1}>
+                  <TableCell>
+                    <Typography fontWeight="600" variant="h6">
+                      {page && per_page
+                        ? index + 1 + (page - 1) * per_page
+                        : index + 1}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography fontWeight="600">{row?.pertanyaan}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography fontWeight="600">{row?.pilihan_a}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography fontWeight="600">{row?.pilihan_b}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography fontWeight="600">{row?.kunci}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    {/* <ThreeDots
                     sx={{ textAlign: "right" }}
                     options={options}
                     onClick={(show) =>
                       handleClickDot(row, show, row?.id_pelajaran)
                     }
                   /> */}
-                </TableCell>
-              </TableRow>
-            ))}
-        </BaseTable>
+                  </TableCell>
+                </TableRow>
+              ))}
+          </BaseTable>
+        </CardContent>
       </Card>
     </>
   );
 };
 
+Question.layout = "Admin";
 export default Question;
