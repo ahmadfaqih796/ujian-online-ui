@@ -1,8 +1,7 @@
+import { getComparator, stableSort } from "@/utils/sortingTable";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Paper from "@mui/material/Paper";
-import Switch from "@mui/material/Switch";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -39,34 +38,6 @@ const rows = [
   createData("Oreo", 437, 18.0, 63, 4.0),
 ];
 
-const descendingComparator = (a, b, orderBy) => {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-};
-
-const getComparator = (order, orderBy) => {
-  return order === "desc"
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-};
-
-const stableSort = (array, comparator) => {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) {
-      return order;
-    }
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
-};
-
 export default function EnhancedTable({ data }) {
   console.log("sssss", data);
   const [order, setOrder] = React.useState("asc");
@@ -92,6 +63,7 @@ export default function EnhancedTable({ data }) {
   };
 
   const handleClick = (event, name) => {
+    event.preventDefault();
     const selectedIndex = selected.indexOf(name);
     let newSelected = [];
 

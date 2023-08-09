@@ -40,7 +40,7 @@ export const getServerSideProps = WithAuth(async ({ query, req, params }) => {
 
   const soal = await getSoal(token, {
     $limit: -1,
-    kode_pelajaran: id,
+    // kode_pelajaran: id,
   });
   console.log("xxxx", soal);
   return {
