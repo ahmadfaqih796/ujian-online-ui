@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import { alpha } from "@mui/material/styles";
 import PropTypes from "prop-types";
 
-const EnhancedTableToolbar = ({ numSelected, title }) => {
+const EnhancedTableToolbar = ({ numSelected, titleToolbar }) => {
   return (
     <Toolbar
       sx={{
@@ -38,7 +38,7 @@ const EnhancedTableToolbar = ({ numSelected, title }) => {
           id="tableTitle"
           component="div"
         >
-          {title || "Data Tabel"}
+          {titleToolbar || "Data Tabel"}
         </Typography>
       )}
 

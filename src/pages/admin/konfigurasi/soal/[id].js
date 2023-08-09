@@ -119,7 +119,7 @@ const Question = ({ question, soal }) => {
           </BaseTable>
         </CardContent>
       </Card>
-      <EnhancedTable data={soal} headCells={SOAL_CELL} />
+      <EnhancedTable titleToolbar="Soal" data={soal} headCells={SOAL_CELL} />
     </>
   );
 };

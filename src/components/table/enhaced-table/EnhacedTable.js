@@ -12,7 +12,7 @@ import * as React from "react";
 import EnhancedTableHead from "./EnhacedTableHead";
 import EnhancedTableToolbar from "./EnhachedTableToolbar";
 
-export default function EnhancedTable({ data, headCells }) {
+export default function EnhancedTable({ titleToolbar, data, headCells }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
@@ -84,7 +84,10 @@ export default function EnhancedTable({ data, headCells }) {
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar
+          titleToolbar={titleToolbar}
+          numSelected={selected.length}
+        />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
