@@ -17,7 +17,8 @@ import { QUESTION_CELL } from "@/utils/headCells/configuration-cell";
 import useHandleModal from "@/hooks/useHandleModal";
 import BaseTable from "@/components/table/BaseTable";
 import ThreeDots from "@/components/menu-items/ThreeDots";
-import EnhancedTable from "@/components/table/EnhacedTable";
+import EnhancedTable from "@/components/table/enhaced-table/EnhacedTable";
+import { getSoal } from "@/lib/services/soal";
 
 export const getServerSideProps = WithAuth(async ({ query, req, params }) => {
   const { id } = params;
@@ -36,15 +37,21 @@ export const getServerSideProps = WithAuth(async ({ query, req, params }) => {
       Authorization: token,
     }
   );
-  console.log("xxxx", question);
+
+  const soal = await getSoal(token, {
+    $limit: -1,
+    kode_pelajaran: id,
+  });
+  console.log("xxxx", soal);
   return {
     props: {
       question,
+      soal,
     },
   };
 });
 
-const Question = ({ question }) => {
+const Question = ({ question, soal }) => {
   const router = useRouter();
   const { page, per_page } = router.query;
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
@@ -110,7 +117,7 @@ const Question = ({ question }) => {
               ))}
           </BaseTable>
         </CardContent>
-        <EnhancedTable data={question} />
+        <EnhancedTable data={soal} />
       </Card>
     </>
   );
