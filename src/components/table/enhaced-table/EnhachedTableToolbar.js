@@ -1,5 +1,6 @@
+import DeleteMultipleModal from "@/components/modal/DeleteMultipleModal";
+import useHandleModal from "@/hooks/useHandleModal";
 import DeleteIcon from "@mui/icons-material/Delete";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
@@ -8,6 +9,8 @@ import { alpha } from "@mui/material/styles";
 import PropTypes from "prop-types";
 
 const EnhancedTableToolbar = ({ numSelected, titleToolbar }) => {
+  const { openModal, modalType, handleCloseModal, handleOpenModal } =
+    useHandleModal(false);
   return (
     <Toolbar
       sx={{
@@ -22,6 +25,14 @@ const EnhancedTableToolbar = ({ numSelected, titleToolbar }) => {
         }),
       }}
     >
+      <DeleteMultipleModal
+        open={openModal}
+        type={modalType}
+        data={userData}
+        title={"Pelajaran"}
+        url={`/api/soal`}
+        closeModalHandler={handleCloseModal}
+      />
       {numSelected > 0 ? (
         <Typography
           sx={{ flex: "1 1 100%" }}
@@ -42,16 +53,10 @@ const EnhancedTableToolbar = ({ numSelected, titleToolbar }) => {
         </Typography>
       )}
 
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
+      {numSelected > 0 && (
+        <Tooltip title="Hapus">
           <IconButton>
             <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
           </IconButton>
         </Tooltip>
       )}
