@@ -17,10 +17,10 @@ import { QUESTION_CELL } from "@/utils/headCells/configuration-cell";
 import useHandleModal from "@/hooks/useHandleModal";
 import BaseTable from "@/components/table/BaseTable";
 import ThreeDots from "@/components/menu-items/ThreeDots";
+import EnhancedTable from "@/components/table/EnhacedTable";
 
 export const getServerSideProps = WithAuth(async ({ query, req, params }) => {
   const { id } = params;
-  console.log("sssssss", id);
   const { token, client_id, role } = req.session.user;
   const session = {
     client_id,
@@ -29,12 +29,14 @@ export const getServerSideProps = WithAuth(async ({ query, req, params }) => {
   const question = await pagination(
     "/soal",
     {
+      $limit: -1,
       kode_pelajaran: id,
     },
     {
       Authorization: token,
     }
   );
+  console.log("xxxx", question);
   return {
     props: {
       question,
@@ -108,6 +110,7 @@ const Question = ({ question }) => {
               ))}
           </BaseTable>
         </CardContent>
+        <EnhancedTable data={question} />
       </Card>
     </>
   );
