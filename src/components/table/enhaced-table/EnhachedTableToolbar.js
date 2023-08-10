@@ -8,7 +8,12 @@ import Typography from "@mui/material/Typography";
 import { alpha } from "@mui/material/styles";
 import PropTypes from "prop-types";
 
-const EnhancedTableToolbar = ({ numSelected, titleToolbar, data }) => {
+const EnhancedTableToolbar = ({
+  numSelected,
+  titleToolbar,
+  data,
+  setSelected,
+}) => {
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
     useHandleModal(false);
   return (
@@ -32,6 +37,7 @@ const EnhancedTableToolbar = ({ numSelected, titleToolbar, data }) => {
         url={`/api/soal`}
         data={data}
         numSelected={numSelected}
+        setSelected={setSelected}
         closeModalHandler={handleCloseModal}
       />
       {numSelected > 0 ? (

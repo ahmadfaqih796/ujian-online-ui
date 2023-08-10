@@ -91,6 +91,7 @@ export default function EnhancedTable({ titleToolbar, data, headCells }) {
           titleToolbar={titleToolbar}
           numSelected={selected.length}
           data={selected}
+          setSelected={(field) => setSelected(field)}
         />
         <TableContainer>
           <Table
@@ -144,6 +145,7 @@ export default function EnhancedTable({ titleToolbar, data, headCells }) {
                     <TableCell align="right">{row.pilihan_b}</TableCell>
                     <TableCell align="right">{row.pilihan_c}</TableCell>
                     <TableCell align="right">{row.pilihan_d}</TableCell>
+                    <TableCell align="right">{row.pilihan_e}</TableCell>
                   </TableRow>
                 );
               })}

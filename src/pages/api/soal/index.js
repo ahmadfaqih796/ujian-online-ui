@@ -12,8 +12,7 @@ async function handler(req, res) {
         userSession.token,
         concatString
       );
-      res.json(response);
-      return;
+      return res.json(response);
     } catch (error) {
       console.log(error);
       return res.status(500).json({ ok: false, message: error });

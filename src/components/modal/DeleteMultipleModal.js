@@ -26,6 +26,7 @@ const DeleteMultipleModal = ({
   title,
   data,
   numSelected,
+  setSelected,
 }) => {
   const router = useRouter();
   const { isActive, message, openSnackBar, closeSnackBar } = useSnackbar();
@@ -54,6 +55,7 @@ const DeleteMultipleModal = ({
       setLoading(false);
       openSnackBar("Berhasil menghapus data");
       closeModalHandler();
+      setSelected([]);
       router.replace({
         pathname: router.pathname,
         query: {
@@ -136,7 +138,10 @@ const DeleteMultipleModal = ({
             </Button>
             <Button
               sx={{ width: "100px" }}
-              onClick={() => closeModalHandler()}
+              onClick={() => {
+                closeModalHandler();
+                setSelected([]);
+              }}
               variant="contained"
               color="error"
             >

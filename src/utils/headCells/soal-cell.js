@@ -1,6 +1,6 @@
 export const SOAL_CELL = [
   {
-    id: "id_soal",
+    id: "pertanyaan",
     numeric: false,
     disablePadding: true,
     label: "Pertanyaan",
@@ -28,5 +28,11 @@ export const SOAL_CELL = [
     numeric: true,
     disablePadding: false,
     label: "Pilihan D",
+  },
+  {
+    id: "pilihan_e",
+    numeric: true,
+    disablePadding: false,
+    label: "Pilihan E",
   },
 ];

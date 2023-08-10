@@ -64,13 +64,7 @@ const Question = ({ question, soal }) => {
         type={modalType}
         closeModalHandler={handleCloseModal}
       />
-      <Card
-        // className="card-list"
-        sx={{
-          padding: "20px 0 0",
-          // overflow: "visible",
-        }}
-      >
+      <Card>
         <CardContent>
           <Box display="flex">
             <Button
@@ -81,41 +75,6 @@ const Question = ({ question, soal }) => {
               Tambahkan
             </Button>
           </Box>
-          <BaseTable tableHead={QUESTION_CELL} data={question}>
-            {question &&
-              question.data.map((row, index) => (
-                <TableRow key={index} hover role="checkbox" tabIndex={-1}>
-                  <TableCell>
-                    <Typography fontWeight="600" variant="h6">
-                      {page && per_page
-                        ? index + 1 + (page - 1) * per_page
-                        : index + 1}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography fontWeight="600">{row?.pertanyaan}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography fontWeight="600">{row?.pilihan_a}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography fontWeight="600">{row?.pilihan_b}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography fontWeight="600">{row?.kunci}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    {/* <ThreeDots
-                    sx={{ textAlign: "right" }}
-                    options={options}
-                    onClick={(show) =>
-                      handleClickDot(row, show, row?.id_pelajaran)
-                    }
-                  /> */}
-                  </TableCell>
-                </TableRow>
-              ))}
-          </BaseTable>
         </CardContent>
       </Card>
       <EnhancedTable titleToolbar="Soal" data={soal} headCells={SOAL_CELL} />
