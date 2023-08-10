@@ -1,6 +1,6 @@
 import ServiceAdapter from ".";
 
-export async function getSoal(token, params = {}) {
+export const getSoal = async (token, params = {}) => {
   const { data } = await ServiceAdapter().get(`/soal`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -9,4 +9,14 @@ export async function getSoal(token, params = {}) {
   });
 
   return data;
-}
+};
+
+export const deleteMultipleSoal = async (token, params = {}) => {
+  const { data: response } = await ServiceAdapter().delete(`/soal`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    params: params,
+  });
+  return response;
+};

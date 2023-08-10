@@ -28,8 +28,7 @@ const EnhancedTableToolbar = ({ numSelected, titleToolbar }) => {
       <DeleteMultipleModal
         open={openModal}
         type={modalType}
-        data={userData}
-        title={"Pelajaran"}
+        title={"Soal"}
         url={`/api/soal`}
         closeModalHandler={handleCloseModal}
       />
