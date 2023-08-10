@@ -43,7 +43,6 @@ export const getServerSideProps = WithAuth(async ({ query, req, params }) => {
     $limit: -1,
     // kode_pelajaran: id,
   });
-  console.log("xxxx", soal);
   return {
     props: {
       question,
