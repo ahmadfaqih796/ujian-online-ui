@@ -6,14 +6,17 @@ async function handler(req, res) {
 
   if (req.method === "DELETE") {
     try {
-      const { params } = req;
-      // const response = await deleteMultipleSoal(userSession.token, body);
-      // res.json(response);
-      console.log("ssssssss", params);
+      const { query } = req;
+      const concatString = Object.values(query).join(",");
+      const response = await deleteMultipleSoal(
+        userSession.token,
+        concatString
+      );
+      res.json(response);
       return;
     } catch (error) {
       console.log(error);
-      return res.status(500).json({ ok: false });
+      return res.status(500).json({ ok: false, message: error });
     }
   }
 }

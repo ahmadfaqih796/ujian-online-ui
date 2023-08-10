@@ -11,12 +11,14 @@ export const getSoal = async (token, params = {}) => {
   return data;
 };
 
-export const deleteMultipleSoal = async (token, params = {}) => {
+export const deleteMultipleSoal = async (token, id) => {
   const { data: response } = await ServiceAdapter().delete(`/soal`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    params: params,
+    params: {
+      id_soal: id,
+    },
   });
   return response;
 };

@@ -25,6 +25,7 @@ const DeleteMultipleModal = ({
   name,
   title,
   data,
+  numSelected,
 }) => {
   const router = useRouter();
   const { isActive, message, openSnackBar, closeSnackBar } = useSnackbar();
@@ -48,7 +49,7 @@ const DeleteMultipleModal = ({
     event.preventDefault();
     try {
       await axios.delete(url, {
-        data: data,
+        params: data,
       });
       setLoading(false);
       openSnackBar("Berhasil menghapus data");
@@ -97,7 +98,7 @@ const DeleteMultipleModal = ({
                 `${theme.palette.primary.main}!important`,
             }}
           >
-            Hapus {title ?? "Data"}
+            Hapus {title || "Data"}
           </DialogTitle>
           <DialogContent>
             <DialogContentText
@@ -105,15 +106,16 @@ const DeleteMultipleModal = ({
               component="div"
             >
               <Typography variant="body1">
-                Apakah anda ingin menghapus {title}
+                Apakah anda ingin menghapus
                 <span
                   style={{
                     marginLeft: "5px",
                     fontWeight: 700,
                   }}
                 >
-                  {name}
-                </span>
+                  {`${numSelected} ${title}`}
+                </span>{" "}
+                ?
               </Typography>
             </DialogContentText>
           </DialogContent>

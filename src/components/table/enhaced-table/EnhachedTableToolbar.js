@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import { alpha } from "@mui/material/styles";
 import PropTypes from "prop-types";
 
-const EnhancedTableToolbar = ({ numSelected, titleToolbar }) => {
+const EnhancedTableToolbar = ({ numSelected, titleToolbar, data }) => {
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
     useHandleModal(false);
   return (
@@ -30,6 +30,8 @@ const EnhancedTableToolbar = ({ numSelected, titleToolbar }) => {
         type={modalType}
         title={"Soal"}
         url={`/api/soal`}
+        data={data}
+        numSelected={numSelected}
         closeModalHandler={handleCloseModal}
       />
       {numSelected > 0 ? (
@@ -54,7 +56,7 @@ const EnhancedTableToolbar = ({ numSelected, titleToolbar }) => {
 
       {numSelected > 0 && (
         <Tooltip title="Hapus">
-          <IconButton>
+          <IconButton onClick={() => handleOpenModal("delete")}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>

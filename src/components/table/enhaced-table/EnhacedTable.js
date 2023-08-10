@@ -87,6 +87,7 @@ export default function EnhancedTable({ titleToolbar, data, headCells }) {
         <EnhancedTableToolbar
           titleToolbar={titleToolbar}
           numSelected={selected.length}
+          data={selected}
         />
         <TableContainer>
           <Table
