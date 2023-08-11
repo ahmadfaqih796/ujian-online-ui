@@ -17,9 +17,10 @@ import { QUESTION_CELL } from "@/utils/headCells/configuration-cell";
 import useHandleModal from "@/hooks/useHandleModal";
 import BaseTable from "@/components/table/BaseTable";
 import ThreeDots from "@/components/menu-items/ThreeDots";
-import EnhancedTable from "@/components/table/enhaced-table/EnhacedTable";
+import EnhancedTable from "@/components/table/enhaced-table/list-table/EnhacedSoalTable";
 import { getSoal } from "@/lib/services/soal";
 import { SOAL_CELL } from "@/utils/headCells/soal-cell";
+import SoalList from "@/components/lists/SoalList";
 
 export const getServerSideProps = WithAuth(async ({ query, req, params }) => {
   const { id } = params;
@@ -77,7 +78,7 @@ const Question = ({ question, soal }) => {
           </Box>
         </CardContent>
       </Card>
-      <EnhancedTable titleToolbar="Soal" data={soal} headCells={SOAL_CELL} />
+      <SoalList data={soal} />
     </>
   );
 };

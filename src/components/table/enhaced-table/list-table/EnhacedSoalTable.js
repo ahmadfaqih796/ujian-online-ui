@@ -1,3 +1,4 @@
+import usePaginationEnhaced from "@/hooks/pagination/usePaginationEnhaced";
 import { getComparator, stableSort } from "@/utils/sortingTable";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
@@ -9,18 +10,19 @@ import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import * as React from "react";
-import EnhancedTableHead from "./EnhacedTableHead";
-import EnhancedTableToolbar from "./EnhachedTableToolbar";
+import EnhancedTableHead from "../EnhacedTableHead";
+import EnhancedTableToolbar from "../EnhachedTableToolbar";
 
-export default function EnhancedTable({ titleToolbar, data, headCells }) {
+const EnhancedSoalTable = ({ titleToolbar, data, headCells }) => {
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("calories");
+  const [orderBy, setOrderBy] = React.useState("pertanyaan");
   const [selected, setSelected] = React.useState([]);
-  const [page, setPage] = React.useState(0);
 
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } =
+    usePaginationEnhaced();
 
   const handleRequestSort = (event, property) => {
+    event.preventDefault();
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
@@ -35,7 +37,7 @@ export default function EnhancedTable({ titleToolbar, data, headCells }) {
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
+  const handleSelectClick = (event, name) => {
     event.preventDefault();
     const selectedIndex = selected.indexOf(name);
     let newSelected = [];
@@ -56,29 +58,12 @@ export default function EnhancedTable({ titleToolbar, data, headCells }) {
     setSelected(newSelected);
   };
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
   // Hindari lompatan tata letak saat mencapai halaman terakhir dengan data kosong.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
-  // const visibleRows = React.useMemo(
-  //   () =>
-  //     stableSort(data, getComparator(order, orderBy)).slice(
-  //       page * rowsPerPage,
-  //       page * rowsPerPage + rowsPerPage
-  //     ),
-  //   [order, orderBy, page, rowsPerPage]
-  // );
   const visibleRows = stableSort(data, getComparator(order, orderBy)).slice(
     page * rowsPerPage,
     page * rowsPerPage + rowsPerPage
@@ -116,7 +101,7 @@ export default function EnhancedTable({ titleToolbar, data, headCells }) {
                 return (
                   <TableRow
                     hover
-                    onClick={(event) => handleClick(event, row.id_soal)}
+                    onClick={(event) => handleSelectClick(event, row.id_soal)}
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
@@ -155,7 +140,7 @@ export default function EnhancedTable({ titleToolbar, data, headCells }) {
                     height: 53 * emptyRows,
                   }}
                 >
-                  <TableCell colSpan={6} />
+                  <TableCell colSpan={99} />
                 </TableRow>
               )}
             </TableBody>
@@ -173,4 +158,6 @@ export default function EnhancedTable({ titleToolbar, data, headCells }) {
       </Paper>
     </Box>
   );
-}
+};
+
+export default EnhancedSoalTable;
