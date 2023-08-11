@@ -1,4 +1,4 @@
-import { deleteMultipleSoal } from "@/lib/services/soal";
+import { addSoal, deleteMultipleSoal } from "@/lib/services/soal";
 import { withSessionRoute } from "@/lib/sessions/withSession";
 
 async function handler(req, res) {
@@ -7,7 +7,7 @@ async function handler(req, res) {
   if (req.method === "POST") {
     try {
       const { body } = req;
-      const response = await addLesson(body, userSession.token);
+      const response = await addSoal(body, userSession.token);
       return res.json({
         message: "berhasil menambahkan soal",
         response,
