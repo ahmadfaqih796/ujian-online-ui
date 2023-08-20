@@ -341,9 +341,7 @@ const ChatMessage = ({ data, session, setFile }) => {
                               : null;
                           }}
                         >
-                          {row.is_deleted
-                            ? "Pesan ini sudah dihapus"
-                            : row.text}
+                          {row.is_deleted ? "Pesan ini sudah dihapu" : row.text}
                         </Box>
                         <Box
                           sx={{
