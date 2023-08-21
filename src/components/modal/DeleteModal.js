@@ -49,10 +49,9 @@ const DeleteModal = ({
     event.preventDefault();
 
     try {
-      // await deleteUser(data.id, token);
       await axios.delete(url);
       setLoading(false);
-      openSnackBar("Berhasil menghapus user");
+      openSnackBar(`Berhasil menghapus ${title || "data"}`);
       closeModalHandler();
       router.replace({
         pathname: router.pathname,
@@ -64,7 +63,7 @@ const DeleteModal = ({
     } catch (error) {
       console.log(error);
       setLoading(false);
-      openSnackBar(`Gagal menghapus user`);
+      openSnackBar(`Gagal menghapus ${title || "data"}`);
       return;
     }
   };
@@ -98,7 +97,7 @@ const DeleteModal = ({
                 `${theme.palette.primary.main}!important`,
             }}
           >
-            Hapus {title ?? "Data"}
+            Hapus {title ?? "data"}
           </DialogTitle>
           <DialogContent>
             <DialogContentText
@@ -114,7 +113,8 @@ const DeleteModal = ({
                   }}
                 >
                   {name}
-                </span>
+                </span>{" "}
+                ?
               </Typography>
             </DialogContentText>
           </DialogContent>

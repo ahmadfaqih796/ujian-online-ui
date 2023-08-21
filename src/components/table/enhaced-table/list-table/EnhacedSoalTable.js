@@ -44,10 +44,8 @@ const EnhancedSoalTable = ({
       setField(item);
       handleOpenModal("edit");
     } else if (item && type === "delete") {
-      // setUserData(item);
+      setField(item);
       handleOpenModal("delete");
-    } else if (item && type === "detail") {
-      router.push(`/admin/konfigurasi/soal/${id}`);
     }
     return;
   };
