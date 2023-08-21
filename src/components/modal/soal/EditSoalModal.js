@@ -60,7 +60,7 @@ const EditSoalModal = ({ open = false, closeModalHandler, type, data }) => {
       kunci: "pilihan_b",
     };
     try {
-      const res = await axios.post("/api/soal", payload);
+      await axios.patch(`/api/soal/${data?.id_soal}`, payload);
       openSnackBar("Berhasil memperbarui soal");
       setLoading(false);
       closeModalHandler();
