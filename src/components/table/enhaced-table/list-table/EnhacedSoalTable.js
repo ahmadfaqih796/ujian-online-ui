@@ -12,14 +12,45 @@ import TableRow from "@mui/material/TableRow";
 import * as React from "react";
 import EnhancedTableHead from "../EnhacedTableHead";
 import EnhancedTableToolbar from "../EnhachedTableToolbar";
+import ThreeDots from "@/components/menu-items/ThreeDots";
 
-const EnhancedSoalTable = ({ titleToolbar, data, headCells }) => {
+const options = [
+  {
+    label: "Edit",
+    type: "edit",
+  },
+  {
+    label: "Delete",
+    type: "delete",
+  },
+];
+
+const EnhancedSoalTable = ({
+  titleToolbar,
+  data,
+  setField,
+  headCells,
+  handleOpenModal,
+}) => {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("pertanyaan");
   const [selected, setSelected] = React.useState([]);
 
   const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } =
     usePaginationEnhaced();
+
+  const handleClickDot = (item, type, id) => {
+    if (item && type === "edit") {
+      setField(item);
+      handleOpenModal("edit");
+    } else if (item && type === "delete") {
+      // setUserData(item);
+      handleOpenModal("delete");
+    } else if (item && type === "detail") {
+      router.push(`/admin/konfigurasi/soal/${id}`);
+    }
+    return;
+  };
 
   const handleRequestSort = (event, property) => {
     event.preventDefault();
@@ -131,6 +162,15 @@ const EnhancedSoalTable = ({ titleToolbar, data, headCells }) => {
                     <TableCell align="right">{row.pilihan_c}</TableCell>
                     <TableCell align="right">{row.pilihan_d}</TableCell>
                     <TableCell align="right">{row.pilihan_e}</TableCell>
+                    <TableCell>
+                      <ThreeDots
+                        sx={{ textAlign: "right" }}
+                        options={options}
+                        onClick={(show) =>
+                          handleClickDot(row, show, row?.id_soal)
+                        }
+                      />
+                    </TableCell>
                   </TableRow>
                 );
               })}

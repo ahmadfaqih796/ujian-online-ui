@@ -4,13 +4,21 @@ import { SOAL_CELL } from "@/utils/headCells/soal-cell";
 import useHandleModal from "@/hooks/useHandleModal";
 import AddSoalModal from "../modal/soal/AddSoalModal";
 import { Button } from "@mui/material";
+import EditSoalModal from "../modal/soal/EditSoalModal";
 
 const SoalList = ({ data }) => {
+  const [field, setField] = React.useState({});
+  console.log("bababng", field);
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
     useHandleModal(false);
   return (
     <>
       <AddSoalModal
+        open={openModal}
+        type={modalType}
+        closeModalHandler={handleCloseModal}
+      />
+      <EditSoalModal
         open={openModal}
         type={modalType}
         closeModalHandler={handleCloseModal}
@@ -25,7 +33,9 @@ const SoalList = ({ data }) => {
       <EnhancedSoalTable
         titleToolbar="Soal"
         data={data}
+        setField={(field) => setField(field)}
         headCells={SOAL_CELL}
+        handleOpenModal={(field) => handleOpenModal(field)}
       />
     </>
   );
