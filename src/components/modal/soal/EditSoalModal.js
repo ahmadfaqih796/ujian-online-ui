@@ -17,7 +17,7 @@ import React, { useState } from "react";
 import Transition from "../../transition";
 const upTransition = Transition("up");
 
-const AddSoalModal = ({ open = false, closeModalHandler, type }) => {
+const EditSoalModal = ({ open = false, closeModalHandler, type }) => {
   const router = useRouter();
   const { isActive, message, openSnackBar, closeSnackBar } = useSnackbar();
   const [loading, setLoading] = useState(false);
@@ -35,7 +35,7 @@ const AddSoalModal = ({ open = false, closeModalHandler, type }) => {
     </React.Fragment>
   );
 
-  const create = async (event) => {
+  const patch = async (event) => {
     setLoading(true);
     event.preventDefault();
     const { target } = event;
@@ -74,7 +74,7 @@ const AddSoalModal = ({ open = false, closeModalHandler, type }) => {
       closeModalHandler();
       openSnackBar(
         error?.response?.data?.message ||
-          "Gagal menambahkan, silahkan coba kembali nanti"
+          "Gagal memperbarui, silahkan coba kembali nanti"
       );
     }
   };
@@ -89,16 +89,16 @@ const AddSoalModal = ({ open = false, closeModalHandler, type }) => {
         autoHideDuration={5000}
       />
       <Dialog
-        open={open && type === "add"}
+        open={open && type === "edit"}
         TransitionComponent={upTransition}
         onClose={closeModalHandler}
         fullWidth
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
-        <form onSubmit={create}>
+        <form onSubmit={patch}>
           <DialogTitle id="alert-dialog-title" variant="h4">
-            Tambah Soal
+            Perbarui Soal
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-slide-description" component="div">
@@ -174,7 +174,7 @@ const AddSoalModal = ({ open = false, closeModalHandler, type }) => {
               type="submit"
               sx={{ marginRight: "16px", width: "100px" }}
             >
-              {loading ? "Submitting..." : "Tambah"}
+              {loading ? "Submitting..." : "Simpan"}
             </Button>
             <Button
               sx={{ width: "100px" }}
@@ -191,4 +191,4 @@ const AddSoalModal = ({ open = false, closeModalHandler, type }) => {
   );
 };
 
-export default AddSoalModal;
+export default EditSoalModal;
