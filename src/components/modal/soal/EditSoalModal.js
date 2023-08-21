@@ -17,7 +17,7 @@ import React, { useState } from "react";
 import Transition from "../../transition";
 const upTransition = Transition("up");
 
-const EditSoalModal = ({ open = false, closeModalHandler, type }) => {
+const EditSoalModal = ({ open = false, closeModalHandler, type, data }) => {
   const router = useRouter();
   const { isActive, message, openSnackBar, closeSnackBar } = useSnackbar();
   const [loading, setLoading] = useState(false);
@@ -61,7 +61,7 @@ const EditSoalModal = ({ open = false, closeModalHandler, type }) => {
     };
     try {
       const res = await axios.post("/api/soal", payload);
-      openSnackBar("Berhasil menambahkan soal");
+      openSnackBar("Berhasil memperbarui soal");
       setLoading(false);
       closeModalHandler();
       router.replace({
@@ -108,6 +108,7 @@ const EditSoalModal = ({ open = false, closeModalHandler, type }) => {
                 id="pertanyaan"
                 name="pertanyaan"
                 fullWidth
+                defaultValue={data?.pertanyaan}
                 margin="normal"
                 variant="outlined"
                 placeholder="Masukkan nama pertanyaan"
@@ -118,6 +119,7 @@ const EditSoalModal = ({ open = false, closeModalHandler, type }) => {
                 id="pilihan_a"
                 name="pilihan_a"
                 fullWidth
+                defaultValue={data?.pilihan_a}
                 margin="normal"
                 variant="outlined"
                 placeholder="Masukkan nama pilihan_a"
@@ -127,6 +129,7 @@ const EditSoalModal = ({ open = false, closeModalHandler, type }) => {
                 label="Pilihan B"
                 id="pilihan_b"
                 name="pilihan_b"
+                defaultValue={data?.pilihan_b}
                 fullWidth
                 margin="normal"
                 variant="outlined"
@@ -136,6 +139,7 @@ const EditSoalModal = ({ open = false, closeModalHandler, type }) => {
                 label="Pilihan C"
                 id="pilihan_c"
                 name="pilihan_c"
+                defaultValue={data?.pilihan_c}
                 fullWidth
                 margin="normal"
                 variant="outlined"
@@ -145,6 +149,7 @@ const EditSoalModal = ({ open = false, closeModalHandler, type }) => {
                 label="Pilihan D"
                 id="pilihan_d"
                 name="pilihan_d"
+                defaultValue={data?.pilihan_d}
                 fullWidth
                 margin="normal"
                 variant="outlined"
@@ -154,6 +159,7 @@ const EditSoalModal = ({ open = false, closeModalHandler, type }) => {
                 label="Pilihan E"
                 id="pilihan_e"
                 name="pilihan_e"
+                defaultValue={data?.pilihan_e}
                 fullWidth
                 margin="normal"
                 variant="outlined"

@@ -8,7 +8,6 @@ import EditSoalModal from "../modal/soal/EditSoalModal";
 
 const SoalList = ({ data }) => {
   const [field, setField] = React.useState({});
-  console.log("bababng", field);
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
     useHandleModal(false);
   return (
@@ -21,6 +20,7 @@ const SoalList = ({ data }) => {
       <EditSoalModal
         open={openModal}
         type={modalType}
+        data={field}
         closeModalHandler={handleCloseModal}
       />
       <Button

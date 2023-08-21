@@ -20,6 +20,24 @@ export const addSoal = async (data, token) => {
   return response;
 };
 
+export const updateSoal = async (id, data, token) => {
+  const { data: response } = await ServiceAdapter().patch(`/soal/${id}`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response;
+};
+
+export const deleteSoal = async (id, token) => {
+  const { data: response } = await ServiceAdapter().delete(`/soal/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response;
+};
+
 export const deleteMultipleSoal = async (token, id) => {
   const { data: response } = await ServiceAdapter().delete(`/soal`, {
     headers: {
