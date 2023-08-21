@@ -47,7 +47,7 @@ export default function SignIn() {
           <Collapse in={open}>
             <Alert
               variant="filled"
-              severity={color ?? "info"}
+              severity={color || "info"}
               action={
                 <IconButton
                   aria-label="close"

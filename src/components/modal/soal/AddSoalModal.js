@@ -19,6 +19,7 @@ const upTransition = Transition("up");
 
 const AddSoalModal = ({ open = false, closeModalHandler, type }) => {
   const router = useRouter();
+  console.log("sssss", `/admin/konfigurasi/soal/${router.query.id}`);
   const { isActive, message, openSnackBar, closeSnackBar } = useSnackbar();
   const [loading, setLoading] = useState(false);
 
@@ -39,25 +40,39 @@ const AddSoalModal = ({ open = false, closeModalHandler, type }) => {
     setLoading(true);
     event.preventDefault();
     const { target } = event;
-    const { pelajaran } = target;
+    const {
+      pertanyaan,
+      pilihan_a,
+      pilihan_b,
+      pilihan_c,
+      pilihan_d,
+      pilihan_e,
+    } = target;
     const payload = {
-      nama_pelajaran: pelajaran.value,
+      kode_pelajaran: router.query.id,
+      kode_kelas: "1",
+      semester: "2",
+      pertanyaan: pertanyaan.value,
+      pilihan_a: pilihan_a.value,
+      pilihan_b: pilihan_b.value,
+      pilihan_c: pilihan_c.value,
+      pilihan_d: pilihan_d.value,
+      pilihan_e: pilihan_e.value,
+      kunci: "pilihan_b",
     };
     try {
-      await axios.post("/api/soal", payload);
-      setLoading(false);
+      const res = await axios.post("/api/soal", payload);
       openSnackBar("Berhasil menambahkan soal");
-      closeModalHandler();
-      event.target.reset();
-      router.replace({
-        pathname: router.pathname,
-        query: {
-          ...router.query,
-        },
-      });
-    } catch (error) {
-      console.log(error.response);
       setLoading(false);
+      closeModalHandler();
+      router.replace({
+        pathname: `/admin/konfigurasi/soal/${router.query.id}`,
+      });
+      // router.reload();
+    } catch (error) {
+      console.log("error", error.response);
+      setLoading(false);
+      closeModalHandler();
       openSnackBar(
         error?.response?.data?.message ||
           "Gagal menambahkan, silahkan coba kembali nanti"
@@ -90,23 +105,60 @@ const AddSoalModal = ({ open = false, closeModalHandler, type }) => {
             <DialogContentText id="alert-slide-description" component="div">
               <TextField
                 required
-                label="Pelajaran"
-                id="pelajaran"
-                name="pelajaran"
+                label="Pertanyaan"
+                id="pertanyaan"
+                name="pertanyaan"
                 fullWidth
                 margin="normal"
                 variant="outlined"
-                placeholder="Masukkan nama pelajaran"
+                placeholder="Masukkan nama pertanyaan"
               />
               <TextField
                 required
-                label="Pelajaran"
-                id="pelajaran"
-                name="pelajaran"
+                label="Pilihan A"
+                id="pilihan_a"
+                name="pilihan_a"
                 fullWidth
                 margin="normal"
                 variant="outlined"
-                placeholder="Masukkan nama pelajaran"
+                placeholder="Masukkan nama pilihan_a"
+              />
+              <TextField
+                required
+                label="Pilihan B"
+                id="pilihan_b"
+                name="pilihan_b"
+                fullWidth
+                margin="normal"
+                variant="outlined"
+                placeholder="Masukkan nama pilihan_b"
+              />
+              <TextField
+                label="Pilihan C"
+                id="pilihan_c"
+                name="pilihan_c"
+                fullWidth
+                margin="normal"
+                variant="outlined"
+                placeholder="Masukkan nama pilihan_c"
+              />
+              <TextField
+                label="Pilihan D"
+                id="pilihan_d"
+                name="pilihan_d"
+                fullWidth
+                margin="normal"
+                variant="outlined"
+                placeholder="Masukkan nama pilihan_d"
+              />
+              <TextField
+                label="Pilihan E"
+                id="pilihan_e"
+                name="pilihan_e"
+                fullWidth
+                margin="normal"
+                variant="outlined"
+                placeholder="Masukkan nama pilihan_e"
               />
             </DialogContentText>
           </DialogContent>
