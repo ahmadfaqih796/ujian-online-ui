@@ -1,5 +1,6 @@
 import usePaginationEnhaced from "@/hooks/pagination/usePaginationEnhaced";
 import { getComparator, stableSort } from "@/utils/sortingTable";
+import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import Paper from "@mui/material/Paper";
@@ -9,10 +10,10 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import FeatherIcon from "feather-icons-react";
 import * as React from "react";
 import EnhancedTableHead from "../EnhacedTableHead";
 import EnhancedTableToolbar from "../EnhachedTableToolbar";
-import ThreeDots from "@/components/menu-items/ThreeDots";
 
 const options = [
   {
@@ -160,14 +161,23 @@ const EnhancedSoalTable = ({
                     <TableCell align="right">{row.pilihan_c}</TableCell>
                     <TableCell align="right">{row.pilihan_d}</TableCell>
                     <TableCell align="right">{row.pilihan_e}</TableCell>
+                    <TableCell align="right">{row.kunci}</TableCell>
                     <TableCell>
-                      <ThreeDots
+                      <Button
+                        onClick={() => {
+                          setField(row);
+                          handleOpenModal("edit");
+                        }}
+                      >
+                        <FeatherIcon icon="edit" />
+                      </Button>
+                      {/* <ThreeDots
                         sx={{ textAlign: "right" }}
                         options={options}
                         onClick={(show) =>
                           handleClickDot(row, show, row?.id_soal)
                         }
-                      />
+                      /> */}
                     </TableCell>
                   </TableRow>
                 );
