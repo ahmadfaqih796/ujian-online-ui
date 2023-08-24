@@ -81,6 +81,33 @@ const Menuitems = [
     ],
   },
   {
+    title: "Keluhan",
+    icon: "layers",
+    href: "/admin/keluhan",
+    collapse: true,
+    isAdmin: true,
+    isSPV: true,
+    isStaff: true,
+    children: [
+      {
+        title: "Guru",
+        icon: "activity",
+        href: "/admin/keluhan/guru",
+        isAdmin: true,
+        isSPV: true,
+        isStaff: true,
+      },
+      {
+        title: "Siswa",
+        icon: "clock",
+        href: "/admin/keluhan/siswa",
+        isAdmin: true,
+        isSPV: true,
+        isStaff: true,
+      },
+    ],
+  },
+  {
     title: "Pengaturan",
     icon: "user-check",
     href: "/pengaturan",
