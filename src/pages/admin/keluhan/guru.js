@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import io from "socket.io-client";
 import axios from "axios";
 import WithAuth from "@/lib/sessions/withAuth";
+import Chat from "@/components/custom/customMessage";
 
 export const getServerSideProps = WithAuth(async function ({ req }) {
   const { id, token } = req.session.user;
@@ -85,6 +86,7 @@ const Guru = ({ session }) => {
         />
         <button onClick={handleMessageSend}>Send</button>
       </div>
+      <Chat />
     </div>
   );
 };
