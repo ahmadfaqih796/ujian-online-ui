@@ -1,5 +1,5 @@
 // pages/index.js (Next.js frontend)
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
 import axios from "axios";
 import WithAuth from "@/lib/sessions/withAuth";
@@ -7,6 +7,7 @@ import Chat from "@/components/custom/customMessage";
 
 export const getServerSideProps = WithAuth(async function ({ req }) {
   const { id, token } = req.session.user;
+  console.log("first", req.session.user);
 
   //   console.log("wwww", id, token);
 
@@ -53,22 +54,26 @@ const Guru = ({ session }) => {
       id_user: session.id,
     };
     if (inputMessage.trim() !== "") {
-      axios
+      const res = axios
         .post("http://localhost:3030/messages", payload)
         .then((response) => {
           console.log("berhasil nambah", response);
+          socket.emit("client-message", {
+            ...response.data,
+            name: session.name,
+          });
         })
         .catch((error) => {
           console.error("Error creating message:", error);
         });
-      socket.emit("client-message", payload);
+
       setInputMessage("");
     }
   };
 
   return (
     <div>
-      <h1>Real-Time Chat</h1>
+      {/* <h1>Real-Time Chat</h1>
       <div style={{ color: "black" }}>
         <ul>
           {receivedMessages
@@ -85,8 +90,14 @@ const Guru = ({ session }) => {
           onChange={(e) => setInputMessage(e.target.value)}
         />
         <button onClick={handleMessageSend}>Send</button>
-      </div>
-      <Chat />
+      </div> */}
+      <Chat
+        session={session}
+        message={inputMessage}
+        setMessage={(field) => setInputMessage(field)}
+        data={receivedMessages}
+        handleSend={handleMessageSend}
+      />
     </div>
   );
 };

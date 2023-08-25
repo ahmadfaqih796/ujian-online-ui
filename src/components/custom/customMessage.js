@@ -1,5 +1,7 @@
+import { styleLeft, styleRight } from "@/styles/message";
 import {
   Avatar,
+  Box,
   Card,
   Divider,
   Fab,
@@ -11,8 +13,17 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import React, { useRef } from "react";
 
-const Chat = () => {
+const Chat = ({ data, session, message, setMessage, handleSend }) => {
+  console.log("kkkkkk", data);
+  const scrollRef = useRef(null);
+  React.useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({ behaviour: "smooth" });
+    }
+  }, [data]);
+
   return (
     <div>
       <Grid container>
@@ -22,7 +33,7 @@ const Chat = () => {
       </Grid>
       <Card>
         <Grid container>
-          <Grid item xs={3} sx={{ borderRight: 2 }}>
+          {/* <Grid item xs={3} sx={{ borderRight: 2 }}>
             <List>
               <ListItem button key="RemySharp">
                 <ListItemIcon>
@@ -64,64 +75,67 @@ const Chat = () => {
                 </ListItemIcon>
                 <ListItemText primary="Alice">Alice</ListItemText>
               </ListItem>
-              <ListItem button key="CindyBaker">
-                <ListItemIcon>
-                  <Avatar
-                    alt="Cindy Baker"
-                    src="https://material-ui.com/static/images/avatar/2.jpg"
-                  />
-                </ListItemIcon>
-                <ListItemText primary="Cindy Baker">Cindy Baker</ListItemText>
-              </ListItem>
             </List>
-          </Grid>
-          <Grid item xs={9}>
-            <List sx={{ minHeight: "calc(100vh - 170px)" }}>
-              <ListItem key="1">
-                <Grid container>
-                  <Grid item xs={12}>
-                    <ListItemText
-                      align="right"
-                      primary="Hey man, What's up ?"
-                    ></ListItemText>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <ListItemText
-                      align="right"
-                      secondary="09:30"
-                    ></ListItemText>
-                  </Grid>
-                </Grid>
-              </ListItem>
-              <ListItem key="2">
-                <Grid container>
-                  <Grid item xs={12}>
-                    <ListItemText
-                      align="left"
-                      primary="Hey, Iam Good! What about you ?"
-                    ></ListItemText>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <ListItemText align="left" secondary="09:31"></ListItemText>
-                  </Grid>
-                </Grid>
-              </ListItem>
-              <ListItem key="3">
-                <Grid container>
-                  <Grid item xs={12}>
-                    <ListItemText
-                      align="right"
-                      primary="Cool. i am good, let's catch up!"
-                    ></ListItemText>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <ListItemText
-                      align="right"
-                      secondary="10:30"
-                    ></ListItemText>
-                  </Grid>
-                </Grid>
-              </ListItem>
+          </Grid> */}
+          <Grid item xs={12}>
+            <List
+              sx={{
+                maxHeight: "calc(100vh - 240px)",
+                overflow: "auto",
+                scrollBehavior: "smooth",
+              }}
+            >
+              {/* {data &&
+                data
+                  .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+                  .map((row, index) => (
+                    <ListItem key={index}>
+                      <Grid container>
+                        <Grid item xs={12}>
+                          <ListItemText
+                            align={session.id == row.id_user ? "left" : "right"}
+                            primary={
+                              row?.name ||
+                              row?.user_data?.user_admin?.nama_admin ||
+                              "anonymus"
+                            }
+                          ></ListItemText>
+                        </Grid>
+                        <Grid item xs={12}>
+                          <ListItemText
+                            align={session.id == row.id_user ? "left" : "right"}
+                            primary={row?.text || "delay cuy"}
+                          ></ListItemText>
+                        </Grid>
+                        <Grid item xs={12}>
+                          <ListItemText
+                            align={session.id == row.id_user ? "left" : "right"}
+                            secondary={row?.createdAt || "waktu"}
+                          ></ListItemText>
+                        </Grid>
+                      </Grid>
+                    </ListItem>
+                  ))} */}
+              {data &&
+                data
+                  .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+                  .map((row, index) => (
+                    <Box
+                      key={index}
+                      sx={{
+                        display: "flex",
+                        justifyContent:
+                          session.id == row.id_user ? null : "flex-end",
+                      }}
+                    >
+                      <Box
+                        sx={session.id == row.id_user ? styleLeft : styleRight}
+                      >
+                        {row.text}
+                      </Box>
+                    </Box>
+                  ))}
+              <div ref={scrollRef}></div>
             </List>
             <Divider />
             <Grid container style={{ padding: "20px" }}>
@@ -130,10 +144,12 @@ const Chat = () => {
                   id="outlined-basic-email"
                   label="Type Something"
                   fullWidth
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
                 />
               </Grid>
               <Grid xs={1} align="right">
-                <Fab color="primary" aria-label="add">
+                <Fab color="primary" aria-label="add" onClick={handleSend}>
                   {/* <SendIcon /> */}+
                 </Fab>
               </Grid>
