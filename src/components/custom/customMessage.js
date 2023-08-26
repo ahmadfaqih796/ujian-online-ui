@@ -1,3 +1,4 @@
+import { stringAvatar } from "@/layouts/header/stringAvatar";
 import { styleLeft, styleRight } from "@/styles/message";
 import {
   Avatar,
@@ -13,6 +14,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import Image from "next/image";
 import React, { useRef } from "react";
 
 const Chat = ({ data, session, message, setMessage, handleSend }) => {
@@ -125,13 +127,59 @@ const Chat = ({ data, session, message, setMessage, handleSend }) => {
                       sx={{
                         display: "flex",
                         justifyContent:
-                          session.id == row.id_user ? null : "flex-end",
+                          session.id == row.id_user ? "flex-end" : null,
                       }}
                     >
+                      {session.id != row.id_user &&
+                        (row?.user_data?.user_admin?.photo ? (
+                          <Image
+                            alt={row.name ?? "no_image"}
+                            src={`http://localhost:3030/uploads/${row?.user_data?.user_admin?.photo}`}
+                            width="40"
+                            height="40"
+                            priority={true}
+                            style={{
+                              objectFit: "contain",
+                              border: "2px solid gray",
+                              borderRadius: "50%",
+                              marginLeft: "16px",
+                              marginTop: "16px",
+                            }}
+                          />
+                        ) : (
+                          <Avatar
+                            {...stringAvatar(
+                              row?.name ||
+                                row?.user_data?.user_admin?.nama_admin ||
+                                "anonymus",
+                              35
+                            )}
+                            sx={{ mt: 2, ml: 2 }}
+                          />
+                        ))}
                       <Box
-                        sx={session.id == row.id_user ? styleLeft : styleRight}
+                        sx={{
+                          maxWidth: "100%",
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent:
+                            session.id == row.id_user ? "flex-end" : null,
+                        }}
                       >
-                        {row.text}
+                        {session.id != row.id_user && (
+                          <Typography ml={2.5} variant="body1" fontSize={12}>
+                            {row?.name ||
+                              row?.user_data?.user_admin?.nama_admin ||
+                              "anonymus"}
+                          </Typography>
+                        )}
+                        <Box
+                          sx={
+                            session.id == row.id_user ? styleRight : styleLeft
+                          }
+                        >
+                          {row.text}
+                        </Box>
                       </Box>
                     </Box>
                   ))}

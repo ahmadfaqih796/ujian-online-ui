@@ -39,7 +39,7 @@ const Guru = ({ session }) => {
     });
 
     socket.on("server-message", (data) => {
-      // console.log("yoyoyoyo", data);
+      console.log("yoyoyoyo", data);
       setReceivedMessages((prevMessages) => [...prevMessages, data]);
     });
 

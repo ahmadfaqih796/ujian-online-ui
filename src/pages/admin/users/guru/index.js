@@ -128,8 +128,8 @@ const Guru = ({ users, token }) => {
           }}
         >
           <Grid container spacing={4} sx={{ minHeight: "calc(100vh - 165px)" }}>
-            {users.data.map((data) => (
-              <Grid item key={data.id} lg={4} md={6} xs={12}>
+            {users.data.map((data, index) => (
+              <Grid item key={index} lg={4} md={6} xs={12}>
                 <Box
                   sx={{
                     background: "white",
@@ -143,10 +143,10 @@ const Guru = ({ users, token }) => {
                     margin={2}
                     sx={{ justifyContent: "center", display: "flex" }}
                   >
-                    {data.user_guru?.photo ? (
+                    {data.photo ? (
                       <Image
                         alt={data.nama_guru ?? "no_image"}
-                        src={`http://localhost:3030/uploads/${data.user_guru?.photo}`}
+                        src={`http://localhost:3030/uploads/${data.photo}`}
                         width="80"
                         height="80"
                         priority={true}
