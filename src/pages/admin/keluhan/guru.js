@@ -19,6 +19,7 @@ export const getServerSideProps = WithAuth(async function ({ req }) {
 const Guru = ({ session }) => {
   const [inputMessage, setInputMessage] = useState("");
   const [receivedMessages, setReceivedMessages] = useState([]);
+  const [onlineUsers, setOnlineUsers] = useState([]);
   console.log("massssss", receivedMessages);
   const socket = io("http://localhost:3030", {
     path: "/messages",
@@ -26,16 +27,39 @@ const Guru = ({ session }) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3030/messages", { params: { $limit: -1 } })
-      .then((response) => {
-        setReceivedMessages(response.data);
-        console.log("ssssssssss", response.data);
+      .get("http://localhost:3030/messages", {
+        params: { $limit: -1 },
+      })
+      .then((res) => {
+        setReceivedMessages(res.data);
       })
       .catch((error) => {
-        console.error("Error fetching messages:", error);
+        console.log(error);
       });
+
     socket.on("connect", () => {
-      console.log("Connected to socket.io server");
+      axios
+        .get("http://localhost:3030/users", {
+          params: { role: "admin" },
+          headers: {
+            Authorization: `Bearer ${session.token}`,
+          },
+        })
+        .then((res) => {
+          const { data } = res.data;
+          console.log("masuk", data);
+          const userData = data.map((row) => ({
+            id: row?.id_user,
+            name: row?.user_admin?.nama_admin,
+            status: false,
+          }));
+          setOnlineUsers(userData);
+          console.log("Connected to socket.io server", userData);
+          socket.emit("user-connected", userData, session.id);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     });
 
     socket.on("server-message", (data) => {
@@ -44,9 +68,19 @@ const Guru = ({ session }) => {
     });
 
     return () => {
+      console.log("ffffffffff", onlineUsers);
+      socket.emit("before-disconnect", { id: session.id }); // Mengirimkan event disconnect dengan ID pengguna
+      console.log("anda disconnect");
       socket.disconnect();
+      // targetIdUser = targetIdUser.filter((user) => user.id !== targetIdToDelete);
     };
   }, []);
+
+  socket.on("update-user-status", (data) => {
+    console.log("hallo", data);
+    setOnlineUsers(data);
+    // setReceivedMessages((prevMessages) => [...prevMessages, data]);
+  });
 
   const handleMessageSend = () => {
     const payload = {
@@ -91,6 +125,16 @@ const Guru = ({ session }) => {
         />
         <button onClick={handleMessageSend}>Send</button>
       </div> */}
+      <div style={{ color: "black" }}>
+        <h2>Online Users:</h2>
+        <ul>
+          {onlineUsers.map((user) => (
+            <li key={user.id}>
+              {user.name} {user.status ? "(Online)" : "(Offline)"}
+            </li>
+          ))}
+        </ul>
+      </div>
       <Chat
         session={session}
         message={inputMessage}

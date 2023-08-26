@@ -32,7 +32,7 @@ const LoadingSpinner = ({ show }) => {
             }}
           >
             <CircularProgress />
-            <Typography mt={2} fontWeight={600}>
+            <Typography mt={2} color="black" fontWeight={600}>
               Sedang mengload data...
             </Typography>
           </Box>
