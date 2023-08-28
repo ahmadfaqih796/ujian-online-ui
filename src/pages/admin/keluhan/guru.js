@@ -97,6 +97,7 @@ const Guru = ({ session }) => {
           socket.emit("client-message", {
             ...response.data,
             name: session.name,
+            photo: session.photo,
           });
         })
         .catch((error) => {

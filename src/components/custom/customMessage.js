@@ -82,6 +82,7 @@ const Chat = ({ data, session, message, setMessage, handleSend }) => {
           <Grid item xs={12}>
             <List
               sx={{
+                height: "calc(100vh - 240px)",
                 maxHeight: "calc(100vh - 240px)",
                 overflow: "auto",
                 scrollBehavior: "smooth",
@@ -131,10 +132,12 @@ const Chat = ({ data, session, message, setMessage, handleSend }) => {
                       }}
                     >
                       {session.id != row.id_user &&
-                        (row?.user_data?.user_admin?.photo ? (
+                        (row?.user_data?.user_admin?.photo || row.photo ? (
                           <Image
                             alt={row.name ?? "no_image"}
-                            src={`http://localhost:3030/uploads/${row?.user_data?.user_admin?.photo}`}
+                            src={`http://localhost:3030/uploads/${
+                              row?.user_data?.user_admin?.photo || row.photo
+                            }`}
                             width="40"
                             height="40"
                             priority={true}
