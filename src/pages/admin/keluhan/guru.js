@@ -4,6 +4,7 @@ import io from "socket.io-client";
 import axios from "axios";
 import WithAuth from "@/lib/sessions/withAuth";
 import Chat from "@/components/custom/customMessage";
+import { Avatar, AvatarGroup } from "@mui/material";
 
 export const getServerSideProps = WithAuth(async function ({ req }) {
   const { id, token } = req.session.user;
@@ -127,6 +128,15 @@ const Guru = ({ session }) => {
       </div> */}
       <div style={{ color: "black" }}>
         <h2>Online Users:</h2>
+        <AvatarGroup total={onlineUsers.length} max={2}>
+          {onlineUsers.map((user, index) => (
+            <Avatar
+              key={index}
+              alt={user.name}
+              src="/static/images/avatar/1.jpg"
+            />
+          ))}
+        </AvatarGroup>
         <ul>
           {onlineUsers.map((user) => (
             <li key={user.id}>
