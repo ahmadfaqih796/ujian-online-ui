@@ -50,51 +50,52 @@ const AvatarGroupDropdown = ({ options, onClick, sx }) => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="space-between"
-            width={"300px"}
-            padding={1}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <Avatar {...stringAvatar("aaaa", "40px")} />
-              <Box ml={1} mr={2}>
-                <Typography
-                  fontSize={typography.h5.fontSize}
-                  sx={{
-                    lineHeight: "1.235",
-                  }}
+          <Box sx={{ maxHeight: "300px", overflow: "scroll" }}>
+            {options &&
+              options?.map((item, idx) => (
+                <Box
+                  key={idx}
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  width={"300px"}
+                  padding={1}
                 >
-                  {"sasas dsdsdds dsdsds doonodnosd dosndsondosd dododo"}
-                </Typography>
-                <Typography
-                  color="textSecondary"
-                  fontSize={typography.h6.fontSize}
-                  fontWeight="400"
-                >
-                  {"admin"}
-                </Typography>
-              </Box>
-            </Box>
-            <Typography
-              color="textSecondary"
-              fontSize={typography.h6.fontSize}
-              fontWeight="400"
-            >
-              Online
-            </Typography>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Avatar {...stringAvatar("aaaa", "40px")} />
+                    <Box ml={1} mr={2}>
+                      <Typography
+                        fontSize={typography.h5.fontSize}
+                        sx={{
+                          lineHeight: "1.235",
+                        }}
+                      >
+                        {item.name}
+                      </Typography>
+                      <Typography
+                        color="darkgreen"
+                        fontSize={typography.h6.fontSize}
+                        fontWeight="400"
+                      >
+                        {"admin"}
+                      </Typography>
+                    </Box>
+                  </Box>
+                  <Typography
+                    color={item.status ? "green" : "red"}
+                    fontSize={typography.h6.fontSize}
+                    fontWeight="400"
+                  >
+                    {item.status ? "Online" : "Offline"}
+                  </Typography>
+                </Box>
+              ))}
           </Box>
-          <Divider variant="fullWidth" component="li" />
-          {options &&
-            options?.map((item, idx) => (
-              <MenuItem key={idx}>{item.name}</MenuItem>
-            ))}
         </Menu>
       </Box>
     </Box>
