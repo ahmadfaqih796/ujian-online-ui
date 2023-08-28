@@ -5,7 +5,7 @@ const fetcher = async (url) => await axios.get(url);
 
 export const useUserSession = (options) => {
   const { data, error } = useSWR("/api/auth/user", fetcher);
-  if (!data) {
+  if (error) {
     return (window.location.href = "/authentication/login");
   }
 

@@ -5,6 +5,7 @@ import axios from "axios";
 import WithAuth from "@/lib/sessions/withAuth";
 import Chat from "@/components/custom/customMessage";
 import { Avatar, AvatarGroup } from "@mui/material";
+import AvatarGroupDropdown from "@/components/dropdown/AvatarGroupDropdown";
 
 export const getServerSideProps = WithAuth(async function ({ req }) {
   const { id, token } = req.session.user;
@@ -21,7 +22,7 @@ const Guru = ({ session }) => {
   const [inputMessage, setInputMessage] = useState("");
   const [receivedMessages, setReceivedMessages] = useState([]);
   const [onlineUsers, setOnlineUsers] = useState([]);
-  console.log("massssss", receivedMessages);
+  // console.log("massssss", receivedMessages);
   const socket = io("http://localhost:3030", {
     path: "/messages",
   });
@@ -128,6 +129,7 @@ const Guru = ({ session }) => {
       </div> */}
       <div style={{ color: "black" }}>
         <h2>Online Users:</h2>
+        <AvatarGroupDropdown options={onlineUsers} />
         <AvatarGroup total={onlineUsers.length} max={2}>
           {onlineUsers.map((user, index) => (
             <Avatar
