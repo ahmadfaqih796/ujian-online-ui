@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import FeatherIcon from "feather-icons-react";
 import React from "react";
+import CustomImage from "../custom/CustomImage";
 
 const AvatarGroupDropdown = ({ options, onClick, sx }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -34,12 +35,13 @@ const AvatarGroupDropdown = ({ options, onClick, sx }) => {
           aria-label="action"
           size="large"
         >
-          <AvatarGroup total={options.length} max={2}>
+          <AvatarGroup total={options.length} max={3}>
             {options.map((user, index) => (
-              <Avatar
+              <CustomImage
                 key={index}
+                src={user.photo}
                 alt={user.name}
-                src="/static/images/avatar/1.jpg"
+                margin="0"
               />
             ))}
           </AvatarGroup>
@@ -50,7 +52,14 @@ const AvatarGroupDropdown = ({ options, onClick, sx }) => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <Box sx={{ maxHeight: "300px", overflow: "scroll" }}>
+          <Box
+            sx={{
+              maxHeight: "300px",
+              overflow: "scroll",
+              width: "300px",
+              mb: -1,
+            }}
+          >
             {options &&
               options?.map((item, idx) => (
                 <Box
@@ -58,7 +67,6 @@ const AvatarGroupDropdown = ({ options, onClick, sx }) => {
                   display="flex"
                   alignItems="center"
                   justifyContent="space-between"
-                  width={"300px"}
                   padding={1}
                 >
                   <Box
@@ -67,7 +75,7 @@ const AvatarGroupDropdown = ({ options, onClick, sx }) => {
                       alignItems: "center",
                     }}
                   >
-                    <Avatar {...stringAvatar("aaaa", "40px")} />
+                    <CustomImage src={item.photo} alt={item.name} margin="0" />
                     <Box ml={1} mr={2}>
                       <Typography
                         fontSize={typography.h5.fontSize}
@@ -82,7 +90,7 @@ const AvatarGroupDropdown = ({ options, onClick, sx }) => {
                         fontSize={typography.h6.fontSize}
                         fontWeight="400"
                       >
-                        {"admin"}
+                        {item.role}
                       </Typography>
                     </Box>
                   </Box>

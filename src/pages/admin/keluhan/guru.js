@@ -42,7 +42,7 @@ const Guru = ({ session }) => {
     socket.on("connect", () => {
       axios
         .get("http://localhost:3030/users", {
-          params: { role: "admin" },
+          params: { "$or[0][role]": "admin", "$or[1][role]": "guru" },
           headers: {
             Authorization: `Bearer ${session.token}`,
           },
@@ -52,7 +52,9 @@ const Guru = ({ session }) => {
           console.log("masuk", data);
           const userData = data.map((row) => ({
             id: row?.id_user,
-            name: row?.user_admin?.nama_admin,
+            name: row?.user_admin?.nama_admin || row?.user_guru?.nama_guru,
+            photo: row?.user_admin?.photo || row?.user_guru?.photo,
+            role: row?.role,
             status: false,
           }));
           setOnlineUsers(userData);
@@ -130,8 +132,8 @@ const Guru = ({ session }) => {
       </div> */}
       <div style={{ color: "black" }}>
         <h2>Online Users:</h2>
-        <AvatarGroupDropdown options={onlineUsers} />
-        <AvatarGroup total={onlineUsers.length} max={2}>
+
+        {/* <AvatarGroup total={onlineUsers.length} max={2}>
           {onlineUsers.map((user, index) => (
             <Avatar
               key={index}
@@ -139,15 +141,9 @@ const Guru = ({ session }) => {
               src="/static/images/avatar/1.jpg"
             />
           ))}
-        </AvatarGroup>
-        <ul>
-          {onlineUsers.map((user) => (
-            <li key={user.id}>
-              {user.name} {user.status ? "(Online)" : "(Offline)"}
-            </li>
-          ))}
-        </ul>
+        </AvatarGroup> */}
       </div>
+      <AvatarGroupDropdown options={onlineUsers} />
       <Chat
         session={session}
         message={inputMessage}

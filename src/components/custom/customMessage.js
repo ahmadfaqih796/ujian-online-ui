@@ -82,7 +82,7 @@ const Chat = ({ data, session, message, setMessage, handleSend }) => {
           <Grid item xs={12}>
             <List
               sx={{
-                height: "calc(100vh - 240px)",
+                // height: "calc(100vh - 240px)",
                 maxHeight: "calc(100vh - 240px)",
                 overflow: "auto",
                 scrollBehavior: "smooth",
