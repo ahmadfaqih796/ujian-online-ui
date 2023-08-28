@@ -16,11 +16,19 @@ async function loginRoute(req, res) {
     req.session.user = {
       id: response.user.id_user,
       nik: nik,
+      role: role,
       ...(role === "admin" && {
         name: admin.nama_admin,
+        photo: admin.photo,
       }),
-      iat: payload.iat,
-      exp: payload.exp,
+      ...(role === "guru" && {
+        name: guru.nama_guru,
+        photo: guru.photo,
+      }),
+      ...(role === "siswa" && {
+        name: siswa.nama_siswa,
+        photo: siswa.photo,
+      }),
       token: accessToken,
     };
 
