@@ -18,8 +18,9 @@ import FeatherIcon from "feather-icons-react";
 import moment from "moment/moment";
 import Image from "next/image";
 import React, { useRef } from "react";
+import CustomImage from "./CustomImage";
 
-const Chat = ({ data, session, message, setMessage, handleSend }) => {
+const Chat = ({ data, session, message, setMessage, handleSend, users }) => {
   console.log("kkkkkk", data);
   const scrollRef = useRef(null);
   React.useEffect(() => {
@@ -40,22 +41,11 @@ const Chat = ({ data, session, message, setMessage, handleSend }) => {
       <Card>
         <Grid container>
           <Grid item xs={12} lg={3} sx={{ borderRight: 2 }}>
-            <List>
-              <ListItem button key="RemySharp">
-                <ListItemIcon>
-                  <Avatar
-                    alt="Remy Sharp"
-                    src="https://material-ui.com/static/images/avatar/1.jpg"
-                  />
-                </ListItemIcon>
-                <ListItemText primary="John Wick"></ListItemText>
-              </ListItem>
-            </List>
-            <Divider />
             <Grid item xs={12} style={{ padding: "10px" }}>
               <TextField
                 id="outlined-basic-email"
                 label="Search"
+                size="small"
                 variant="outlined"
                 fullWidth
               />
@@ -69,25 +59,30 @@ const Chat = ({ data, session, message, setMessage, handleSend }) => {
                 scrollBehavior: "smooth",
               }}
             >
-              <ListItem button key="RemySharp">
-                <ListItemIcon>
-                  <Avatar
-                    alt="Remy Sharp"
-                    src="https://material-ui.com/static/images/avatar/1.jpg"
-                  />
-                </ListItemIcon>
-                <ListItemText primary="Remy Sharp">Remy Sharp</ListItemText>
-                <ListItemText secondary="online" align="right"></ListItemText>
-              </ListItem>
-              <ListItem button key="Alice">
-                <ListItemIcon>
-                  <Avatar
-                    alt="Alice"
-                    src="https://material-ui.com/static/images/avatar/3.jpg"
-                  />
-                </ListItemIcon>
-                <ListItemText primary="Alice">Alice</ListItemText>
-              </ListItem>
+              {users &&
+                users.map((row, index) => (
+                  <ListItem key={index}>
+                    <ListItemIcon>
+                      {/* <Avatar
+                        alt="Remy Sharp"
+                        src="https://material-ui.com/static/images/avatar/1.jpg"
+                      /> */}
+                      <CustomImage src={row.photo} alt={row.name} margin="0" />
+                    </ListItemIcon>
+                    <ListItemText primary={row.name}>{row.name}</ListItemText>
+                    <ListItemText
+                      primary={
+                        <Typography
+                          variant="body2"
+                          style={{ color: row.status ? "green" : "red" }}
+                        >
+                          {row.status ? "online" : "offline"}
+                        </Typography>
+                      }
+                      align="right"
+                    ></ListItemText>
+                  </ListItem>
+                ))}
             </List>
           </Grid>
           <Grid item xs={12} lg={9}>

@@ -114,6 +114,7 @@ const Guru = ({ session }) => {
     <React.Fragment>
       <AvatarGroupDropdown options={onlineUsers} />
       <Chat
+        users={onlineUsers}
         session={session}
         message={inputMessage}
         setMessage={(field) => setInputMessage(field)}
