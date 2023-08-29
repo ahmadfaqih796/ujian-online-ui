@@ -14,6 +14,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import moment from "moment/moment";
 import Image from "next/image";
 import React, { useRef } from "react";
 
@@ -28,11 +29,6 @@ const Chat = ({ data, session, message, setMessage, handleSend }) => {
 
   return (
     <div>
-      <Grid container>
-        <Grid item xs={12}>
-          <Typography variant="h5">Chat</Typography>
-        </Grid>
-      </Grid>
       <Card>
         <Grid container>
           {/* <Grid item xs={3} sx={{ borderRight: 2 }}>
@@ -83,7 +79,7 @@ const Chat = ({ data, session, message, setMessage, handleSend }) => {
             <List
               sx={{
                 // height: "calc(100vh - 240px)",
-                maxHeight: "calc(100vh - 240px)",
+                maxHeight: "calc(100vh - 300px)",
                 overflow: "auto",
                 scrollBehavior: "smooth",
               }}
@@ -182,6 +178,16 @@ const Chat = ({ data, session, message, setMessage, handleSend }) => {
                           }
                         >
                           {row.text}
+                        </Box>
+                        <Box
+                          sx={{
+                            mt: -1,
+                            mb: 1,
+                            ml: session.id == row.id_user ? "auto" : "20px",
+                            mr: session.id == row.id_user ? "20px" : "0",
+                          }}
+                        >
+                          {moment(row.createdAt).format("HH:mm")}
                         </Box>
                       </Box>
                     </Box>

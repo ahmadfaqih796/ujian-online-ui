@@ -1,5 +1,5 @@
 // pages/index.js (Next.js frontend)
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
 import axios from "axios";
 import WithAuth from "@/lib/sessions/withAuth";
@@ -111,38 +111,7 @@ const Guru = ({ session }) => {
   };
 
   return (
-    <div>
-      {/* <h1>Real-Time Chat</h1>
-      <div style={{ color: "black" }}>
-        <ul>
-          {receivedMessages
-            .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
-            .map((message, index) => (
-              <li key={index}>{message.text}</li>
-            ))}
-        </ul>
-      </div>
-      <div>
-        <input
-          type="text"
-          value={inputMessage}
-          onChange={(e) => setInputMessage(e.target.value)}
-        />
-        <button onClick={handleMessageSend}>Send</button>
-      </div> */}
-      <div style={{ color: "black" }}>
-        <h2>Online Users:</h2>
-
-        {/* <AvatarGroup total={onlineUsers.length} max={2}>
-          {onlineUsers.map((user, index) => (
-            <Avatar
-              key={index}
-              alt={user.name}
-              src="/static/images/avatar/1.jpg"
-            />
-          ))}
-        </AvatarGroup> */}
-      </div>
+    <React.Fragment>
       <AvatarGroupDropdown options={onlineUsers} />
       <Chat
         session={session}
@@ -151,7 +120,7 @@ const Guru = ({ session }) => {
         data={receivedMessages}
         handleSend={handleMessageSend}
       />
-    </div>
+    </React.Fragment>
   );
 };
 Guru.layout = "Admin";
