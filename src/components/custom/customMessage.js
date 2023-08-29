@@ -29,7 +29,6 @@ const Chat = ({ data, session, message, setMessage, handleSend, users }) => {
     }
   }, [data]);
 
-  // Fungsi untuk memeriksa apakah dua tanggal berbeda (hanya tanggal, tidak termasuk waktu)
   const isDifferentDate = (date1, date2) => {
     return (
       new Date(date1).toLocaleDateString() !==
@@ -53,7 +52,6 @@ const Chat = ({ data, session, message, setMessage, handleSend, users }) => {
             <Divider />
             <List
               sx={{
-                // height: "calc(100vh - 240px)",
                 maxHeight: "calc(100vh - 300px)",
                 overflow: "auto",
                 scrollBehavior: "smooth",
@@ -63,10 +61,6 @@ const Chat = ({ data, session, message, setMessage, handleSend, users }) => {
                 users.map((row, index) => (
                   <ListItem key={index}>
                     <ListItemIcon>
-                      {/* <Avatar
-                        alt="Remy Sharp"
-                        src="https://material-ui.com/static/images/avatar/1.jpg"
-                      /> */}
                       <CustomImage src={row.photo} alt={row.name} margin="0" />
                     </ListItemIcon>
                     <ListItemText primary={row.name}>{row.name}</ListItemText>
@@ -88,7 +82,6 @@ const Chat = ({ data, session, message, setMessage, handleSend, users }) => {
           <Grid item xs={12} lg={9}>
             <List
               sx={{
-                // height: "calc(100vh - 240px)",
                 maxHeight: "calc(100vh - 300px)",
                 overflow: "auto",
                 scrollBehavior: "smooth",
@@ -99,7 +92,7 @@ const Chat = ({ data, session, message, setMessage, handleSend, users }) => {
                   .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
                   .map((row, index) => (
                     <Box key={index}>
-                      {index === 0 || // Tampilkan stempel waktu jika ini pesan pertama
+                      {index === 0 ||
                       isDifferentDate(
                         data[index - 1].createdAt,
                         row.createdAt
@@ -107,7 +100,8 @@ const Chat = ({ data, session, message, setMessage, handleSend, users }) => {
                         <Typography
                           sx={{
                             textAlign: "center",
-                            marginTop: 2,
+                            mt: 2,
+                            mb: 2,
                             color: "gray",
                           }}
                         >
