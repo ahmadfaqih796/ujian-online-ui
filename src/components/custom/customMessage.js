@@ -14,6 +14,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import FeatherIcon from "feather-icons-react";
 import moment from "moment/moment";
 import Image from "next/image";
 import React, { useRef } from "react";
@@ -27,11 +28,18 @@ const Chat = ({ data, session, message, setMessage, handleSend }) => {
     }
   }, [data]);
 
+  // Fungsi untuk memeriksa apakah dua tanggal berbeda (hanya tanggal, tidak termasuk waktu)
+  const isDifferentDate = (date1, date2) => {
+    return (
+      new Date(date1).toLocaleDateString() !==
+      new Date(date2).toLocaleDateString()
+    );
+  };
   return (
     <div>
       <Card>
         <Grid container>
-          {/* <Grid item xs={3} sx={{ borderRight: 2 }}>
+          <Grid item xs={12} lg={3} sx={{ borderRight: 2 }}>
             <List>
               <ListItem button key="RemySharp">
                 <ListItemIcon>
@@ -53,7 +61,14 @@ const Chat = ({ data, session, message, setMessage, handleSend }) => {
               />
             </Grid>
             <Divider />
-            <List>
+            <List
+              sx={{
+                // height: "calc(100vh - 240px)",
+                maxHeight: "calc(100vh - 300px)",
+                overflow: "auto",
+                scrollBehavior: "smooth",
+              }}
+            >
               <ListItem button key="RemySharp">
                 <ListItemIcon>
                   <Avatar
@@ -74,8 +89,8 @@ const Chat = ({ data, session, message, setMessage, handleSend }) => {
                 <ListItemText primary="Alice">Alice</ListItemText>
               </ListItem>
             </List>
-          </Grid> */}
-          <Grid item xs={12}>
+          </Grid>
+          <Grid item xs={12} lg={9}>
             <List
               sx={{
                 // height: "calc(100vh - 240px)",
@@ -84,110 +99,95 @@ const Chat = ({ data, session, message, setMessage, handleSend }) => {
                 scrollBehavior: "smooth",
               }}
             >
-              {/* {data &&
-                data
-                  .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
-                  .map((row, index) => (
-                    <ListItem key={index}>
-                      <Grid container>
-                        <Grid item xs={12}>
-                          <ListItemText
-                            align={session.id == row.id_user ? "left" : "right"}
-                            primary={
-                              row?.name ||
-                              row?.user_data?.user_admin?.nama_admin ||
-                              "anonymus"
-                            }
-                          ></ListItemText>
-                        </Grid>
-                        <Grid item xs={12}>
-                          <ListItemText
-                            align={session.id == row.id_user ? "left" : "right"}
-                            primary={row?.text || "delay cuy"}
-                          ></ListItemText>
-                        </Grid>
-                        <Grid item xs={12}>
-                          <ListItemText
-                            align={session.id == row.id_user ? "left" : "right"}
-                            secondary={row?.createdAt || "waktu"}
-                          ></ListItemText>
-                        </Grid>
-                      </Grid>
-                    </ListItem>
-                  ))} */}
               {data &&
                 data
                   .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
                   .map((row, index) => (
-                    <Box
-                      key={index}
-                      sx={{
-                        display: "flex",
-                        justifyContent:
-                          session.id == row.id_user ? "flex-end" : null,
-                      }}
-                    >
-                      {session.id != row.id_user &&
-                        (row?.user_data?.user_admin?.photo || row.photo ? (
-                          <Image
-                            alt={row.name ?? "no_image"}
-                            src={`http://localhost:3030/uploads/${
-                              row?.user_data?.user_admin?.photo || row.photo
-                            }`}
-                            width="40"
-                            height="40"
-                            priority={true}
-                            style={{
-                              objectFit: "contain",
-                              border: "2px solid gray",
-                              borderRadius: "50%",
-                              marginLeft: "16px",
-                              marginTop: "16px",
-                            }}
-                          />
-                        ) : (
-                          <Avatar
-                            {...stringAvatar(
-                              row?.name ||
-                                row?.user_data?.user_admin?.nama_admin ||
-                                "anonymus",
-                              35
-                            )}
-                            sx={{ mt: 2, ml: 2 }}
-                          />
-                        ))}
+                    <Box key={index}>
+                      {index === 0 || // Tampilkan stempel waktu jika ini pesan pertama
+                      isDifferentDate(
+                        data[index - 1].createdAt,
+                        row.createdAt
+                      ) ? (
+                        <Typography
+                          sx={{
+                            textAlign: "center",
+                            marginTop: 2,
+                            color: "gray",
+                          }}
+                        >
+                          {moment(row.createdAt).format("D MMMM YYYY")}
+                        </Typography>
+                      ) : null}
                       <Box
                         sx={{
-                          maxWidth: "100%",
                           display: "flex",
-                          flexDirection: "column",
                           justifyContent:
                             session.id == row.id_user ? "flex-end" : null,
                         }}
                       >
-                        {session.id != row.id_user && (
-                          <Typography ml={2.5} variant="body1" fontSize={12}>
-                            {row?.name ||
-                              row?.user_data?.user_admin?.nama_admin ||
-                              "anonymus"}
-                          </Typography>
-                        )}
-                        <Box
-                          sx={
-                            session.id == row.id_user ? styleRight : styleLeft
-                          }
-                        >
-                          {row.text}
-                        </Box>
+                        {session.id != row.id_user &&
+                          (row?.user_data?.user_admin?.photo || row.photo ? (
+                            <Image
+                              alt={row.name ?? "no_image"}
+                              src={`http://localhost:3030/uploads/${
+                                row?.user_data?.user_admin?.photo || row.photo
+                              }`}
+                              width="40"
+                              height="40"
+                              priority={true}
+                              style={{
+                                objectFit: "contain",
+                                border: "2px solid gray",
+                                borderRadius: "50%",
+                                marginLeft: "16px",
+                                marginTop: "16px",
+                              }}
+                            />
+                          ) : (
+                            <Avatar
+                              {...stringAvatar(
+                                row?.name ||
+                                  row?.user_data?.user_admin?.nama_admin ||
+                                  "anonymus",
+                                35
+                              )}
+                              sx={{ mt: 2, ml: 2 }}
+                            />
+                          ))}
                         <Box
                           sx={{
-                            mt: -1,
-                            mb: 1,
-                            ml: session.id == row.id_user ? "auto" : "20px",
-                            mr: session.id == row.id_user ? "20px" : "0",
+                            maxWidth: "100%",
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent:
+                              session.id == row.id_user ? "flex-end" : null,
                           }}
                         >
-                          {moment(row.createdAt).format("HH:mm")}
+                          {session.id != row.id_user && (
+                            <Typography ml={2.5} variant="body1" fontSize={12}>
+                              {row?.name ||
+                                row?.user_data?.user_admin?.nama_admin ||
+                                "anonymus"}
+                            </Typography>
+                          )}
+                          <Box
+                            sx={
+                              session.id == row.id_user ? styleRight : styleLeft
+                            }
+                          >
+                            {row.text}
+                          </Box>
+                          <Box
+                            sx={{
+                              mt: -1,
+                              mb: 1,
+                              ml: session.id == row.id_user ? "auto" : "20px",
+                              mr: session.id == row.id_user ? "20px" : "0",
+                            }}
+                          >
+                            {moment(row.createdAt).format("HH:mm")}
+                          </Box>
                         </Box>
                       </Box>
                     </Box>
@@ -205,9 +205,9 @@ const Chat = ({ data, session, message, setMessage, handleSend }) => {
                   onChange={(e) => setMessage(e.target.value)}
                 />
               </Grid>
-              <Grid xs={1} align="right">
+              <Grid item xs={1} align="right">
                 <Fab color="primary" aria-label="add" onClick={handleSend}>
-                  {/* <SendIcon /> */}+
+                  <FeatherIcon icon="send" />
                 </Fab>
               </Grid>
             </Grid>
