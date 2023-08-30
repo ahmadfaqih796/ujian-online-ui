@@ -39,8 +39,14 @@ const Chat = ({ data, session, message, setMessage, handleSend, users }) => {
     <div>
       <Card>
         <Grid container>
-          <Grid item xs={12} lg={3} sx={{ borderRight: 2 }}>
-            <Grid item xs={12} style={{ padding: "10px" }}>
+          <Grid
+            item
+            xs={12}
+            md={4}
+            lg={3}
+            sx={{ borderRight: 2, display: { xs: "none", md: "block" } }}
+          >
+            <Grid item xs={12} sx={{ p: "10px" }}>
               <TextField
                 id="outlined-basic-email"
                 label="Search"
@@ -79,7 +85,7 @@ const Chat = ({ data, session, message, setMessage, handleSend, users }) => {
                 ))}
             </List>
           </Grid>
-          <Grid item xs={12} lg={9}>
+          <Grid item xs={12} md={8} lg={9}>
             <List
               sx={{
                 maxHeight: "calc(100vh - 300px)",

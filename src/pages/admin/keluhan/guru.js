@@ -4,7 +4,7 @@ import io from "socket.io-client";
 import axios from "axios";
 import WithAuth from "@/lib/sessions/withAuth";
 import Chat from "@/components/custom/customMessage";
-import { Avatar, AvatarGroup } from "@mui/material";
+import { Avatar, AvatarGroup, Box, Typography } from "@mui/material";
 import AvatarGroupDropdown from "@/components/dropdown/AvatarGroupDropdown";
 
 export const getServerSideProps = WithAuth(async function ({ req }) {
@@ -114,7 +114,21 @@ const Guru = ({ session }) => {
 
   return (
     <React.Fragment>
-      <AvatarGroupDropdown options={onlineUsers} />
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          mb: 1,
+        }}
+      >
+        <Typography color="black" fontWeight={700} fontSize={24}>
+          Guru Group
+        </Typography>
+        <Box sx={{ display: { xs: "block", md: "none" } }}>
+          <AvatarGroupDropdown options={onlineUsers} />
+        </Box>
+      </Box>
       <Chat
         users={onlineUsers}
         session={session}
