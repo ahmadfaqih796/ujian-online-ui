@@ -19,9 +19,9 @@ import moment from "moment/moment";
 import Image from "next/image";
 import React, { useRef } from "react";
 import CustomImage from "./CustomImage";
+import ChatInput from "../chat/ChatInput";
 
 const Chat = ({ data, session, message, setMessage, handleSend, users }) => {
-  console.log("kkkkkk", data);
   const scrollRef = useRef(null);
   React.useEffect(() => {
     if (scrollRef.current) {
@@ -69,7 +69,7 @@ const Chat = ({ data, session, message, setMessage, handleSend, users }) => {
                     <ListItemIcon>
                       <CustomImage src={row.photo} alt={row.name} margin="0" />
                     </ListItemIcon>
-                    <ListItemText primary={row.name}>{row.name}</ListItemText>
+                    <ListItemText primary={row.name} secondary={row.role} />
                     <ListItemText
                       primary={
                         <Typography
@@ -190,29 +190,11 @@ const Chat = ({ data, session, message, setMessage, handleSend, users }) => {
               <div ref={scrollRef}></div>
             </List>
             <Divider />
-            <form onSubmit={handleSend}>
-              <Box
-                sx={{ display: "flex", justifyContent: "space-between", p: 2 }}
-              >
-                <TextField
-                  id="outlined-basic-email"
-                  label="Type Something"
-                  fullWidth
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                />
-                <Box
-                  sx={{
-                    width: "80px",
-                    textAlign: "right",
-                  }}
-                >
-                  <Fab color="primary" aria-label="add" type="submit">
-                    <FeatherIcon icon="send" />
-                  </Fab>
-                </Box>
-              </Box>
-            </form>
+            <ChatInput
+              handleSend={handleSend}
+              message={message}
+              setMessage={setMessage}
+            />
           </Grid>
         </Grid>
       </Card>
