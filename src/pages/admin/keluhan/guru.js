@@ -86,7 +86,9 @@ const Guru = ({ session }) => {
     // setReceivedMessages((prevMessages) => [...prevMessages, data]);
   });
 
-  const handleMessageSend = () => {
+  const handleMessageSend = (e) => {
+    e.preventDefault();
+
     const payload = {
       text: inputMessage,
       id_user: session.id,

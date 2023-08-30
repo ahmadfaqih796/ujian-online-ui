@@ -184,8 +184,10 @@ const Chat = ({ data, session, message, setMessage, handleSend, users }) => {
               <div ref={scrollRef}></div>
             </List>
             <Divider />
-            <Grid container style={{ padding: "20px" }}>
-              <Grid item xs={11}>
+            <form onSubmit={handleSend}>
+              <Box
+                sx={{ display: "flex", justifyContent: "space-between", p: 2 }}
+              >
                 <TextField
                   id="outlined-basic-email"
                   label="Type Something"
@@ -193,13 +195,18 @@ const Chat = ({ data, session, message, setMessage, handleSend, users }) => {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                 />
-              </Grid>
-              <Grid item xs={1} align="right">
-                <Fab color="primary" aria-label="add" onClick={handleSend}>
-                  <FeatherIcon icon="send" />
-                </Fab>
-              </Grid>
-            </Grid>
+                <Box
+                  sx={{
+                    width: "80px",
+                    textAlign: "right",
+                  }}
+                >
+                  <Fab color="primary" aria-label="add" type="submit">
+                    <FeatherIcon icon="send" />
+                  </Fab>
+                </Box>
+              </Box>
+            </form>
           </Grid>
         </Grid>
       </Card>
