@@ -89,6 +89,7 @@ const Chat = ({ data, session, message, setMessage, handleSend, users }) => {
             <List
               sx={{
                 maxHeight: "calc(100vh - 300px)",
+                minHeight: "calc(100vh - 300px)",
                 overflow: "auto",
                 scrollBehavior: "smooth",
               }}
