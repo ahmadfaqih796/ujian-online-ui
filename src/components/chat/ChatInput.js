@@ -2,13 +2,46 @@ import React from "react";
 import FeatherIcon from "feather-icons-react";
 import { Box, Fab, TextField } from "@mui/material";
 import useUploadFile from "@/hooks/upload/useUploadFile";
-const ChatInput = ({ handleSend, message, setMessage }) => {
+import axios from "axios";
+import io from "socket.io-client";
+
+const socket = io("http://localhost:3030", {
+  path: "/messages",
+});
+
+const ChatInput = ({ session }) => {
+  const [inputMessage, setInputMessage] = React.useState("");
+  const handleMessageSend = (e) => {
+    e.preventDefault();
+
+    const payload = {
+      text: inputMessage,
+      id_user: session.id,
+    };
+    if (inputMessage.trim() !== "") {
+      const res = axios
+        .post("http://localhost:3030/messages", payload)
+        .then((response) => {
+          console.log("berhasil nambah", response);
+          socket.emit("client-message", {
+            ...response.data,
+            name: session.name,
+            photo: session.photo,
+          });
+        })
+        .catch((error) => {
+          console.error("Error creating message:", error);
+        });
+
+      setInputMessage("");
+    }
+  };
   const { handleDeletePoster, onSelectFile, banner, errorFiles, errorMessage } =
     useUploadFile();
 
   console.log("abbbbbbbb", banner);
   return (
-    <form onSubmit={handleSend}>
+    <form onSubmit={handleMessageSend}>
       <Box
         sx={{
           display: "flex",
@@ -47,8 +80,8 @@ const ChatInput = ({ handleSend, message, setMessage }) => {
           label="Type Something"
           fullWidth
           sx={{ ml: 1, mr: 1 }}
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
+          value={inputMessage}
+          onChange={(e) => setInputMessage(e.target.value)}
         />
         <Box
           sx={{

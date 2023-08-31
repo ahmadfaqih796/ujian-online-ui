@@ -19,10 +19,9 @@ export const getServerSideProps = WithAuth(async function ({ req }) {
 });
 
 const Guru = ({ session }) => {
-  const [inputMessage, setInputMessage] = useState("");
   const [receivedMessages, setReceivedMessages] = useState([]);
   const [onlineUsers, setOnlineUsers] = useState([]);
-  // console.log("massssss", receivedMessages);
+
   const socket = io("http://localhost:3030", {
     path: "/messages",
   });
@@ -86,32 +85,6 @@ const Guru = ({ session }) => {
     // setReceivedMessages((prevMessages) => [...prevMessages, data]);
   });
 
-  const handleMessageSend = (e) => {
-    e.preventDefault();
-
-    const payload = {
-      text: inputMessage,
-      id_user: session.id,
-    };
-    if (inputMessage.trim() !== "") {
-      const res = axios
-        .post("http://localhost:3030/messages", payload)
-        .then((response) => {
-          console.log("berhasil nambah", response);
-          socket.emit("client-message", {
-            ...response.data,
-            name: session.name,
-            photo: session.photo,
-          });
-        })
-        .catch((error) => {
-          console.error("Error creating message:", error);
-        });
-
-      setInputMessage("");
-    }
-  };
-
   return (
     <React.Fragment>
       <Box
@@ -129,14 +102,7 @@ const Guru = ({ session }) => {
           <AvatarGroupDropdown options={onlineUsers} />
         </Box>
       </Box>
-      <Chat
-        users={onlineUsers}
-        session={session}
-        message={inputMessage}
-        setMessage={(field) => setInputMessage(field)}
-        data={receivedMessages}
-        handleSend={handleMessageSend}
-      />
+      <Chat users={onlineUsers} session={session} data={receivedMessages} />
     </React.Fragment>
   );
 };

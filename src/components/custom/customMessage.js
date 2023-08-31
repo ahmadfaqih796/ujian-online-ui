@@ -21,7 +21,7 @@ import React, { useRef } from "react";
 import CustomImage from "./CustomImage";
 import ChatInput from "../chat/ChatInput";
 
-const Chat = ({ data, session, message, setMessage, handleSend, users }) => {
+const Chat = ({ data, session, users }) => {
   const scrollRef = useRef(null);
   React.useEffect(() => {
     if (scrollRef.current) {
@@ -191,11 +191,7 @@ const Chat = ({ data, session, message, setMessage, handleSend, users }) => {
               <div ref={scrollRef}></div>
             </List>
             <Divider />
-            <ChatInput
-              handleSend={handleSend}
-              message={message}
-              setMessage={setMessage}
-            />
+            <ChatInput session={session} />
           </Grid>
         </Grid>
       </Card>
