@@ -2,8 +2,12 @@ import { Card, Divider, Grid, TextField } from "@mui/material";
 import ChatInput from "../chat/ChatInput";
 import ChatMessage from "../chat/ChatMessage";
 import ChatUserOnline from "../chat/ChatUserOnline";
+import ChatFileDisplay from "../chat/ChatFileDisplay";
+import React from "react";
 
 const Chat = ({ data, session, users }) => {
+  const [file, setFile] = React.useState({ url: null, type: null });
+  console.log("file masuk", file);
   return (
     <Card>
       <Grid container>
@@ -27,9 +31,13 @@ const Chat = ({ data, session, users }) => {
           <ChatUserOnline data={users} />
         </Grid>
         <Grid item xs={12} md={8} lg={9}>
-          <ChatMessage data={data} session={session} />
+          {file.url != null ? (
+            <ChatFileDisplay file={file} />
+          ) : (
+            <ChatMessage data={data} session={session} />
+          )}
           <Divider />
-          <ChatInput session={session} />
+          <ChatInput session={session} setFile={(field) => setFile(field)} />
         </Grid>
       </Grid>
     </Card>

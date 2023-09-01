@@ -27,6 +27,7 @@ const useUploadFile = (defaultPreview = undefined) => {
     const file = e.target.files;
 
     if (!file || file.length === 0) {
+      e.target.value = "";
       setBanner(undefined);
       setErrorFiles(false);
       setErrorMessage("");
@@ -34,6 +35,7 @@ const useUploadFile = (defaultPreview = undefined) => {
     }
 
     if (file[0].size > 2000000) {
+      e.target.value = "";
       setBanner(undefined);
       setErrorFiles(true);
       setErrorMessage("*File harus dibawah 2 MB");
@@ -43,6 +45,7 @@ const useUploadFile = (defaultPreview = undefined) => {
     const pattern =
       /(image-.*)|(.*\.pdf$)|(.*\.docx$)|(.*\.jpeg$)|(.*\.jpg$)|(.*\.png$)/i;
     if (!file[0].name.match(pattern)) {
+      e.target.value = "";
       setBanner(undefined);
       setErrorFiles(true);
       setErrorMessage(
@@ -55,15 +58,16 @@ const useUploadFile = (defaultPreview = undefined) => {
     setBanner(file[0]);
   };
 
-  const handleDeletePoster = () => {
+  const handleDeleteFile = () => {
     setBanner(null);
     setPreview(undefined);
+    setErrorMessage("");
     setErrorFiles(false);
     setUserFile(undefined);
   };
 
   return {
-    handleDeletePoster,
+    handleDeleteFile,
     onSelectFile,
     errorFiles,
     preview,

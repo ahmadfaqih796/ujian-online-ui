@@ -1,6 +1,6 @@
 import React from "react";
 import FeatherIcon from "feather-icons-react";
-import { Box, Fab, TextField } from "@mui/material";
+import { Box, Button, Fab, TextField } from "@mui/material";
 import useUploadFile from "@/hooks/upload/useUploadFile";
 import axios from "axios";
 import io from "socket.io-client";
@@ -11,23 +11,28 @@ const socket = io("http://localhost:3030", {
   path: "/messages",
 });
 
-const ChatInput = ({ session }) => {
+const ChatInput = ({ session, setFile }) => {
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
     useHandleModal(false);
   const [inputMessage, setInputMessage] = React.useState("");
   const [message, setMessage] = React.useState("");
-  const { handleDeletePoster, onSelectFile, banner, errorFiles, errorMessage } =
-    useUploadFile();
-  console.log("eeeeeeeeeee", errorFiles);
-  console.log("cccccccccccc", errorMessage);
+  const {
+    handleDeleteFile,
+    onSelectFile,
+    banner,
+    preview,
+    errorFiles,
+    errorMessage,
+  } = useUploadFile();
 
   React.useEffect(() => {
+    setFile({ url: preview, type: banner?.type });
     if (errorFiles === true) {
       handleOpenModal("error");
       setMessage(errorMessage);
-      return;
+      handleDeleteFile();
     }
-  }, [errorMessage, errorFiles]);
+  }, [errorMessage, errorFiles, preview]);
 
   const handleMessageSend = (e) => {
     e.preventDefault();
@@ -35,10 +40,6 @@ const ChatInput = ({ session }) => {
       text: inputMessage,
       id_user: session.id,
     };
-    // if (errorFiles) {
-    //   handleOpenModal("error");
-    //   setMessage(errorMessage);
-    // }
     try {
       if (inputMessage.trim() !== "") {
         const res = axios
@@ -64,7 +65,6 @@ const ChatInput = ({ session }) => {
     }
   };
 
-  console.log("abbbbbbbb", banner);
   return (
     <>
       <ErrorModal
@@ -101,7 +101,10 @@ const ChatInput = ({ session }) => {
               id="file-upload"
               type="file"
               accept=".jpg, .jpeg, .png, .pdf"
-              sx={{ display: "none" }}
+              sx={{
+                display: "none",
+                // width: "300px",
+              }}
               onChange={onSelectFile}
               error={errorFiles}
               helperText={errorMessage}
@@ -117,10 +120,24 @@ const ChatInput = ({ session }) => {
           />
           <Box
             sx={{
-              width: "80px",
+              width: "130px",
+              display: "flex",
+              justifyContent: "space-between",
               textAlign: "right",
             }}
           >
+            <Fab
+              size="medium"
+              color="error"
+              aria-label="add"
+              type="reset"
+              onClick={() => {
+                handleDeleteFile();
+                setInputMessage("");
+              }}
+            >
+              <FeatherIcon icon="trash-2" />
+            </Fab>
             <Fab size="medium" color="primary" aria-label="add" type="submit">
               <FeatherIcon icon="send" />
             </Fab>
