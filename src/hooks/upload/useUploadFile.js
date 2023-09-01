@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 
 const useUploadFile = (defaultPreview = undefined) => {
-  const validationMessage = "*File harus berupa dokumen teks (Word) atau PDF";
   const [banner, setBanner] = useState(null);
   const [preview, setPreview] = useState();
-  const [errorMessage, setErrorMessage] = useState(validationMessage);
+  const [errorMessage, setErrorMessage] = useState("");
   const [userFile, setUserFile] = useState(defaultPreview);
   const [errorFiles, setErrorFiles] = useState(false);
 
@@ -34,18 +33,21 @@ const useUploadFile = (defaultPreview = undefined) => {
       return;
     }
 
-    if (file[0]?.size > 2000000) {
+    if (file[0].size > 2000000) {
       setBanner(undefined);
       setErrorFiles(true);
       setErrorMessage("*File harus dibawah 2 MB");
       return;
     }
 
-    const pattern = /(image-.*)|(.*\.pdf$)|(.*\.docx$)/i;
-    if (!file[0]?.name.match(pattern)) {
+    const pattern =
+      /(image-.*)|(.*\.pdf$)|(.*\.docx$)|(.*\.jpeg$)|(.*\.jpg$)|(.*\.png$)/i;
+    if (!file[0].name.match(pattern)) {
       setBanner(undefined);
       setErrorFiles(true);
-      setErrorMessage("*File harus berupa dokumen teks (Word) atau PDF");
+      setErrorMessage(
+        "*File harus berupa gambar, dokumen teks (Word) atau PDF"
+      );
       return;
     }
     setErrorFiles(false);
@@ -56,6 +58,7 @@ const useUploadFile = (defaultPreview = undefined) => {
   const handleDeletePoster = () => {
     setBanner(null);
     setPreview(undefined);
+    setErrorFiles(false);
     setUserFile(undefined);
   };
 
