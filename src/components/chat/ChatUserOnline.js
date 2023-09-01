@@ -15,7 +15,7 @@ const ChatUserOnline = ({ data }) => {
   return (
     <List
       sx={{
-        maxHeight: "calc(100vh - 300px)",
+        maxHeight: "calc(100vh - 270px)",
         overflow: "auto",
         scrollBehavior: "smooth",
       }}

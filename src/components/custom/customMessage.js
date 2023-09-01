@@ -7,7 +7,6 @@ import React from "react";
 
 const Chat = ({ data, session, users }) => {
   const [file, setFile] = React.useState({ url: null, type: null });
-  console.log("file masuk", file);
   return (
     <Card>
       <Grid container>
