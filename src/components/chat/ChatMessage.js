@@ -4,6 +4,7 @@ import { Avatar, Box, List, Skeleton, Typography } from "@mui/material";
 import moment from "moment/moment";
 import Image from "next/image";
 import React from "react";
+import fileImg from "../../../assets/images/file.svg";
 
 const ChatMessage = ({ data, session }) => {
   const scrollRef = React.useRef(null);
@@ -18,12 +19,18 @@ const ChatMessage = ({ data, session }) => {
       new Date(date2).toLocaleDateString()
     );
   };
+
+  const fileType = (field) => {
+    const type = field ? field.split("/") : [];
+    return type[0];
+  };
   return (
     <List
       sx={{
         maxHeight: "calc(100vh - 300px)",
         minHeight: "calc(100vh - 300px)",
-        overflow: "auto",
+        overflowY: "auto",
+        overflowX: "hidden",
         scrollBehavior: "smooth",
       }}
     >
@@ -52,9 +59,9 @@ const ChatMessage = ({ data, session }) => {
                 }}
               >
                 {row.file_url ? (
-                  row.file_url != null ? (
+                  fileType(row.file_type) === "image" ? (
                     <Image
-                      alt={row.name ?? "no_image"}
+                      alt={row.file_name ?? "no_image"}
                       src={`http://localhost:3030/uploads/${row?.file_url}`}
                       width={0}
                       height={0}
@@ -70,16 +77,36 @@ const ChatMessage = ({ data, session }) => {
                       }}
                     />
                   ) : (
-                    <Skeleton
-                      variant="rounded"
-                      width={160}
-                      height={80}
+                    <Box
                       sx={{
-                        marginLeft: session.id == row.id_user ? "0" : "75px",
-                        marginRight: session.id == row.id_user ? "20px" : "0",
-                        mb: 1,
+                        display: "flex",
+                        alignItems: "center",
+                        p: 1,
+                        mt: "10px",
+                        mb: "5px",
+                        ml: session.id == row.id_user ? "0" : "75px",
+                        mr: session.id == row.id_user ? "20px" : "0",
+                        background: "#EBFFED",
+                        borderRadius: 2,
                       }}
-                    />
+                    >
+                      <Image
+                        alt={row.file_name ?? "no_image"}
+                        src={fileImg}
+                        width={0}
+                        height={0}
+                        sizes="100vw"
+                        priority={true}
+                        style={{
+                          objectFit: "contain",
+                          width: "auto",
+                          height: "30px",
+                        }}
+                      />
+                      <Typography sx={{ fontSize: 12 }}>
+                        {row.file_name}
+                      </Typography>
+                    </Box>
                   )
                 ) : null}
               </Box>

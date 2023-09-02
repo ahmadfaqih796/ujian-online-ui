@@ -46,6 +46,7 @@ const ChatInput = ({ session, setFile }) => {
       if (banner) {
         const upload = await uploadFile(banner);
         payload.file_name = banner.name || null;
+        payload.file_type = banner.type || null;
         payload.file_url = upload.id || null;
       }
       if (inputMessage.trim() !== "") {
@@ -113,7 +114,6 @@ const ChatInput = ({ session, setFile }) => {
               id="file-upload"
               type="file"
               name="files"
-              accept=".jpg, .jpeg, .png, .pdf"
               sx={{
                 display: "none",
                 // width: "300px",
