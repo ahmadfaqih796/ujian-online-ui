@@ -6,6 +6,7 @@ import axios from "axios";
 import io from "socket.io-client";
 import ErrorModal from "../modal/ErrorModal";
 import useHandleModal from "@/hooks/useHandleModal";
+import { uploadFile } from "@/lib/services/form/upload";
 
 const socket = io("http://localhost:3030", {
   path: "/messages",
@@ -34,15 +35,20 @@ const ChatInput = ({ session, setFile }) => {
     }
   }, [errorMessage, errorFiles, preview]);
 
-  const handleMessageSend = (e) => {
+  const handleMessageSend = async (e) => {
     e.preventDefault();
     const payload = {
       text: inputMessage,
       id_user: session.id,
     };
     try {
+      if (banner) {
+        const upload = await uploadFile(banner);
+        payload.file_name = banner.name || null;
+        payload.file_url = upload.id || null;
+      }
       if (inputMessage.trim() !== "") {
-        const res = axios
+        axios
           .post("http://localhost:3030/messages", payload)
           .then((response) => {
             console.log("berhasil nambah", response);
@@ -58,6 +64,7 @@ const ChatInput = ({ session, setFile }) => {
             console.error("Error creating message:", error);
           });
         setInputMessage("");
+        handleDeleteFile();
       }
     } catch (error) {
       handleOpenModal("error");

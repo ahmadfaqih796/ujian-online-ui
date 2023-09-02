@@ -6,7 +6,6 @@ import fileImg from "../../../assets/images/file.svg";
 const ChatFileDisplay = ({ file }) => {
   const { url, type, name } = file;
   const parts = type?.split("/");
-  console.log("mmmmmm", file);
   return (
     <Box
       sx={{
