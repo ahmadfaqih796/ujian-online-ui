@@ -1,6 +1,6 @@
 import { stringAvatar } from "@/layouts/header/stringAvatar";
 import { styleLeft, styleRight } from "@/styles/message";
-import { Avatar, Box, List, Typography } from "@mui/material";
+import { Avatar, Box, List, Skeleton, Typography } from "@mui/material";
 import moment from "moment/moment";
 import Image from "next/image";
 import React from "react";
@@ -45,6 +45,44 @@ const ChatMessage = ({ data, session }) => {
                   {moment(row.createdAt).format("D MMMM YYYY")}
                 </Typography>
               ) : null}
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: session.id == row.id_user ? "flex-end" : null,
+                }}
+              >
+                {row.file_url ? (
+                  row.file_url != null ? (
+                    <Image
+                      alt={row.name ?? "no_image"}
+                      src={`http://localhost:3030/uploads/${row?.file_url}`}
+                      width={0}
+                      height={0}
+                      sizes="100vw"
+                      priority={true}
+                      style={{
+                        objectFit: "contain",
+                        width: "auto",
+                        height: "100px",
+                        borderRadius: "16px",
+                        margin: "10px 20px",
+                        marginLeft: session.id == row.id_user ? "20px" : "75px",
+                      }}
+                    />
+                  ) : (
+                    <Skeleton
+                      variant="rounded"
+                      width={160}
+                      height={80}
+                      sx={{
+                        marginLeft: session.id == row.id_user ? "0" : "75px",
+                        marginRight: session.id == row.id_user ? "20px" : "0",
+                        mb: 1,
+                      }}
+                    />
+                  )
+                ) : null}
+              </Box>
               <Box
                 sx={{
                   display: "flex",

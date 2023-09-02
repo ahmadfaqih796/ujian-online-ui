@@ -1,12 +1,12 @@
-import React from "react";
-import FeatherIcon from "feather-icons-react";
-import { Box, Button, Fab, TextField } from "@mui/material";
 import useUploadFile from "@/hooks/upload/useUploadFile";
-import axios from "axios";
-import io from "socket.io-client";
-import ErrorModal from "../modal/ErrorModal";
 import useHandleModal from "@/hooks/useHandleModal";
 import { uploadFile } from "@/lib/services/form/upload";
+import { Box, Fab, TextField } from "@mui/material";
+import axios from "axios";
+import FeatherIcon from "feather-icons-react";
+import React from "react";
+import io from "socket.io-client";
+import ErrorModal from "../modal/ErrorModal";
 
 const socket = io("http://localhost:3030", {
   path: "/messages",
