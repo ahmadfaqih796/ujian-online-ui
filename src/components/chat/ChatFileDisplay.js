@@ -4,8 +4,8 @@ import React from "react";
 import fileImg from "../../../assets/images/file.svg";
 
 const ChatFileDisplay = ({ file }) => {
-  const { url, type } = file;
-  const parts = type.split("/");
+  const { url, type, name } = file;
+  const parts = type?.split("/");
   console.log("mmmmmm", file);
   return (
     <Box
@@ -41,7 +41,7 @@ const ChatFileDisplay = ({ file }) => {
               marginBottom: "20px",
             }}
           />
-          <Typography textAlign="center">sasasas</Typography>
+          <Typography textAlign="center">{name}</Typography>
         </Box>
       )}
     </Box>
