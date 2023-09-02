@@ -61,7 +61,7 @@ const ChatInput = ({ session, setFile }) => {
           })
           .catch((error) => {
             handleOpenModal("error");
-            setMessage("Gagal Mengirim pesan");
+            setMessage("Gagal Mengirim pesan, harap di coba lagi");
             console.error("Error creating message:", error);
           });
         files.value = "";
@@ -70,7 +70,10 @@ const ChatInput = ({ session, setFile }) => {
       }
     } catch (error) {
       handleOpenModal("error");
-      setMessage("silah coba ulang lagi");
+      console.log(error.response.data.message);
+      setMessage(
+        error.response.data.message || "terjadi kesalahan pada koneksi"
+      );
     }
   };
 

@@ -41,7 +41,10 @@ const Guru = ({ session }) => {
     socket.on("connect", () => {
       axios
         .get("http://localhost:3030/users", {
-          params: { "$or[0][role]": "admin", "$or[1][role]": "guru" },
+          params: {
+            "$or[0][role]": "admin",
+            "$or[1][role]": "guru",
+          },
           headers: {
             Authorization: `Bearer ${session.token}`,
           },
