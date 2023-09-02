@@ -5,8 +5,11 @@ import moment from "moment/moment";
 import Image from "next/image";
 import React from "react";
 import fileImg from "../../../assets/images/file.svg";
+import { useRouter } from "next/router";
+import { BASE_API_URL } from "@/utils/baseUrl";
 
 const ChatMessage = ({ data, session }) => {
+  const router = useRouter();
   const scrollRef = React.useRef(null);
   React.useEffect(() => {
     if (scrollRef.current) {
@@ -61,8 +64,15 @@ const ChatMessage = ({ data, session }) => {
                 {row.file_url ? (
                   fileType(row.file_type) === "image" ? (
                     <Image
+                      id="file"
                       alt={row.file_name ?? "no_image"}
                       src={`http://localhost:3030/uploads/${row?.file_url}`}
+                      onClick={() => {
+                        window.open(
+                          `${BASE_API_URL.base_image_url}/${row?.file_url}`,
+                          "_blank"
+                        );
+                      }}
                       width={0}
                       height={0}
                       sizes="100vw"
@@ -74,19 +84,30 @@ const ChatMessage = ({ data, session }) => {
                         borderRadius: "16px",
                         margin: "10px 20px",
                         marginLeft: session.id == row.id_user ? "20px" : "75px",
+                        cursor: "pointer",
                       }}
                     />
                   ) : (
                     <Box
+                      id="file"
+                      component="button"
+                      onClick={() => {
+                        window.open(
+                          `${BASE_API_URL.base_image_url}/${row?.file_url}`,
+                          "_blank"
+                        );
+                      }}
                       sx={{
                         display: "flex",
                         alignItems: "center",
                         p: 1,
                         mt: "10px",
-                        mb: "5px",
+                        mb: "10px",
                         ml: session.id == row.id_user ? "0" : "75px",
                         mr: session.id == row.id_user ? "20px" : "0",
                         background: "#EBFFED",
+                        color: "black",
+                        cursor: "pointer",
                         borderRadius: 2,
                       }}
                     >

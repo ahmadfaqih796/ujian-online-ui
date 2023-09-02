@@ -1,7 +1,6 @@
 import axios from "axios";
-import { useEffect } from "react";
 
-const BASE_API = process.env.NEXT_PUBLIC_BASE_API_LOCAL;
+const BASE_API = process.env.NEXT_PUBLIC_BASE_API;
 
 function ServiceAdapter() {
   // return axios.create({

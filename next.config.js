@@ -5,6 +5,8 @@ module.exports = {
     domains: ["localhost", "lh3.googleusercontent.com"],
   },
   env: {
+    BASE_URL: process.env.NEXT_PUBLIC_BASE_API,
+    BASE_IMAGE_URL: process.env.NEXT_PUBLIC_BASE_IMAGE_URL,
     API_KEY: process.env.API_KEY,
     DOMAIN_URI_PROFIX: process.env.DOMAIN_URI_PROFIX,
     ANDROID: process.env.ANDROID,
