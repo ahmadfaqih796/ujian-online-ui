@@ -26,13 +26,14 @@ const ChatInput = ({ session, setFile }) => {
   } = useUploadFile();
 
   React.useEffect(() => {
-    setFile({ url: preview, type: banner?.type });
+    setFile({ url: preview, type: banner?.type, ...banner });
     if (errorFiles === true) {
       handleOpenModal("error");
       setMessage(errorMessage);
       handleDeleteFile();
     }
   }, [errorMessage, errorFiles, preview]);
+  console.log(banner);
 
   const handleMessageSend = (e) => {
     e.preventDefault();
