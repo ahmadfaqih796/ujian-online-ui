@@ -37,6 +37,7 @@ const ChatInput = ({ session, setFile }) => {
 
   const handleMessageSend = async (e) => {
     e.preventDefault();
+    const { files } = e.target;
     const payload = {
       text: inputMessage,
       id_user: session.id,
@@ -63,6 +64,7 @@ const ChatInput = ({ session, setFile }) => {
             setMessage("Gagal Mengirim pesan");
             console.error("Error creating message:", error);
           });
+        files.value = "";
         setInputMessage("");
         handleDeleteFile();
       }
@@ -107,6 +109,7 @@ const ChatInput = ({ session, setFile }) => {
             <TextField
               id="file-upload"
               type="file"
+              name="files"
               accept=".jpg, .jpeg, .png, .pdf"
               sx={{
                 display: "none",
