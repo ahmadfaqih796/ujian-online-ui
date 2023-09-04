@@ -135,5 +135,14 @@ const Menuitems = [
       },
     ],
   },
+  {
+    title: "Customer Service",
+    icon: "grid",
+    href: "/admin/customer-service",
+    collapse: true,
+    isAdmin: false,
+    isSPV: true,
+    isStaff: false,
+  },
 ];
 export default Menuitems;
