@@ -10,8 +10,10 @@ import {
   Typography,
 } from "@mui/material";
 import CustomImage from "../custom/CustomImage";
+import { useRouter } from "next/router";
 
-const ChatUserOnline = ({ data }) => {
+const ChatUserOnline = ({ data, onClick }) => {
+  const router = useRouter();
   return (
     <List
       sx={{
@@ -22,7 +24,13 @@ const ChatUserOnline = ({ data }) => {
     >
       {data &&
         data.map((row, index) => (
-          <ListItem key={index}>
+          <ListItem
+            button={onClick ? true : false}
+            key={index}
+            onClick={() => {
+              onClick ? router.push(`/admin/customer-service/${row.id}`) : null;
+            }}
+          >
             <ListItemIcon>
               <CustomImage src={row.photo} alt={row.name} margin="0" />
             </ListItemIcon>

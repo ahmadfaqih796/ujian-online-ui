@@ -5,7 +5,7 @@ import ChatUserOnline from "../chat/ChatUserOnline";
 import ChatFileDisplay from "../chat/ChatFileDisplay";
 import React from "react";
 
-const Chat = ({ data, session, users }) => {
+const Chat = ({ data, session, users, personal }) => {
   const [file, setFile] = React.useState({ url: null, type: null });
   return (
     <Card>
@@ -27,7 +27,7 @@ const Chat = ({ data, session, users }) => {
             />
           </Grid>
           <Divider />
-          <ChatUserOnline data={users} />
+          <ChatUserOnline data={users} onClick={personal} />
         </Grid>
         <Grid item xs={12} md={8} lg={9}>
           {file.url != null ? (
