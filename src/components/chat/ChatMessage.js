@@ -58,7 +58,8 @@ const ChatMessage = ({ data, session }) => {
               <Box
                 sx={{
                   display: "flex",
-                  justifyContent: session.id == row.id_user ? "flex-end" : null,
+                  justifyContent:
+                    session.id == row.id_sender ? "flex-end" : null,
                 }}
               >
                 {row.file_url ? (
@@ -83,7 +84,8 @@ const ChatMessage = ({ data, session }) => {
                         height: "100px",
                         borderRadius: "16px",
                         margin: "10px 20px",
-                        marginLeft: session.id == row.id_user ? "20px" : "75px",
+                        marginLeft:
+                          session.id == row.id_sender ? "20px" : "75px",
                         cursor: "pointer",
                       }}
                     />
@@ -103,8 +105,8 @@ const ChatMessage = ({ data, session }) => {
                         p: 1,
                         mt: "10px",
                         mb: "10px",
-                        ml: session.id == row.id_user ? "0" : "75px",
-                        mr: session.id == row.id_user ? "20px" : "0",
+                        ml: session.id == row.id_sender ? "0" : "75px",
+                        mr: session.id == row.id_sender ? "20px" : "0",
                         background: "#EBFFED",
                         color: "black",
                         cursor: "pointer",
@@ -134,10 +136,11 @@ const ChatMessage = ({ data, session }) => {
               <Box
                 sx={{
                   display: "flex",
-                  justifyContent: session.id == row.id_user ? "flex-end" : null,
+                  justifyContent:
+                    session.id == row.id_sender ? "flex-end" : null,
                 }}
               >
-                {session.id != row.id_user &&
+                {session.id != row.id_sender &&
                   (row?.user_data?.user_admin?.photo || row.photo ? (
                     <Image
                       alt={row.name ?? "no_image"}
@@ -172,25 +175,27 @@ const ChatMessage = ({ data, session }) => {
                     display: "flex",
                     flexDirection: "column",
                     justifyContent:
-                      session.id == row.id_user ? "flex-end" : null,
+                      session.id == row.id_sender ? "flex-end" : null,
                   }}
                 >
-                  {session.id != row.id_user && (
+                  {session.id != row.id_sender && (
                     <Typography ml={2.5} variant="body1" fontSize={12}>
                       {row?.name ||
                         row?.user_data?.user_admin?.nama_admin ||
                         "anonymus"}
                     </Typography>
                   )}
-                  <Box sx={session.id == row.id_user ? styleRight : styleLeft}>
+                  <Box
+                    sx={session.id == row.id_sender ? styleRight : styleLeft}
+                  >
                     {row.text}
                   </Box>
                   <Box
                     sx={{
                       mt: -1,
                       mb: 1,
-                      ml: session.id == row.id_user ? "auto" : "20px",
-                      mr: session.id == row.id_user ? "20px" : "0",
+                      ml: session.id == row.id_sender ? "auto" : "20px",
+                      mr: session.id == row.id_sender ? "20px" : "0",
                     }}
                   >
                     {moment(row.createdAt).format("HH:mm")}

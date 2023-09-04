@@ -40,7 +40,7 @@ const ChatInput = ({ session, setFile }) => {
     const { files } = e.target;
     const payload = {
       text: inputMessage,
-      id_user: session.id,
+      id_sender: session.id,
     };
     try {
       if (banner) {

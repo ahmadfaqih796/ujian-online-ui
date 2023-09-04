@@ -30,7 +30,7 @@ const SiswaMessage = () => {
   const sendMessage = () => {
     axios
       .post("http://localhost:3030/messages", {
-        id_user: "0fb7b66d-697a-4037-9463-15552dbc0774",
+        id_sender: "0fb7b66d-697a-4037-9463-15552dbc0774",
         text: newMessage,
       })
       .then((response) => {
@@ -47,7 +47,7 @@ const SiswaMessage = () => {
         console.error("Error creating message:", error);
       });
     const res = socket.emit("pesan", {
-      id_user: "0fb7b66d-697a-4037-9463-15552dbc0774",
+      id_sender: "0fb7b66d-697a-4037-9463-15552dbc0774",
       text: newMessage,
     });
     console.log("masuk", res);

@@ -53,7 +53,7 @@ const Guru = ({ session }) => {
           const { data } = res.data;
           console.log("masuk", data);
           const userData = data.map((row) => ({
-            id: row?.id_user,
+            id: row?.id_sender,
             name: row?.user_admin?.nama_admin || row?.user_guru?.nama_guru,
             photo: row?.user_admin?.photo || row?.user_guru?.photo,
             role: row?.role,
