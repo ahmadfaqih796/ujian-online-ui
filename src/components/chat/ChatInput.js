@@ -12,7 +12,7 @@ const socket = io("http://localhost:3030", {
   path: "/messages",
 });
 
-const ChatInput = ({ session, setFile }) => {
+const ChatInput = ({ session, setFile, personal }) => {
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
     useHandleModal(false);
   const [inputMessage, setInputMessage] = React.useState("");
@@ -41,6 +41,10 @@ const ChatInput = ({ session, setFile }) => {
     const payload = {
       text: inputMessage,
       id_sender: session.id,
+      ...(personal &&
+        session.receiver && {
+          id_receiver: session.receiver,
+        }),
     };
     try {
       if (banner) {

@@ -1,24 +1,35 @@
 import Chat from "@/components/custom/customMessage";
 import AvatarGroupDropdown from "@/components/dropdown/AvatarGroupDropdown";
+import { getMessages } from "@/lib/services/messages";
 import WithAuth from "@/lib/sessions/withAuth";
 import { Box, Typography } from "@mui/material";
 import axios from "axios";
 import React from "react";
 import io from "socket.io-client";
 
-export const getServerSideProps = WithAuth(async function ({ req }) {
+export const getServerSideProps = WithAuth(async function ({ req, query }) {
   const { id, token } = req.session.user;
   console.log("first", req.session.user);
+
+  const pesan = await getMessages(token, {
+    $limit: -1,
+    ...query,
+  });
 
   //   console.log("wwww", id, token);
 
   return {
-    props: { session: req.session.user },
+    props: {
+      session: req.session.user,
+      pesan,
+    },
   };
 });
 
-const CustomerService = ({ session }) => {
-  const [receivedMessages, setReceivedMessages] = React.useState([]);
+const CustomerService = ({ session, pesan }) => {
+  const [receivedMessages, setReceivedMessages] = React.useState(pesan);
+  console.log("ddddd", receivedMessages.length);
+  console.log("rrrrr", pesan.length);
   const [onlineUsers, setOnlineUsers] = React.useState([]);
 
   const socket = io("http://localhost:3030", {
@@ -26,17 +37,6 @@ const CustomerService = ({ session }) => {
   });
 
   React.useEffect(() => {
-    axios
-      .get("http://localhost:3030/messages", {
-        params: { $limit: -1 },
-      })
-      .then((res) => {
-        setReceivedMessages(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
     socket.on("connect", () => {
       axios
         .get("http://localhost:3030/users", {
@@ -98,7 +98,7 @@ const CustomerService = ({ session }) => {
         }}
       >
         <Typography color="black" fontWeight={700} fontSize={24}>
-          Guru Group
+          Personal
         </Typography>
         <Box sx={{ display: { xs: "block", md: "none" } }}>
           <AvatarGroupDropdown options={onlineUsers} />
@@ -107,7 +107,7 @@ const CustomerService = ({ session }) => {
       <Chat
         users={onlineUsers}
         session={session}
-        data={receivedMessages}
+        data={pesan.length > receivedMessages.length ? receivedMessages : pesan}
         personal={true}
       />
     </React.Fragment>

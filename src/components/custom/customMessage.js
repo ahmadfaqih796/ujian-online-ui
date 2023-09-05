@@ -33,10 +33,14 @@ const Chat = ({ data, session, users, personal }) => {
           {file.url != null ? (
             <ChatFileDisplay file={file} />
           ) : (
-            <ChatMessage data={data} session={session} />
+            <ChatMessage data={data} session={session} personal={personal} />
           )}
           <Divider />
-          <ChatInput session={session} setFile={(field) => setFile(field)} />
+          <ChatInput
+            session={session}
+            personal={personal}
+            setFile={(field) => setFile(field)}
+          />
         </Grid>
       </Grid>
     </Card>

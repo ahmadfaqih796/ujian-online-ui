@@ -14,6 +14,12 @@ import { useRouter } from "next/router";
 
 const ChatUserOnline = ({ data, onClick }) => {
   const router = useRouter();
+  const handlePush = (field) => {
+    router.replace(`/admin/customer-service/${field}`, null, { shallow: true });
+    setTimeout(() => {
+      router.reload();
+    }, 500);
+  };
   return (
     <List
       sx={{
@@ -28,7 +34,7 @@ const ChatUserOnline = ({ data, onClick }) => {
             button={onClick ? true : false}
             key={index}
             onClick={() => {
-              onClick ? router.push(`/admin/customer-service/${row.id}`) : null;
+              onClick ? handlePush(row.id) : null;
             }}
           >
             <ListItemIcon>
