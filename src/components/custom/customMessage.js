@@ -5,7 +5,7 @@ import ChatUserOnline from "../chat/ChatUserOnline";
 import ChatFileDisplay from "../chat/ChatFileDisplay";
 import React from "react";
 
-const Chat = ({ data, session, users, personal }) => {
+const Chat = ({ data, session, users, personal, grup }) => {
   const [file, setFile] = React.useState({ url: null, type: null });
   return (
     <Card>
@@ -40,6 +40,7 @@ const Chat = ({ data, session, users, personal }) => {
             session={session}
             personal={personal}
             setFile={(field) => setFile(field)}
+            grup={grup}
           />
         </Grid>
       </Grid>

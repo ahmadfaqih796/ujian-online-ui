@@ -12,7 +12,8 @@ const socket = io("http://localhost:3030", {
   path: "/messages",
 });
 
-const ChatInput = ({ session, setFile, personal }) => {
+const ChatInput = ({ session, setFile, personal, grup }) => {
+  console.log(grup);
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
     useHandleModal(false);
   const [inputMessage, setInputMessage] = React.useState("");
@@ -45,6 +46,10 @@ const ChatInput = ({ session, setFile, personal }) => {
         session.receiver && {
           id_receiver: session.receiver,
         }),
+
+      ...(grup && {
+        grup_name: grup,
+      }),
     };
     try {
       if (banner) {

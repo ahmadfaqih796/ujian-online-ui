@@ -8,11 +8,6 @@ import { Avatar, AvatarGroup, Box, Typography } from "@mui/material";
 import AvatarGroupDropdown from "@/components/dropdown/AvatarGroupDropdown";
 
 export const getServerSideProps = WithAuth(async function ({ req }) {
-  const { id, token } = req.session.user;
-  console.log("first", req.session.user);
-
-  //   console.log("wwww", id, token);
-
   return {
     props: { session: req.session.user },
   };
@@ -29,7 +24,10 @@ const Guru = ({ session }) => {
   useEffect(() => {
     axios
       .get("http://localhost:3030/messages", {
-        params: { $limit: -1 },
+        params: {
+          $limit: -1,
+          grup_name: "guru",
+        },
       })
       .then((res) => {
         setReceivedMessages(res.data);
@@ -64,13 +62,15 @@ const Guru = ({ session }) => {
           socket.emit("user-connected", userData, session.id);
         })
         .catch((error) => {
-          console.log(error);
+          console.log("gagal meload data", error);
         });
     });
 
     socket.on("server-message", (data) => {
       console.log("yoyoyoyo", data);
-      setReceivedMessages((prevMessages) => [...prevMessages, data]);
+      if (data.grup_name == "guru") {
+        setReceivedMessages((prevMessages) => [...prevMessages, data]);
+      }
     });
 
     return () => {
@@ -105,7 +105,12 @@ const Guru = ({ session }) => {
           <AvatarGroupDropdown options={onlineUsers} />
         </Box>
       </Box>
-      <Chat users={onlineUsers} session={session} data={receivedMessages} />
+      <Chat
+        users={onlineUsers}
+        session={session}
+        data={receivedMessages}
+        grup={"guru"}
+      />
     </React.Fragment>
   );
 };
