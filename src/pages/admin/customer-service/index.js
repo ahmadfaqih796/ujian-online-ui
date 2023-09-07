@@ -31,6 +31,7 @@ const CustomerService = ({ session, pesan }) => {
   console.log("ddddd", receivedMessages.length);
   console.log("rrrrr", pesan.length);
   const [onlineUsers, setOnlineUsers] = React.useState([]);
+  const [search, setSearch] = React.useState([]);
 
   const socket = io("http://localhost:3030", {
     path: "/messages",
@@ -43,6 +44,9 @@ const CustomerService = ({ session, pesan }) => {
           params: {
             "$or[0][role]": "admin",
             "$or[1][role]": "guru",
+            ...(search && {
+              "name[$like]": `%${search}%`,
+            }),
           },
           headers: {
             Authorization: `Bearer ${session.token}`,
@@ -79,7 +83,7 @@ const CustomerService = ({ session, pesan }) => {
       socket.disconnect();
       // targetIdUser = targetIdUser.filter((user) => user.id !== targetIdToDelete);
     };
-  }, []);
+  }, [search]);
 
   socket.on("update-user-status", (data) => {
     console.log("hallo", data);
@@ -105,6 +109,7 @@ const CustomerService = ({ session, pesan }) => {
         </Box>
       </Box>
       <Chat
+        setSearch={(field) => setSearch(field)}
         users={onlineUsers}
         session={session}
         data={pesan.length > receivedMessages.length ? receivedMessages : pesan}

@@ -28,6 +28,7 @@ export const getServerSideProps = WithAuth(async function ({
 const CustomerServiceById = ({ session }) => {
   const [receivedMessages, setReceivedMessages] = React.useState([]);
   const [onlineUsers, setOnlineUsers] = React.useState([]);
+  const [search, setSearch] = React.useState([]);
 
   const socket = io("http://localhost:3030", {
     path: "/messages",
@@ -57,6 +58,9 @@ const CustomerServiceById = ({ session }) => {
             "id_user[$ne]": session.id,
             "$or[0][role]": "admin",
             "$or[1][role]": "guru",
+            ...(search && {
+              "name[$like]": `%${search}%`,
+            }),
           },
           headers: {
             Authorization: `Bearer ${session.token}`,
@@ -95,7 +99,7 @@ const CustomerServiceById = ({ session }) => {
       console.log("anda disconnect");
       socket.disconnect();
     };
-  }, []);
+  }, [search]);
 
   socket.on("update-user-status", (data) => {
     console.log("hallo", data);
@@ -120,6 +124,7 @@ const CustomerServiceById = ({ session }) => {
         </Box>
       </Box>
       <Chat
+        setSearch={(field) => setSearch(field)}
         users={onlineUsers}
         session={session}
         data={receivedMessages}
