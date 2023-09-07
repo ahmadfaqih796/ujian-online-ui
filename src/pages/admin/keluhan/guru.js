@@ -16,6 +16,7 @@ export const getServerSideProps = WithAuth(async function ({ req }) {
 const Guru = ({ session }) => {
   const [receivedMessages, setReceivedMessages] = useState([]);
   const [onlineUsers, setOnlineUsers] = useState([]);
+  const [search, setSearch] = useState([]);
 
   const socket = io("http://localhost:3030", {
     path: "/messages",
@@ -42,6 +43,9 @@ const Guru = ({ session }) => {
           params: {
             "$or[0][role]": "admin",
             "$or[1][role]": "guru",
+            ...(search && {
+              "name[$like]": `%${search}%`,
+            }),
           },
           headers: {
             Authorization: `Bearer ${session.token}`,
@@ -80,7 +84,7 @@ const Guru = ({ session }) => {
       socket.disconnect();
       // targetIdUser = targetIdUser.filter((user) => user.id !== targetIdToDelete);
     };
-  }, []);
+  }, [search]);
 
   socket.on("update-user-status", (data) => {
     console.log("hallo", data);
@@ -106,6 +110,8 @@ const Guru = ({ session }) => {
         </Box>
       </Box>
       <Chat
+        search={search}
+        setSearch={(field) => setSearch(field)}
         users={onlineUsers}
         session={session}
         data={receivedMessages}

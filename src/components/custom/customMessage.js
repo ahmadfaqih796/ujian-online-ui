@@ -5,8 +5,12 @@ import ChatUserOnline from "../chat/ChatUserOnline";
 import ChatFileDisplay from "../chat/ChatFileDisplay";
 import React from "react";
 
-const Chat = ({ data, session, users, personal, grup }) => {
+const Chat = ({ data, session, users, personal, grup, setSearch }) => {
   const [file, setFile] = React.useState({ url: null, type: null });
+  const handleChange = (e) => {
+    e.preventDefault();
+    setSearch(e.target.value);
+  };
   return (
     <Card>
       <Grid container>
@@ -21,6 +25,8 @@ const Chat = ({ data, session, users, personal, grup }) => {
             <TextField
               id="outlined-basic-email"
               label="Search"
+              name="search"
+              onChange={(e) => handleChange(e)}
               size="small"
               variant="outlined"
               fullWidth
