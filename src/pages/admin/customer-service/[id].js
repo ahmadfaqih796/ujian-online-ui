@@ -7,6 +7,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import React from "react";
 import io from "socket.io-client";
+import { useUserSession } from "@/hooks/auth/useUserSession";
 
 export const getServerSideProps = WithAuth(async function ({
   req,
@@ -27,6 +28,8 @@ export const getServerSideProps = WithAuth(async function ({
 });
 
 const CustomerServiceById = ({ session }) => {
+  const { data: userLogin, error } = useUserSession();
+  console.log("sssss", userLogin, error);
   const router = useRouter();
   console.log(router.asPath);
 

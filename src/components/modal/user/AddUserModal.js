@@ -69,8 +69,8 @@ const AddUserModal = ({ open = false, closeModalHandler, type }) => {
         const upload = await uploadFile(gambar);
         payload.photo = upload.id;
       }
-      await ServiceAdapter().post("/users", payload);
-      // await axios.post("/api/users", payload);
+      // await ServiceAdapter().post("/users", payload);
+      await axios.post("/api/users", payload);
       setLoading(false);
       openSnackBar("Berhasil menambahkan users");
       closeModalHandler();

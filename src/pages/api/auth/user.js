@@ -21,9 +21,10 @@ async function userRoute(req, res) {
     const token = tempToken.encode();
 
     const data = {
-      id: response.id,
+      id: response.id_user,
+      name: response.name,
       ...(response.role === "admin" && {
-        name: resAdmin.nama_admin,
+        fullname: resAdmin.nama_admin,
       }),
       email: response.email,
       token: token,
