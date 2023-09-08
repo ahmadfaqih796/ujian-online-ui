@@ -10,3 +10,12 @@ export const getMessages = async (token, params = {}) => {
 
   return data;
 };
+
+export const addMessages = async (data, token) => {
+  const { data: response } = await ServiceAdapter().post("/messages", data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response;
+};

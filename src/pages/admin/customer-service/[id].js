@@ -16,7 +16,7 @@ export const getServerSideProps = WithAuth(async function ({
 }) {
   const { id, token } = req.session.user;
   console.log("first", query);
-  console.log("seeeeeeee", req.session.user);
+
   return {
     props: {
       session: {
@@ -65,7 +65,8 @@ const CustomerServiceById = ({ session }) => {
       axios
         .get("http://localhost:3030/users", {
           params: {
-            "id_user[$ne]": session.id,
+            $limit: -1,
+            // "id_user[$ne]": session.id,
             "$or[0][role]": "admin",
             "$or[1][role]": "guru",
             ...(search && {
@@ -77,7 +78,8 @@ const CustomerServiceById = ({ session }) => {
           },
         })
         .then((res) => {
-          const { data } = res.data;
+          const { data } = res;
+          console.log(data);
           const userData = data.map((row) => ({
             id: row?.id_user,
             name: row?.user_admin?.nama_admin || row?.user_guru?.nama_guru,
@@ -108,7 +110,7 @@ const CustomerServiceById = ({ session }) => {
       console.log("anda disconnect");
       socket.disconnect();
     };
-  }, [router.asPath, search]);
+  }, [router, search]);
 
   socket.on("update-user-status", (data) => {
     console.log("hallo", data);

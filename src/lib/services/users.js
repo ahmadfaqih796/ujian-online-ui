@@ -1,5 +1,16 @@
 import ServiceAdapter from ".";
 
+export const getAllUser = async (token, params = {}) => {
+  const { data } = await ServiceAdapter().get(`/users`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    params: params,
+  });
+
+  return data;
+};
+
 export const getOneUser = async (id, token) => {
   const { data } = await ServiceAdapter().get(`/users/${id}`, {
     headers: {

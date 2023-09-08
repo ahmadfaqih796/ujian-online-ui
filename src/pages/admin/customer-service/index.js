@@ -1,6 +1,5 @@
 import Chat from "@/components/custom/customMessage";
 import AvatarGroupDropdown from "@/components/dropdown/AvatarGroupDropdown";
-import { getMessages } from "@/lib/services/messages";
 import WithAuth from "@/lib/sessions/withAuth";
 import { Box, Typography } from "@mui/material";
 import axios from "axios";
@@ -9,27 +8,15 @@ import io from "socket.io-client";
 
 export const getServerSideProps = WithAuth(async function ({ req, query }) {
   const { id, token } = req.session.user;
-  console.log("first", req.session.user);
-
-  const pesan = await getMessages(token, {
-    $limit: -1,
-    ...query,
-  });
-
-  //   console.log("wwww", id, token);
-
   return {
     props: {
       session: req.session.user,
-      pesan,
     },
   };
 });
 
 const CustomerService = ({ session, pesan }) => {
-  const [receivedMessages, setReceivedMessages] = React.useState(pesan);
-  console.log("ddddd", receivedMessages.length);
-  console.log("rrrrr", pesan.length);
+  const [receivedMessages, setReceivedMessages] = React.useState([]);
   const [onlineUsers, setOnlineUsers] = React.useState([]);
   const [search, setSearch] = React.useState([]);
 
@@ -42,19 +29,17 @@ const CustomerService = ({ session, pesan }) => {
       axios
         .get("http://localhost:3030/users", {
           params: {
+            $limit: -1,
+            // "id_user[$ne]": session.id,
             "$or[0][role]": "admin",
             "$or[1][role]": "guru",
             ...(search && {
               "name[$like]": `%${search}%`,
             }),
           },
-          headers: {
-            Authorization: `Bearer ${session.token}`,
-          },
         })
         .then((res) => {
-          const { data } = res.data;
-          console.log("masuk", data);
+          const { data } = res;
           const userData = data.map((row) => ({
             id: row?.id_user,
             name: row?.user_admin?.nama_admin || row?.user_guru?.nama_guru,
@@ -112,7 +97,7 @@ const CustomerService = ({ session, pesan }) => {
         setSearch={(field) => setSearch(field)}
         users={onlineUsers}
         session={session}
-        data={pesan.length > receivedMessages.length ? receivedMessages : pesan}
+        data={receivedMessages}
         personal={true}
       />
     </React.Fragment>
