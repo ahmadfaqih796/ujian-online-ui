@@ -33,7 +33,7 @@ const Chat = ({ data, session, users, personal, grup, setSearch }) => {
             />
           </Grid>
           <Divider />
-          <ChatUserOnline data={users} onClick={personal} />
+          <ChatUserOnline data={users} onClick={personal} session={session} />
         </Grid>
         <Grid item xs={12} md={8} lg={9}>
           {file.url != null ? (

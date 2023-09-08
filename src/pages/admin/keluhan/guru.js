@@ -6,6 +6,7 @@ import WithAuth from "@/lib/sessions/withAuth";
 import Chat from "@/components/custom/customMessage";
 import { Avatar, AvatarGroup, Box, Typography } from "@mui/material";
 import AvatarGroupDropdown from "@/components/dropdown/AvatarGroupDropdown";
+import { useRouter } from "next/router";
 
 export const getServerSideProps = WithAuth(async function ({ req }) {
   return {
@@ -14,6 +15,7 @@ export const getServerSideProps = WithAuth(async function ({ req }) {
 });
 
 const Guru = ({ session }) => {
+  const router = useRouter();
   const [receivedMessages, setReceivedMessages] = useState([]);
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [search, setSearch] = useState([]);
@@ -84,7 +86,7 @@ const Guru = ({ session }) => {
       socket.disconnect();
       // targetIdUser = targetIdUser.filter((user) => user.id !== targetIdToDelete);
     };
-  }, [search]);
+  }, [search, router.asPath]);
 
   socket.on("update-user-status", (data) => {
     console.log("hallo", data);
@@ -115,6 +117,7 @@ const Guru = ({ session }) => {
         users={onlineUsers}
         session={session}
         data={receivedMessages}
+        personal={true}
         grup={"guru"}
       />
     </React.Fragment>

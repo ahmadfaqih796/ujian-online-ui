@@ -12,13 +12,10 @@ import {
 import CustomImage from "../custom/CustomImage";
 import { useRouter } from "next/router";
 
-const ChatUserOnline = ({ data, onClick }) => {
+const ChatUserOnline = ({ data, onClick, session }) => {
   const router = useRouter();
   const handlePush = (field) => {
-    router.replace(`/admin/customer-service/${field}`, null, { shallow: true });
-    setTimeout(() => {
-      router.reload();
-    }, 500);
+    router.replace(`/admin/customer-service/${field}`);
   };
   return (
     <List
@@ -36,6 +33,7 @@ const ChatUserOnline = ({ data, onClick }) => {
             onClick={() => {
               onClick ? handlePush(row.id) : null;
             }}
+            sx={{ background: row.id == session.receiver ? "#E4F1FF" : null }}
           >
             <ListItemIcon>
               <CustomImage src={row.photo} alt={row.name} margin="0" />

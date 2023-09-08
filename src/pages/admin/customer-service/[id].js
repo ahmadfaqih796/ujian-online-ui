@@ -4,6 +4,7 @@ import { getMessages } from "@/lib/services/messages";
 import WithAuth from "@/lib/sessions/withAuth";
 import { Box, Typography } from "@mui/material";
 import axios from "axios";
+import { useRouter } from "next/router";
 import React from "react";
 import io from "socket.io-client";
 
@@ -14,7 +15,7 @@ export const getServerSideProps = WithAuth(async function ({
 }) {
   const { id, token } = req.session.user;
   console.log("first", query);
-
+  console.log("seeeeeeee", req.session.user);
   return {
     props: {
       session: {
@@ -26,6 +27,9 @@ export const getServerSideProps = WithAuth(async function ({
 });
 
 const CustomerServiceById = ({ session }) => {
+  const router = useRouter();
+  console.log(router.asPath);
+
   const [receivedMessages, setReceivedMessages] = React.useState([]);
   const [onlineUsers, setOnlineUsers] = React.useState([]);
   const [search, setSearch] = React.useState([]);
@@ -35,23 +39,26 @@ const CustomerServiceById = ({ session }) => {
   });
 
   React.useEffect(() => {
+    axios
+      .get("http://localhost:3030/messages", {
+        params: {
+          $limit: -1,
+          "$or[0][id_sender]": session.id,
+          "$or[0][id_receiver]": session.receiver,
+          "$or[1][id_sender]": session.receiver,
+          "$or[1][id_receiver]": session.id,
+        },
+      })
+      .then((res) => {
+        setReceivedMessages(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     socket.on("connect", () => {
-      axios
-        .get("http://localhost:3030/messages", {
-          params: {
-            $limit: -1,
-            "$or[0][id_sender]": session.id,
-            "$or[0][id_receiver]": session.receiver,
-            "$or[1][id_sender]": session.receiver,
-            "$or[1][id_receiver]": session.id,
-          },
-        })
-        .then((res) => {
-          setReceivedMessages(res.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      console.log("socketz");
+
       axios
         .get("http://localhost:3030/users", {
           params: {
@@ -68,7 +75,6 @@ const CustomerServiceById = ({ session }) => {
         })
         .then((res) => {
           const { data } = res.data;
-          console.log("masuk", data);
           const userData = data.map((row) => ({
             id: row?.id_user,
             name: row?.user_admin?.nama_admin || row?.user_guru?.nama_guru,
@@ -99,7 +105,7 @@ const CustomerServiceById = ({ session }) => {
       console.log("anda disconnect");
       socket.disconnect();
     };
-  }, [search]);
+  }, [router.asPath, search]);
 
   socket.on("update-user-status", (data) => {
     console.log("hallo", data);
