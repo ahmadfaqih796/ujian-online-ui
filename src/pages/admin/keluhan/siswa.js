@@ -1,79 +1,127 @@
-import React, { useState, useEffect } from "react";
+// pages/index.js (Next.js frontend)
+import React, { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
 import axios from "axios";
+import WithAuth from "@/lib/sessions/withAuth";
+import Chat from "@/components/custom/customMessage";
+import { Avatar, AvatarGroup, Box, Typography } from "@mui/material";
+import AvatarGroupDropdown from "@/components/dropdown/AvatarGroupDropdown";
+import { useRouter } from "next/router";
+import { getAllUser } from "@/lib/services/users";
 
-const socket = io("http://localhost:3030", { path: "/messages" });
+export const getServerSideProps = WithAuth(async function ({ req }) {
+  const { id, token } = req.session.user;
+  const userData = await getAllUser(token, {
+    $limit: -1,
+    "$or[0][role]": "admin",
+    "$or[1][role]": "guru",
+    // ...(search && {
+    //   "name[$like]": `%${search}%`,
+    // }),
+  });
+  console.log(userData);
+  return {
+    props: { session: req.session.user, userData: userData },
+  };
+});
 
-const SiswaMessage = () => {
-  console.log("ssssssssssssokk", socket);
-  const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState("");
-  console.log("message", messages);
+const Siswa = ({ session, userData }) => {
+  const router = useRouter();
+  const [receivedMessages, setReceivedMessages] = useState([]);
+  const [onlineUsers, setOnlineUsers] = useState([]);
+  console.log(onlineUsers);
+  const [search, setSearch] = useState([]);
 
-  useEffect(() => {
-    // axios
-    //   .get("http://localhost:3030/messages", { params: { $limit: -1 } })
-    //   .then((response) => {
-    //     setMessages(response.data);
-    //     socket.emit("message created", messages);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error fetching messages:", error);
-    //   });
+  const socket = io("http://localhost:3030", {
+    path: "/messages",
+  });
 
-    socket.on("pesan", (message) => {
-      console.log("pappaapapap", message);
-      setMessages((prevMessages) => [...prevMessages, message]);
+  const fetchUserData = async () => {
+    const { data } = await axios.get(`/api/users`, {
+      params: {
+        $limit: -1,
+        "id_user[$ne]": session.id,
+        "$or[0][role]": "admin",
+        "$or[1][role]": "guru",
+        ...(search && {
+          "name[$like]": `%${search}%`,
+        }),
+      },
     });
-  }, []);
-
-  const sendMessage = () => {
-    axios
-      .post("http://localhost:3030/messages", {
-        id_sender: "0fb7b66d-697a-4037-9463-15552dbc0774",
-        text: newMessage,
-      })
-      .then((response) => {
-        // socket.on("message created", response.data);
-        socket.on("message created", (message) => {
-          console.log("pappaapapap", message);
-          setMessages((prevMessages) => [...prevMessages, message]);
-        });
-        setMessages((prevMessages) => [...prevMessages, response.data]);
-        console.log("bbbbb", response.data);
-        setNewMessage("");
-      })
-      .catch((error) => {
-        console.error("Error creating message:", error);
-      });
-    const res = socket.emit("pesan", {
-      id_sender: "0fb7b66d-697a-4037-9463-15552dbc0774",
-      text: newMessage,
-    });
-    console.log("masuk", res);
-    setNewMessage("");
+    setOnlineUsers(data);
   };
 
+  useEffect(() => {
+    fetchUserData();
+  }, [search]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3030/messages", {
+        params: {
+          $limit: -1,
+          grup_name: "guru",
+        },
+      })
+      .then((res) => {
+        setReceivedMessages(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    socket.on("connect", () => {});
+
+    socket.on("server-message", (data) => {
+      console.log("yoyoyoyo", data);
+      if (data.grup_name == "guru") {
+        setReceivedMessages((prevMessages) => [...prevMessages, data]);
+      }
+    });
+
+    return () => {
+      console.log("ffffffffff", onlineUsers);
+      socket.emit("before-disconnect", { id: session.id });
+      console.log("anda disconnect");
+      socket.disconnect();
+      // targetIdUser = targetIdUser.filter((user) => user.id !== targetIdToDelete);
+    };
+  }, [router.asPath]);
+
+  socket.on("update-user-status", (data) => {
+    console.log("hallo", data);
+    setOnlineUsers(data);
+    // setReceivedMessages((prevMessages) => [...prevMessages, data]);
+  });
+
   return (
-    <div>
-      <h1 style={{ color: "black" }}>SiswaMessage</h1>
-      <div style={{ color: "black" }}>
-        {messages.map((message, index) => (
-          <div key={index}>{message.text}</div>
-        ))}
-        aaa
-      </div>
-      <div>
-        <input
-          type="text"
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-        />
-        <button onClick={sendMessage}>Send</button>
-      </div>
-      {/* <button onClick={handleClick}>Coba Fatching Data</button> */}
-    </div>
+    <React.Fragment>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          mb: 1,
+        }}
+      >
+        <Typography color="black" fontWeight={700} fontSize={24}>
+          Siswa Group
+        </Typography>
+        <Box sx={{ display: { xs: "block", md: "none" } }}>
+          <AvatarGroupDropdown options={onlineUsers} />
+        </Box>
+      </Box>
+      <Chat
+        search={search}
+        setSearch={(field) => setSearch(field)}
+        users={onlineUsers}
+        session={session}
+        data={receivedMessages}
+        personal={true}
+        grup={"guru"}
+      />
+    </React.Fragment>
   );
 };
-SiswaMessage.layout = "Admin";
-export default SiswaMessage;
+Siswa.layout = "Admin";
+export default Siswa;
