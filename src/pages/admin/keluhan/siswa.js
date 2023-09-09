@@ -14,7 +14,7 @@ export const getServerSideProps = WithAuth(async function ({ req, query }) {
   const userData = await getAllUser(token, {
     $limit: -1,
     "$or[0][role]": "admin",
-    "$or[1][role]": "guru",
+    "$or[1][role]": "siswa",
     // ...(search && {
     //   "name[$like]": `%${search}%`,
     // }),
@@ -24,23 +24,32 @@ export const getServerSideProps = WithAuth(async function ({ req, query }) {
     props: {
       session: {
         ...req.session.user,
-        receiver: query.id_receiver,
+        receiver: query.id_receiver || null,
       },
       userData: userData,
     },
   };
 });
 
-const Siswa = ({ session, userData }) => {
+const Siswa = ({ session }) => {
   const router = useRouter();
   const [receivedMessages, setReceivedMessages] = useState([]);
   const [onlineUsers, setOnlineUsers] = useState([]);
-  console.log(onlineUsers);
+  const [active, setActive] = useState([]);
   const [search, setSearch] = useState([]);
 
   const socket = io("http://localhost:3030", {
     path: "/messages",
   });
+
+  const updateStatus = (dataUser, idUser) => {
+    dataUser.forEach((user) => {
+      user.status = false;
+      if (idUser.includes(user.id_user)) {
+        user.status = true;
+      }
+    });
+  };
 
   const fetchUserData = async () => {
     const { data } = await axios.get(`/api/users`, {
@@ -48,18 +57,30 @@ const Siswa = ({ session, userData }) => {
         $limit: -1,
         "id_user[$ne]": session.id,
         "$or[0][role]": "admin",
-        "$or[1][role]": "guru",
+        "$or[1][role]": "siswa",
         ...(search && {
           "name[$like]": `%${search}%`,
         }),
       },
     });
-    setOnlineUsers(data);
+    const userData = data.map((row) => ({
+      id_user: row?.id_user,
+      name: row?.user_admin?.nama_admin || row?.user_siswa?.nama_siswa,
+      photo: row?.user_admin?.photo || row?.user_siswa?.photo,
+      role: row?.role,
+      status: false,
+    }));
+    console.log(userData);
+    setOnlineUsers(userData);
+    socket.emit("user-active", { id: session.id });
+    socket.on("update-online", (data) => {
+      setActive(data);
+    });
   };
 
   useEffect(() => {
     fetchUserData();
-  }, [search]);
+  }, [search, updateStatus(onlineUsers, active)]);
 
   useEffect(() => {
     axios
@@ -98,14 +119,12 @@ const Siswa = ({ session, userData }) => {
       socket.emit("before-disconnect", { id: session.id });
       console.log("anda disconnect");
       socket.disconnect();
-      // targetIdUser = targetIdUser.filter((user) => user.id !== targetIdToDelete);
     };
   }, [router, session]);
 
   socket.on("update-user-status", (data) => {
     console.log("hallo", data);
     setOnlineUsers(data);
-    // setReceivedMessages((prevMessages) => [...prevMessages, data]);
   });
 
   return (
@@ -119,7 +138,7 @@ const Siswa = ({ session, userData }) => {
         }}
       >
         <Typography color="black" fontWeight={700} fontSize={24}>
-          Siswa Group
+          Siswa Chat
         </Typography>
         <Box sx={{ display: { xs: "block", md: "none" } }}>
           <AvatarGroupDropdown options={onlineUsers} />
