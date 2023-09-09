@@ -9,7 +9,7 @@ import AvatarGroupDropdown from "@/components/dropdown/AvatarGroupDropdown";
 import { useRouter } from "next/router";
 import { getAllUser } from "@/lib/services/users";
 
-export const getServerSideProps = WithAuth(async function ({ req }) {
+export const getServerSideProps = WithAuth(async function ({ req, query }) {
   const { id, token } = req.session.user;
   const userData = await getAllUser(token, {
     $limit: -1,
@@ -21,7 +21,13 @@ export const getServerSideProps = WithAuth(async function ({ req }) {
   });
   console.log(userData);
   return {
-    props: { session: req.session.user, userData: userData },
+    props: {
+      session: {
+        ...req.session.user,
+        receiver: query.id_receiver,
+      },
+      userData: userData,
+    },
   };
 });
 
@@ -112,13 +118,13 @@ const Siswa = ({ session, userData }) => {
         </Box>
       </Box>
       <Chat
-        search={search}
         setSearch={(field) => setSearch(field)}
         users={onlineUsers}
         session={session}
         data={receivedMessages}
         personal={true}
         grup={"guru"}
+        hrefPersonal={"/admin/keluhan/siswa"}
       />
     </React.Fragment>
   );

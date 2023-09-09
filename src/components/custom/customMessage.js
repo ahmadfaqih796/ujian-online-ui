@@ -5,7 +5,15 @@ import ChatUserOnline from "../chat/ChatUserOnline";
 import ChatFileDisplay from "../chat/ChatFileDisplay";
 import React from "react";
 
-const Chat = ({ data, session, users, personal, grup, setSearch }) => {
+const Chat = ({
+  data,
+  session,
+  users,
+  personal,
+  grup,
+  setSearch,
+  hrefPersonal,
+}) => {
   const [file, setFile] = React.useState({ url: null, type: null });
   const handleChange = (e) => {
     e.preventDefault();
@@ -33,7 +41,12 @@ const Chat = ({ data, session, users, personal, grup, setSearch }) => {
             />
           </Grid>
           <Divider />
-          <ChatUserOnline data={users} onClick={personal} session={session} />
+          <ChatUserOnline
+            data={users}
+            onClick={personal}
+            session={session}
+            hrefPersonal={hrefPersonal}
+          />
         </Grid>
         <Grid item xs={12} md={8} lg={9}>
           {file.url != null ? (

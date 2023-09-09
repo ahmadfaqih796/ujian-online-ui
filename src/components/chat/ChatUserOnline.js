@@ -12,9 +12,20 @@ import {
 import CustomImage from "../custom/CustomImage";
 import { useRouter } from "next/router";
 
-const ChatUserOnline = ({ data, onClick, session }) => {
+const ChatUserOnline = ({ data, onClick, session, hrefPersonal }) => {
+  console.log(session);
   const router = useRouter();
   const handlePush = (field) => {
+    if (hrefPersonal) {
+      router.replace({
+        pathname: hrefPersonal,
+        query: {
+          id_user: session.id,
+          id_receiver: field,
+        },
+      });
+      return;
+    }
     router.replace(`/admin/customer-service/${field}`);
   };
   return (
@@ -31,9 +42,11 @@ const ChatUserOnline = ({ data, onClick, session }) => {
             button={onClick ? true : false}
             key={index}
             onClick={() => {
-              onClick ? handlePush(row.id) : null;
+              onClick ? handlePush(row.id_user) : null;
             }}
-            sx={{ background: row.id == session.receiver ? "#E4F1FF" : null }}
+            sx={{
+              background: row.id_user == session.receiver ? "#E4F1FF" : null,
+            }}
           >
             <ListItemIcon>
               <CustomImage src={row.photo} alt={row.name} margin="0" />
