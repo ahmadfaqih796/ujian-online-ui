@@ -67,6 +67,10 @@ const Siswa = ({ session, userData }) => {
         params: {
           $limit: -1,
           grup_name: "guru",
+          "$or[0][id_sender]": session.id,
+          "$or[0][id_receiver]": session.receiver,
+          "$or[1][id_sender]": session.receiver,
+          "$or[1][id_receiver]": session.id,
         },
       })
       .then((res) => {
@@ -80,7 +84,11 @@ const Siswa = ({ session, userData }) => {
 
     socket.on("server-message", (data) => {
       console.log("yoyoyoyo", data);
-      if (data.grup_name == "guru") {
+      if (
+        (data.id_receiver === session.id &&
+          data.id_sender === session.receiver) ||
+        (data.id_sender === session.id && data.id_receiver === session.receiver)
+      ) {
         setReceivedMessages((prevMessages) => [...prevMessages, data]);
       }
     });
@@ -92,7 +100,7 @@ const Siswa = ({ session, userData }) => {
       socket.disconnect();
       // targetIdUser = targetIdUser.filter((user) => user.id !== targetIdToDelete);
     };
-  }, [router.asPath]);
+  }, [router, session]);
 
   socket.on("update-user-status", (data) => {
     console.log("hallo", data);
