@@ -1,32 +1,21 @@
 // pages/index.js (Next.js frontend)
-import React, { useState, useEffect, useRef } from "react";
-import io from "socket.io-client";
-import axios from "axios";
-import WithAuth from "@/lib/sessions/withAuth";
 import Chat from "@/components/custom/customMessage";
-import { Avatar, AvatarGroup, Box, Typography } from "@mui/material";
 import AvatarGroupDropdown from "@/components/dropdown/AvatarGroupDropdown";
+import WithAuth from "@/lib/sessions/withAuth";
+import { Box, Typography } from "@mui/material";
+import axios from "axios";
 import { useRouter } from "next/router";
-import { getAllUser } from "@/lib/services/users";
+import React, { useEffect, useState } from "react";
+import io from "socket.io-client";
 
 export const getServerSideProps = WithAuth(async function ({ req, query }) {
   const { id, token } = req.session.user;
-  const userData = await getAllUser(token, {
-    $limit: -1,
-    "$or[0][role]": "admin",
-    "$or[1][role]": "siswa",
-    // ...(search && {
-    //   "name[$like]": `%${search}%`,
-    // }),
-  });
-  console.log(userData);
   return {
     props: {
       session: {
         ...req.session.user,
         receiver: query.id_receiver || null,
       },
-      userData: userData,
     },
   };
 });
