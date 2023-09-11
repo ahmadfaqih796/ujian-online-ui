@@ -18,6 +18,7 @@ import React, { useState } from "react";
 import Transition from "../transition";
 import { useRouter } from "next/router";
 const upTransition = Transition("up");
+import io from "socket.io-client";
 
 const ChatDeleteMessage = ({
   open = false,
@@ -27,6 +28,12 @@ const ChatDeleteMessage = ({
   name,
   title,
 }) => {
+  const socket = io(
+    "http://localhost:3030"
+    // {
+    //   path: "/messages",
+    // }
+  );
   console.log("sssss", data);
   const router = useRouter();
   const { isActive, message, openSnackBar, closeSnackBar } = useSnackbar();
@@ -51,18 +58,19 @@ const ChatDeleteMessage = ({
     const payload = {
       is_deleted: true,
     };
-
     try {
-      await axios.patch(`/api/messages/${data?.id}`, payload);
+      const res = await axios.patch(`/api/messages/${data?.id}`, payload);
+      console.log(res);
+      socket.emit("delete-message", res.data);
       setLoading(false);
       openSnackBar(`Berhasil menghapus ${title || "data"}`);
       closeModalHandler();
-      router.replace({
-        pathname: router.pathname,
-        query: {
-          ...router.query,
-        },
-      });
+      // router.replace({
+      //   pathname: router.pathname,
+      //   query: {
+      //     ...router.query,
+      //   },
+      // });
       return;
     } catch (error) {
       console.log(error);
@@ -109,14 +117,14 @@ const ChatDeleteMessage = ({
               component="div"
             >
               <Typography variant="body1">
-                Apakah anda ingin menghapus {data.id}
+                Apakah anda ingin menghapus pesan
                 <span
                   style={{
                     marginLeft: "5px",
                     fontWeight: 700,
                   }}
                 >
-                  {name}
+                  {data.text}
                 </span>{" "}
                 ?
               </Typography>

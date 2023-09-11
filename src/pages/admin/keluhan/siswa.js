@@ -79,7 +79,7 @@ const Siswa = ({ session }) => {
       .get("http://localhost:3030/messages", {
         params: {
           $limit: -1,
-          grup_name: "guru",
+          // grup_name: "guru",
           "$or[0][id_sender]": session.id,
           "$or[0][id_receiver]": session.receiver,
           "$or[1][id_sender]": session.receiver,
@@ -88,11 +88,16 @@ const Siswa = ({ session }) => {
       })
       .then((res) => {
         setReceivedMessages(res.data);
+        socket.emit("get-message", res.data);
       })
       .catch((error) => {
         console.log(error);
       });
 
+    socket.on("get-server-message", (data) => {
+      console.log("vvvvvvvv", data);
+      setReceivedMessages(data);
+    });
     socket.on("connect", () => {});
 
     socket.on("server-message", (data) => {
