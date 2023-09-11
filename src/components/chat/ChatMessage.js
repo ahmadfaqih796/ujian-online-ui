@@ -210,7 +210,6 @@ const ChatMessage = ({ data, session }) => {
                     )}
                     <Box
                       sx={session.id == row.id_sender ? styleRight : styleLeft}
-                      // component={session.id == row.id_sender ? "button" : null}
                       onClick={() => {
                         session.id == row.id_sender && !row.is_deleted
                           ? handleDelete(row, "delete")

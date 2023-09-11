@@ -32,7 +32,10 @@ async function userRoute(req, res) {
 
     return res.json(data);
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
+    if (error.message === "Request failed with status code 401") {
+      return res.status(401).json(error.message);
+    }
     return res.status(500).json(error.response);
   }
 }
