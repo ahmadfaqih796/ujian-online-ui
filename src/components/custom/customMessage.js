@@ -1,9 +1,10 @@
-import { Card, Divider, Grid, TextField } from "@mui/material";
+import { Box, Card, Divider, Grid, TextField } from "@mui/material";
 import ChatInput from "../chat/ChatInput";
 import ChatMessage from "../chat/ChatMessage";
 import ChatUserOnline from "../chat/ChatUserOnline";
 import ChatFileDisplay from "../chat/ChatFileDisplay";
 import React from "react";
+import ChatBlankLayout from "../chat/ChatBlankLayout";
 
 const Chat = ({
   data,
@@ -48,20 +49,26 @@ const Chat = ({
             hrefPersonal={hrefPersonal}
           />
         </Grid>
-        <Grid item xs={12} md={8} lg={9}>
-          {file.url != null ? (
-            <ChatFileDisplay file={file} />
-          ) : (
-            <ChatMessage data={data} session={session} personal={personal} />
-          )}
-          <Divider />
-          <ChatInput
-            session={session}
-            personal={personal}
-            setFile={(field) => setFile(field)}
-            grup={grup}
-          />
-        </Grid>
+        {session.receiver ? (
+          <Grid item xs={12} md={8} lg={9}>
+            {file.url != null ? (
+              <ChatFileDisplay file={file} />
+            ) : (
+              <ChatMessage data={data} session={session} personal={personal} />
+            )}
+            <Divider />
+            <ChatInput
+              session={session}
+              personal={personal}
+              setFile={(field) => setFile(field)}
+              grup={grup}
+            />
+          </Grid>
+        ) : (
+          <Grid item xs={12} md={8} lg={9}>
+            <ChatBlankLayout />
+          </Grid>
+        )}
       </Grid>
     </Card>
   );

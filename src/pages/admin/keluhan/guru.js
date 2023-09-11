@@ -117,7 +117,7 @@ const Guru = ({ session }) => {
         users={onlineUsers}
         session={session}
         data={receivedMessages}
-        personal={true}
+        // personal={true}
         grup={"guru"}
       />
     </React.Fragment>
