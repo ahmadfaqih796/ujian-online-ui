@@ -8,9 +8,12 @@ import React from "react";
 import io from "socket.io-client";
 import ErrorModal from "../modal/ErrorModal";
 
-const socket = io("http://localhost:3030", {
-  path: "/messages",
-});
+const socket = io(
+  "http://localhost:3030"
+  // {
+  //   path: "/messages",
+  // }
+);
 
 const ChatInput = ({ session, setFile, personal, grup }) => {
   console.log(grup);

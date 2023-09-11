@@ -19,3 +19,16 @@ export const addMessages = async (data, token) => {
   });
   return response;
 };
+
+export const updateMessages = async (id, data, token) => {
+  const { data: response } = await ServiceAdapter().patch(
+    `/messages/${id}`,
+    data,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return response;
+};

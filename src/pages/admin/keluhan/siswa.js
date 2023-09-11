@@ -27,9 +27,12 @@ const Siswa = ({ session }) => {
   const [active, setActive] = useState([]);
   const [search, setSearch] = useState([]);
 
-  const socket = io("http://localhost:3030", {
-    path: "/messages",
-  });
+  const socket = io(
+    "http://localhost:3030"
+    // {
+    //   path: "/messages",
+    // }
+  );
 
   const updateStatus = (dataUser, idUser) => {
     dataUser.forEach((user) => {
