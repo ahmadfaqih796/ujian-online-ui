@@ -16,6 +16,7 @@ const Chat = ({
   hrefPersonal,
 }) => {
   const [file, setFile] = React.useState({ url: null, type: null });
+  console.log("filsse", file);
   const handleChange = (e) => {
     e.preventDefault();
     setSearch(e.target.value);
@@ -49,26 +50,32 @@ const Chat = ({
             hrefPersonal={hrefPersonal}
           />
         </Grid>
-        {session.receiver ? (
-          <Grid item xs={12} md={8} lg={9}>
-            {file.url != null ? (
-              <ChatFileDisplay file={file} />
-            ) : (
-              <ChatMessage data={data} session={session} personal={personal} />
-            )}
-            <Divider />
-            <ChatInput
-              session={session}
-              personal={personal}
-              setFile={(field) => setFile(field)}
-              grup={grup}
-            />
-          </Grid>
-        ) : (
-          <Grid item xs={12} md={8} lg={9}>
+        <Grid item xs={12} md={8} lg={9}>
+          {session.receiver ? (
+            <React.Fragment>
+              {file.url != null ? (
+                <ChatFileDisplay file={file} />
+              ) : (
+                <ChatMessage
+                  data={data}
+                  setFile={(field) => setFile(field)}
+                  session={session}
+                  personal={personal}
+                />
+              )}
+              <Divider />
+              <ChatInput
+                session={session}
+                personal={personal}
+                file={file}
+                setFile={(field) => setFile(field)}
+                grup={grup}
+              />
+            </React.Fragment>
+          ) : (
             <ChatBlankLayout />
-          </Grid>
-        )}
+          )}
+        </Grid>
       </Grid>
     </Card>
   );

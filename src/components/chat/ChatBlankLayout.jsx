@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import React from "react";
+import ChatFileDrag from "./ChatFileDrag";
 
 const ChatBlankLayout = () => {
   return (
@@ -12,6 +13,7 @@ const ChatBlankLayout = () => {
         alignItems: "center",
       }}
     >
+      <ChatFileDrag />
       Selamat datang di fitur chat kami ^_^
     </Box>
   );

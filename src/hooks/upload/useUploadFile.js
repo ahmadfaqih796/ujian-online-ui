@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useUploadFile = (defaultPreview = undefined) => {
+const useUploadFile = (img, defaultPreview = undefined) => {
   const [banner, setBanner] = useState(null);
   const [preview, setPreview] = useState();
   const [errorMessage, setErrorMessage] = useState("");
@@ -24,7 +24,8 @@ const useUploadFile = (defaultPreview = undefined) => {
   }, [banner, userFile, defaultPreview]);
 
   const onSelectFile = (e) => {
-    const file = e.target.files;
+    const file = e.target.files || e.dataTransfer.files;
+    console.log("dddddd", file);
 
     if (!file || file.length === 0) {
       e.target.value = "";

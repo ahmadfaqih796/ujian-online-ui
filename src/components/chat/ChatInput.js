@@ -79,6 +79,7 @@ const ChatInput = ({ session, setFile, personal, grup }) => {
           });
         files.value = "";
         setInputMessage("");
+        setFile({});
         handleDeleteFile();
       }
     } catch (error) {
@@ -159,6 +160,7 @@ const ChatInput = ({ session, setFile, personal, grup }) => {
               onClick={() => {
                 handleDeleteFile();
                 setInputMessage("");
+                setFile({});
               }}
             >
               <FeatherIcon icon="trash-2" />
