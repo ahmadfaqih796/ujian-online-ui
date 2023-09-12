@@ -65,12 +65,12 @@ const ChatDeleteMessage = ({
       setLoading(false);
       openSnackBar(`Berhasil menghapus ${title || "data"}`);
       closeModalHandler();
-      // router.replace({
-      //   pathname: router.pathname,
-      //   query: {
-      //     ...router.query,
-      //   },
-      // });
+      router.replace({
+        pathname: router.pathname,
+        query: {
+          ...router.query,
+        },
+      });
       return;
     } catch (error) {
       console.log(error);

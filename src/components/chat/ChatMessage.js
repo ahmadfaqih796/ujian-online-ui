@@ -14,6 +14,7 @@ const ChatMessage = ({ data, session }) => {
     useHandleModal(false);
   const [message, setMessage] = React.useState({});
   const scrollRef = React.useRef(null);
+
   React.useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollIntoView({ behaviour: "smooth" });
@@ -85,7 +86,7 @@ const ChatMessage = ({ data, session }) => {
                       session.id == row.id_sender ? "flex-end" : null,
                   }}
                 >
-                  {row.file_url ? (
+                  {!row.is_deleted && row.file_url ? (
                     fileType(row.file_type) === "image" ? (
                       <Image
                         id="file"
