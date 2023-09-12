@@ -8,6 +8,7 @@ import { useUserSession } from "@/hooks/auth/useUserSession";
 import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
 import { Container, experimentalStyled } from "@mui/material";
+import CustomMessageV2 from "@/components/custom/CustomMessageV2";
 
 const drawerWidth = 265;
 
@@ -64,6 +65,7 @@ const AdminLayout = ({ children }) => {
         <Container maxWidth={false}>
           <Box sx={{ minHeight: "calc(100vh - 170px)", mt: 3 }}>{children}</Box>
         </Container>
+        <CustomMessageV2 />
       </PageWrapper>
     </MainWrapper>
   );

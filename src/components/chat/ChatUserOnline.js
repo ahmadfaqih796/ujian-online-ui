@@ -17,13 +17,19 @@ const ChatUserOnline = ({ data, onClick, session, hrefPersonal }) => {
   const router = useRouter();
   const handlePush = (field) => {
     if (hrefPersonal) {
-      router.replace({
-        pathname: hrefPersonal,
-        query: {
-          id_user: session.id,
-          id_receiver: field,
-        },
-      });
+      router.replace(
+        {
+          pathname: hrefPersonal,
+          query: {
+            id_user: session.id,
+            id_receiver: field,
+          },
+        }
+        // null,
+        // {
+        //   shallow: true,
+        // }
+      );
       return;
     }
     router.replace(`/admin/customer-service/${field}`);
