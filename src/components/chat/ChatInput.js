@@ -15,8 +15,8 @@ const socket = io(
   // }
 );
 
-const ChatInput = ({ session, setFile, personal, grup }) => {
-  console.log(grup);
+const ChatInput = ({ session, file, setFile, personal, grup }) => {
+  console.log("sssssssssssss", file);
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
     useHandleModal(false);
   const [inputMessage, setInputMessage] = React.useState("");
@@ -55,12 +55,13 @@ const ChatInput = ({ session, setFile, personal, grup }) => {
       }),
     };
     try {
-      if (banner) {
-        const upload = await uploadFile(banner);
-        payload.file_name = banner.name || null;
-        payload.file_type = banner.type || null;
+      if (banner || file.file) {
+        const upload = await uploadFile(banner || file.file);
+        payload.file_name = banner.name || file.name || null;
+        payload.file_type = banner.type || file.type || null;
         payload.file_url = upload.id || null;
       }
+      console.log("tetttt", upload);
       if (inputMessage.trim() !== "") {
         axios
           .post("http://localhost:3030/messages", payload)
@@ -84,9 +85,9 @@ const ChatInput = ({ session, setFile, personal, grup }) => {
       }
     } catch (error) {
       handleOpenModal("error");
-      console.log(error.response.data.message);
+      console.log(error);
       setMessage(
-        error.response.data.message || "terjadi kesalahan pada koneksi"
+        error.response?.data?.message || "terjadi kesalahan pada koneksi"
       );
     }
   };

@@ -31,7 +31,12 @@ const ChatMessage = ({ data, session, setFile }) => {
   console.log("hhhhhhhhhh", preview, banner);
 
   React.useEffect(() => {
-    setFile({ url: preview, type: banner?.type, name: banner?.name });
+    setFile({
+      url: preview,
+      type: banner?.type,
+      name: banner?.name,
+      file: selectedFile,
+    });
     if (scrollRef.current) {
       scrollRef.current.scrollIntoView({ behaviour: "smooth" });
     }
@@ -77,25 +82,12 @@ const ChatMessage = ({ data, session, setFile }) => {
 
   const handleDrop = async (e) => {
     e.preventDefault();
+    onSelectFile(e);
     setDragging(false);
     const files = Array.from(e.dataTransfer.files);
-    // if (files.length > 0) {
-    //   const firstFile = files[0];
-    // }
-    try {
-      onSelectFile(e);
-      const upload = await uploadFile(files[0]);
-      console.log(upload);
-      setSelectedFile({ upload: "ssss" });
-      // const upload = await uploadFile(files[0]);
-      console.log(upload);
-    } catch (error) {
-      console.log(error);
-    }
+    setSelectedFile(files[0]);
     console.log("Daftar file yang di-drop:", files);
   };
-
-  console.log("kkkk", selectedFile);
 
   return (
     <React.Fragment>

@@ -15,8 +15,8 @@ const Chat = ({
   setSearch,
   hrefPersonal,
 }) => {
-  const [file, setFile] = React.useState({ url: null, type: null });
-  console.log("filsse", file);
+  const [file, setFile] = React.useState({});
+  console.log("filse", file);
   const handleChange = (e) => {
     e.preventDefault();
     setSearch(e.target.value);
