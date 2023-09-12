@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useUploadFile = (img, defaultPreview = undefined) => {
+const useUploadFile = (defaultPreview = undefined) => {
   const [banner, setBanner] = useState(null);
   const [preview, setPreview] = useState();
   const [errorMessage, setErrorMessage] = useState("");
