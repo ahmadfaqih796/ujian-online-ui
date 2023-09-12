@@ -57,11 +57,10 @@ const ChatInput = ({ session, file, setFile, personal, grup }) => {
     try {
       if (banner || file.file) {
         const upload = await uploadFile(banner || file.file);
-        payload.file_name = banner.name || file.name || null;
-        payload.file_type = banner.type || file.type || null;
+        payload.file_name = banner?.name || file?.name || null;
+        payload.file_type = banner?.type || file?.type || null;
         payload.file_url = upload.id || null;
       }
-      console.log("tetttt", upload);
       if (inputMessage.trim() !== "") {
         axios
           .post("http://localhost:3030/messages", payload)
