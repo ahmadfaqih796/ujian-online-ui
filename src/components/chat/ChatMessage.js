@@ -32,10 +32,12 @@ const ChatMessage = ({ data, session, setFile }) => {
 
   React.useEffect(() => {
     setFile({
-      url: preview,
-      type: banner?.type,
-      name: banner?.name,
-      file: selectedFile,
+      ...(preview && {
+        url: preview,
+        type: banner?.type,
+        name: banner?.name,
+        file: selectedFile,
+      }),
     });
     if (scrollRef.current) {
       scrollRef.current.scrollIntoView({ behaviour: "smooth" });

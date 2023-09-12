@@ -65,6 +65,7 @@ const ChatInput = ({ session, file, setFile, personal, grup }) => {
         axios
           .post("http://localhost:3030/messages", payload)
           .then((response) => {
+            setFile({});
             console.log("berhasil nambah", response);
             socket.emit("client-message", {
               ...response.data,
