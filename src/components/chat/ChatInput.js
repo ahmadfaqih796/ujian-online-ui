@@ -16,7 +16,6 @@ const socket = io(
 );
 
 const ChatInput = ({ session, file, setFile, personal, grup }) => {
-  console.log("sssssssssssss", file);
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
     useHandleModal(false);
   const [inputMessage, setInputMessage] = React.useState("");
@@ -31,13 +30,21 @@ const ChatInput = ({ session, file, setFile, personal, grup }) => {
   } = useUploadFile();
 
   React.useEffect(() => {
-    setFile({ url: preview, type: banner?.type, name: banner?.name });
-    if (errorFiles === true) {
-      handleOpenModal("error");
-      setMessage(errorMessage);
+    setFile({
+      url: preview,
+      type: banner?.type,
+      name: banner?.name,
+      error: false,
+    });
+    if (errorFiles === true || file.error == true) {
+      console.log("memori", errorFiles, file.error);
       handleDeleteFile();
+      handleOpenModal("error");
+      setMessage(errorMessage || file.response);
+      setFile({ error: false });
+      return;
     }
-  }, [errorMessage, errorFiles, preview]);
+  }, [errorMessage, errorFiles, preview, file.error]);
 
   const handleMessageSend = async (e) => {
     e.preventDefault();
@@ -66,7 +73,6 @@ const ChatInput = ({ session, file, setFile, personal, grup }) => {
           .post("http://localhost:3030/messages", payload)
           .then((response) => {
             setFile({});
-            console.log("berhasil nambah", response);
             socket.emit("client-message", {
               ...response.data,
               name: session.name,
@@ -76,11 +82,11 @@ const ChatInput = ({ session, file, setFile, personal, grup }) => {
           .catch((error) => {
             handleOpenModal("error");
             setMessage("Gagal Mengirim pesan, harap di coba lagi");
-            console.error("Error creating message:", error);
+            console.log("Error creating message:", error);
           });
         files.value = "";
         setInputMessage("");
-        setFile({});
+        setFile({ error: false });
         handleDeleteFile();
       }
     } catch (error) {

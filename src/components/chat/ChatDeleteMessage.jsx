@@ -33,7 +33,6 @@ const ChatDeleteMessage = ({
     //   path: "/messages",
     // }
   );
-  console.log("sssss", data);
   const router = useRouter();
   const { isActive, message, openSnackBar, closeSnackBar } = useSnackbar();
   const [loading, setLoading] = useState(false);

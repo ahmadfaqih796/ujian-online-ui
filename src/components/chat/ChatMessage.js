@@ -18,10 +18,19 @@ const ChatMessage = ({ data, session, setFile }) => {
   const [dragging, setDragging] = React.useState(false);
   const [selectedFile, setSelectedFile] = React.useState({});
   const scrollRef = React.useRef(null);
+  const {
+    handleDeleteFile,
+    onSelectFile,
+    banner,
+    preview,
+    errorFiles,
+    errorMessage,
+  } = useUploadFile();
 
-  const { onSelectFile, banner, preview, errorFiles, errorMessage } =
-    useUploadFile();
-
+  const errorResponse = {
+    error: errorFiles,
+    response: errorMessage,
+  };
   React.useEffect(() => {
     setFile({
       ...(preview && {
@@ -29,14 +38,13 @@ const ChatMessage = ({ data, session, setFile }) => {
         type: banner?.type,
         name: banner?.name,
         file: selectedFile,
-        error: errorFiles,
-        response: errorMessage,
       }),
+      ...errorResponse,
     });
     if (scrollRef.current) {
       scrollRef.current.scrollIntoView({ behaviour: "smooth" });
     }
-  }, [data, preview]);
+  }, [data, preview, errorFiles, errorMessage]);
 
   const handleDelete = (obj, type) => {
     if (obj && type === "delete") {
@@ -69,6 +77,11 @@ const ChatMessage = ({ data, session, setFile }) => {
 
   const handleDragOver = (e) => {
     e.preventDefault();
+    console.log("wwwwwwwwwww", errorFiles);
+    if (errorFiles === true) {
+      setFile({ error: false });
+      handleDeleteFile();
+    }
   };
 
   const handleDragEnd = () => {
@@ -78,9 +91,14 @@ const ChatMessage = ({ data, session, setFile }) => {
   const handleDrop = async (e) => {
     e.preventDefault();
     onSelectFile(e);
+    // if (errorFiles === true) {
+    //   setFile({});
+    //   handleDeleteFile();
+    // }
     setDragging(false);
     const files = Array.from(e.dataTransfer.files);
     setSelectedFile(files[0]);
+    console.log("ggggggggg", errorResponse);
     console.log("Daftar file yang di-drop:", files);
   };
 
