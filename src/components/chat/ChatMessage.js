@@ -1,3 +1,4 @@
+import useUploadFile from "@/hooks/upload/useUploadFile";
 import useHandleModal from "@/hooks/useHandleModal";
 import { stringAvatar } from "@/layouts/header/stringAvatar";
 import { styleLeft, styleRight } from "@/styles/message";
@@ -6,11 +7,9 @@ import { Avatar, Box, List, Typography } from "@mui/material";
 import moment from "moment/moment";
 import Image from "next/image";
 import React from "react";
+import img1 from "../../../assets/images/drag.svg";
 import fileImg from "../../../assets/images/file.svg";
 import ChatDeleteMessage from "./ChatDeleteMessage";
-import img1 from "../../../assets/images/drag.svg";
-import useUploadFile from "@/hooks/upload/useUploadFile";
-import { uploadFile } from "@/lib/services/form/upload";
 
 const ChatMessage = ({ data, session, setFile }) => {
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
@@ -20,15 +19,8 @@ const ChatMessage = ({ data, session, setFile }) => {
   const [selectedFile, setSelectedFile] = React.useState({});
   const scrollRef = React.useRef(null);
 
-  const {
-    handleDeleteFile,
-    onSelectFile,
-    banner,
-    preview,
-    errorFiles,
-    errorMessage,
-  } = useUploadFile();
-  console.log("hhhhhhhhhh", preview, banner);
+  const { onSelectFile, banner, preview, errorFiles, errorMessage } =
+    useUploadFile();
 
   React.useEffect(() => {
     setFile({
@@ -37,6 +29,8 @@ const ChatMessage = ({ data, session, setFile }) => {
         type: banner?.type,
         name: banner?.name,
         file: selectedFile,
+        error: errorFiles,
+        response: errorMessage,
       }),
     });
     if (scrollRef.current) {
@@ -78,7 +72,6 @@ const ChatMessage = ({ data, session, setFile }) => {
   };
 
   const handleDragEnd = () => {
-    // Handler ini akan dipanggil saat operasi drag dibatalkan
     setDragging(false);
   };
 
@@ -97,10 +90,7 @@ const ChatMessage = ({ data, session, setFile }) => {
         open={openModal}
         type={modalType}
         data={message}
-        // data={userData}
-        // name={userData?.nama_pelajaran}
         title={"Pesan"}
-        url={`/api/lesson/`}
         closeModalHandler={handleCloseModal}
       />
       <Box

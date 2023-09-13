@@ -25,7 +25,6 @@ const ChatDeleteMessage = ({
   closeModalHandler,
   type,
   data,
-  name,
   title,
 }) => {
   const socket = io(
