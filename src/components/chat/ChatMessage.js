@@ -305,7 +305,7 @@ const ChatMessage = ({ data, session, setFile }) => {
                         ))}
                       <Box
                         sx={{
-                          maxWidth: "100%",
+                          maxWidth: "50%",
                           display: "flex",
                           flexDirection: "column",
                           justifyContent:
