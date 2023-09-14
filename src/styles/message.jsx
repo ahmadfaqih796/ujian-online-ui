@@ -69,3 +69,45 @@ export const styleRight = {
     right: "-17px",
   },
 };
+
+export const styleErrorLeft = {
+  backgroundColor: "#f44336",
+  color: "white",
+  border: "1px solid #f44336",
+  "&:after": {
+    content: "''",
+    borderTop: "15px solid #f44336",
+    borderRight: "15px solid #f44336",
+  },
+  "&:before": {
+    content: "''",
+    position: "absolute",
+    width: "0",
+    height: "0",
+    borderTop: "17px solid #f44336",
+    borderLeft: "16px solid transparent",
+    borderRight: "16px solid transparent",
+    top: "-0.5px",
+    left: "-17px",
+  },
+};
+
+export const styleErrorRight = {
+  backgroundColor: "#f44336",
+  color: "white",
+  border: "1px solid #f44336",
+  "&:after": {
+    content: "''",
+  },
+  "&:before": {
+    content: "''",
+    position: "absolute",
+    width: "0",
+    height: "0",
+    borderTop: "15px solid #f44336",
+    borderLeft: "16px solid transparent",
+    borderRight: "16px solid transparent",
+    top: "-0.5px",
+    right: "-17px",
+  },
+};

@@ -1,7 +1,12 @@
 import useUploadFile from "@/hooks/upload/useUploadFile";
 import useHandleModal from "@/hooks/useHandleModal";
 import { stringAvatar } from "@/layouts/header/stringAvatar";
-import { styleLeft, styleRight } from "@/styles/message";
+import {
+  styleLeft,
+  styleErrorLeft,
+  styleRight,
+  styleErrorRight,
+} from "@/styles/message";
 import { BASE_API_URL } from "@/utils/baseUrl";
 import { Avatar, Box, List, Typography } from "@mui/material";
 import moment from "moment/moment";
@@ -94,20 +99,13 @@ const ChatMessage = ({ data, session, setFile }) => {
   const handleDragEnd = () => {
     setDragging(false);
   };
-  console.log("ininininininini", errorFiles);
 
   const handleDrop = (e) => {
     e.preventDefault();
     onSelectFile(e);
     const files = Array.from(e.dataTransfer.files);
     setSelectedFile(files[0]);
-    // if (errorFiles === true) {
-    //   setFile({});
-    //   handleDeleteFile();
-    // }
     setDragging(false);
-    console.log("ggggggggg", errorResponse);
-    console.log("Daftar file yang di-drop:", files);
   };
 
   return (
@@ -323,11 +321,23 @@ const ChatMessage = ({ data, session, setFile }) => {
                         )}
                         <Box
                           sx={
-                            session.id == row.id_sender ? styleRight : styleLeft
+                            session.id == row.id_sender
+                              ? {
+                                  ...styleRight,
+                                  ...(row.is_deleted && {
+                                    ...styleErrorRight,
+                                  }),
+                                }
+                              : {
+                                  ...styleLeft,
+                                  ...(row.is_deleted && {
+                                    ...styleErrorLeft,
+                                  }),
+                                }
                           }
                           onClick={() => {
                             session.id == row.id_sender && !row.is_deleted
-                              ? handleDelete
+                              ? handleDelete(row, "delete")
                               : null;
                           }}
                         >
