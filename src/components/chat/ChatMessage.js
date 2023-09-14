@@ -9,9 +9,8 @@ import Image from "next/image";
 import React from "react";
 import img1 from "../../../assets/images/drag.svg";
 import fileImg from "../../../assets/images/file.svg";
-import ChatDeleteMessage from "./ChatDeleteMessage";
-import { uploadFile } from "@/lib/services/form/upload";
 import ErrorModal from "../modal/ErrorModal";
+import ChatDeleteMessage from "./ChatDeleteMessage";
 
 const ChatMessage = ({ data, session, setFile }) => {
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
