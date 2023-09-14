@@ -10,6 +10,8 @@ import React from "react";
 import img1 from "../../../assets/images/drag.svg";
 import fileImg from "../../../assets/images/file.svg";
 import ChatDeleteMessage from "./ChatDeleteMessage";
+import { uploadFile } from "@/lib/services/form/upload";
+import ErrorModal from "../modal/ErrorModal";
 
 const ChatMessage = ({ data, session, setFile }) => {
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
@@ -32,6 +34,13 @@ const ChatMessage = ({ data, session, setFile }) => {
     response: errorMessage,
   };
   React.useEffect(() => {
+    if (errorFiles === true) {
+      handleOpenModal("error");
+      setMessage(errorMessage);
+      handleDeleteFile();
+      setFile({ error: false });
+      return;
+    }
     setFile({
       ...(preview && {
         url: preview,
@@ -77,7 +86,6 @@ const ChatMessage = ({ data, session, setFile }) => {
 
   const handleDragOver = (e) => {
     e.preventDefault();
-    console.log("wwwwwwwwwww", errorFiles);
     if (errorFiles === true) {
       setFile({ error: false });
       handleDeleteFile();
@@ -87,23 +95,30 @@ const ChatMessage = ({ data, session, setFile }) => {
   const handleDragEnd = () => {
     setDragging(false);
   };
+  console.log("ininininininini", errorFiles);
 
-  const handleDrop = async (e) => {
+  const handleDrop = (e) => {
     e.preventDefault();
     onSelectFile(e);
+    const files = Array.from(e.dataTransfer.files);
+    setSelectedFile(files[0]);
     // if (errorFiles === true) {
     //   setFile({});
     //   handleDeleteFile();
     // }
     setDragging(false);
-    const files = Array.from(e.dataTransfer.files);
-    setSelectedFile(files[0]);
     console.log("ggggggggg", errorResponse);
     console.log("Daftar file yang di-drop:", files);
   };
 
   return (
     <React.Fragment>
+      <ErrorModal
+        open={openModal}
+        type={modalType}
+        message={message}
+        closeModalHandler={handleCloseModal}
+      />
       <ChatDeleteMessage
         open={openModal}
         type={modalType}
@@ -313,7 +328,7 @@ const ChatMessage = ({ data, session, setFile }) => {
                           }
                           onClick={() => {
                             session.id == row.id_sender && !row.is_deleted
-                              ? handleDelete(row, "delete")
+                              ? handleDelete
                               : null;
                           }}
                         >

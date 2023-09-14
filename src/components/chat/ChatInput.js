@@ -7,6 +7,7 @@ import FeatherIcon from "feather-icons-react";
 import React from "react";
 import io from "socket.io-client";
 import ErrorModal from "../modal/ErrorModal";
+import { useRouter } from "next/router";
 
 const socket = io(
   "http://localhost:3030"
@@ -16,6 +17,8 @@ const socket = io(
 );
 
 const ChatInput = ({ session, file, setFile, personal, grup }) => {
+  const router = useRouter();
+  console.log("aaaaaaa", router.query, session);
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
     useHandleModal(false);
   const [inputMessage, setInputMessage] = React.useState("");
@@ -36,11 +39,11 @@ const ChatInput = ({ session, file, setFile, personal, grup }) => {
       name: banner?.name,
       error: false,
     });
-    if (errorFiles === true || file.error == true) {
-      console.log("memori", errorFiles, file.error);
-      handleDeleteFile();
+    if (errorFiles === true) {
+      console.log("memori", errorFiles);
       handleOpenModal("error");
-      setMessage(errorMessage || file.response);
+      setMessage(errorMessage);
+      handleDeleteFile();
       setFile({ error: false });
       return;
     }
