@@ -1,4 +1,4 @@
-import { addMessages } from "@/lib/services/messages";
+import { addMessages, updateMessages } from "@/lib/services/messages";
 import { addSoal, deleteMultipleSoal } from "@/lib/services/soal";
 import { withSessionRoute } from "@/lib/sessions/withSession";
 
@@ -15,6 +15,20 @@ async function handler(req, res) {
       });
     } catch (error) {
       return res.status(500).json({ ok: false, message: error });
+    }
+  }
+
+  if (req.method === "PATCH") {
+    try {
+      const { params } = req;
+      const { id, id_receiver, id_sender } = req.query;
+      console.log("kkkkkkkk", id_receiver);
+      const { body } = req;
+      const response = await updateMessages(userSession.token, { id_sender });
+      return res.json(response);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ ok: false, error });
     }
   }
 

@@ -11,11 +11,12 @@ import {
 } from "@mui/material";
 import CustomImage from "../custom/CustomImage";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 const ChatUserOnline = ({ data, onClick, session, hrefPersonal }) => {
   console.log(session);
   const router = useRouter();
-  const handlePush = (field) => {
+  const handlePush = async (field) => {
     if (hrefPersonal) {
       router.replace(
         {
@@ -30,6 +31,12 @@ const ChatUserOnline = ({ data, onClick, session, hrefPersonal }) => {
         //   shallow: true,
         // }
       );
+      const res = await axios.patch("/api/messages", null, {
+        params: {
+          id_sender: session.receiver,
+        },
+      });
+      console.log("read only", res);
       return;
     }
     router.replace(`/admin/customer-service/${field}`);

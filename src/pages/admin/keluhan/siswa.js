@@ -88,7 +88,14 @@ const Siswa = ({ session }) => {
       })
       .then((res) => {
         setReceivedMessages(res.data);
-        socket.emit("get-message", res.data);
+        if (
+          (data.id_receiver === session.id &&
+            data.id_sender === session.receiver) ||
+          (data.id_sender === session.id &&
+            data.id_receiver === session.receiver)
+        ) {
+          socket.emit("get-message", res.data);
+        }
       })
       .catch((error) => {
         console.log(error);
