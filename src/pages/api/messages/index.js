@@ -20,11 +20,8 @@ async function handler(req, res) {
 
   if (req.method === "PATCH") {
     try {
-      const { params } = req;
-      const { id, id_receiver, id_sender } = req.query;
-      console.log("kkkkkkkk", id_receiver);
-      const { body } = req;
-      const response = await updateMessages(userSession.token, { id_sender });
+      const { query } = req;
+      const response = await updateMessages(userSession.token, query);
       return res.json(response);
     } catch (error) {
       console.log(error);

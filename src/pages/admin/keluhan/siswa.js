@@ -107,14 +107,29 @@ const Siswa = ({ session }) => {
     });
     socket.on("connect", () => {});
 
-    socket.on("server-message", (data) => {
+    socket.on("server-message", async (data) => {
       console.log("yoyoyoyo", data);
-      if (
+      console.log("session", session);
+      const isMessageForActiveChat =
         (data.id_receiver === session.id &&
           data.id_sender === session.receiver) ||
-        (data.id_sender === session.id && data.id_receiver === session.receiver)
-      ) {
+        (data.id_sender === session.id &&
+          data.id_receiver === session.receiver);
+
+      // const isMessageFor = data.id_receiver;
+
+      if (isMessageForActiveChat) {
+        // const res = await axios.patch("/api/messages", null, {
+        //   params: {
+        //     id_sender: session.receiver,
+        //   },
+        // });
+        // console.log("read only", res);
+        // data.is_read = true;
         setReceivedMessages((prevMessages) => [...prevMessages, data]);
+      } else {
+        data.is_read = false;
+        console.log("ini ini ni nini");
       }
     });
 

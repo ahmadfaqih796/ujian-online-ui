@@ -16,6 +16,7 @@ import img1 from "../../../assets/images/drag.svg";
 import fileImg from "../../../assets/images/file.svg";
 import ErrorModal from "../modal/ErrorModal";
 import ChatDeleteMessage from "./ChatDeleteMessage";
+import FeatherIcon from "feather-icons-react";
 
 const ChatMessage = ({ data, session, setFile }) => {
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
@@ -344,16 +345,21 @@ const ChatMessage = ({ data, session, setFile }) => {
                           {row.is_deleted
                             ? "Pesan ini sudah dihapus"
                             : row.text}
-                          {row.is_read && "sudah di read"}
                         </Box>
                         <Box
                           sx={{
                             mt: -1,
                             mb: 1,
-                            ml: session.id == row.id_sender ? "auto" : "20px",
+                            display: "flex",
+                            justifyContent: "space-between",
+                            ml: session.id == row.id_sender ? "0" : "20px",
                             mr: session.id == row.id_sender ? "20px" : "0",
                           }}
                         >
+                          {row.is_read && session.id == row.id_sender && (
+                            <FeatherIcon icon="check" size="16" />
+                          )}
+                          <Box flexGrow={1} mr={2} />
                           {moment(row.createdAt).format("HH:mm")}
                         </Box>
                       </Box>

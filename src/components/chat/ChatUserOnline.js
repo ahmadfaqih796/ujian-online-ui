@@ -34,9 +34,9 @@ const ChatUserOnline = ({ data, onClick, session, hrefPersonal }) => {
       const res = await axios.patch("/api/messages", null, {
         params: {
           id_sender: session.receiver,
+          id_receiver: session.id,
         },
       });
-      console.log("read only", res);
       return;
     }
     router.replace(`/admin/customer-service/${field}`);
