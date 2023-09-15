@@ -1,37 +1,27 @@
 import {
-  Card,
-  Divider,
-  Grid,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  TextField,
   Typography,
 } from "@mui/material";
-import CustomImage from "../custom/CustomImage";
-import { useRouter } from "next/router";
 import axios from "axios";
+import { useRouter } from "next/router";
+import CustomImage from "../custom/CustomImage";
 
 const ChatUserOnline = ({ data, onClick, session, hrefPersonal }) => {
-  console.log(session);
   const router = useRouter();
-  const handlePush = async (field) => {
+  const handlePush = async (e, field) => {
+    e.preventDefault();
     if (hrefPersonal) {
-      router.replace(
-        {
-          pathname: hrefPersonal,
-          query: {
-            id_user: session.id,
-            id_receiver: field,
-          },
-        }
-        // null,
-        // {
-        //   shallow: true,
-        // }
-      );
-      const res = await axios.patch("/api/messages", null, {
+      router.replace({
+        pathname: hrefPersonal,
+        query: {
+          id_user: session.id,
+          id_receiver: field,
+        },
+      });
+      await axios.patch("/api/messages", null, {
         params: {
           id_sender: session.receiver,
           id_receiver: session.id,
@@ -54,8 +44,8 @@ const ChatUserOnline = ({ data, onClick, session, hrefPersonal }) => {
           <ListItem
             button={onClick ? true : false}
             key={index}
-            onClick={() => {
-              onClick ? handlePush(row.id_user) : null;
+            onClick={(e) => {
+              onClick ? handlePush(e, row.id_user) : null;
             }}
             sx={{
               background: row.id_user == session.receiver ? "#E4F1FF" : null,
