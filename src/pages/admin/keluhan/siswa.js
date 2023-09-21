@@ -25,7 +25,9 @@ const Siswa = ({ session }) => {
   const [receivedMessages, setReceivedMessages] = useState([]);
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [active, setActive] = useState([]);
+  const [read, setRead] = useState(false);
   const [search, setSearch] = useState([]);
+  console.log("mmmmmm");
 
   const socket = io(
     "http://localhost:3030"
@@ -108,29 +110,62 @@ const Siswa = ({ session }) => {
     socket.on("connect", () => {});
 
     socket.on("server-message", async (data) => {
+      setRead(false);
       console.log("yoyoyoyo", data);
       console.log("session", session);
-      const isMessageForActiveChat =
-        (data.id_receiver === session.id &&
-          data.id_sender === session.receiver) ||
-        (data.id_sender === session.id &&
-          data.id_receiver === session.receiver);
+      // const isMessageForActiveChat =
+      //   (data.id_receiver === session.id &&
+      //     data.id_sender === session.receiver) ||
+      //   (data.id_sender === session.id &&
+      //     data.id_receiver === session.receiver);
+      const isMessageSender =
+        data.id_receiver === session.receiver && data.id_sender === session.id;
 
-      // const isMessageFor = data.id_receiver;
+      const isMessageReceiver =
+        data.id_receiver === session.id && data.id_sender === session.receiver;
 
-      if (isMessageForActiveChat) {
-        // const res = await axios.patch("/api/messages", null, {
-        //   params: {
-        //     id_sender: session.receiver,
-        //   },
-        // });
-        // console.log("read only", res);
-        // data.is_read = true;
+      const isMessageNoReceiver =
+        data.id_receiver !== session.id && data.id_sender === session.receiver;
+      if (isMessageReceiver) {
+        await axios.patch("/api/messages", null, {
+          params: {
+            id_sender: session.receiver,
+            id_receiver: session.id,
+          },
+        });
+        data.is_read = true;
         setReceivedMessages((prevMessages) => [...prevMessages, data]);
-      } else {
-        data.is_read = false;
-        console.log("ini ini ni nini");
+        console.log("dddadadad", data);
+        setRead(true);
+
+        // socket.emit("message-read", data);
       }
+
+      if (isMessageSender) {
+        // socket.on("server-message-read", (obj) => {
+        //   if (!readUser.includes(obj.id)) {
+        //     readUser.push(obj);
+        //   }
+        //   console.log("ffffffff", readUser);
+        //   if (isMessageSender && obj.is_read == true) {
+        //     data.is_read = true;
+        //   }
+        //   setReceivedMessages((prevMessages) => [...prevMessages, ...readUser]);
+        //   return;
+        // });
+
+        if (isMessageNoReceiver) {
+          data.is_read = true;
+        }
+        setReceivedMessages((prevMessages) => [...prevMessages, data]);
+      }
+      router.replace({
+        pathname: "/admin/keluhan/siswa",
+        query: {
+          id_user: session.id,
+          id_receiver: session.receiver,
+        },
+      });
     });
 
     return () => {
@@ -166,6 +201,7 @@ const Siswa = ({ session }) => {
       <Chat
         setSearch={(field) => setSearch(field)}
         users={onlineUsers}
+        read={read}
         session={session}
         data={receivedMessages}
         personal={true}

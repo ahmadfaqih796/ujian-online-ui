@@ -1,7 +1,7 @@
 import useLogin from "@/hooks/auth/useLogin";
 import CloseIcon from "@mui/icons-material/Close";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { Alert, Collapse, IconButton } from "@mui/material";
+import { Alert, Collapse, IconButton, InputAdornment } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -12,6 +12,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import FeatherIcon from "feather-icons-react";
 // image
 import Image from "next/image";
 import brand from "../../../assets/images/ujianOnline.png";
@@ -83,9 +84,24 @@ export default function SignIn() {
                 fullWidth
                 name="password"
                 label="Password"
-                type="password"
+                type={passwordVisible ? "text" : "password"}
                 id="password"
                 autoComplete="current-password"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={() => setPasswordVisible(!passwordVisible)}
+                      >
+                        <FeatherIcon
+                          color="white"
+                          icon={passwordVisible ? "eye" : "eye-off"}
+                          width="20"
+                        />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
               {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}

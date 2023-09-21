@@ -14,17 +14,17 @@ const ChatUserOnline = ({ data, onClick, session, hrefPersonal }) => {
   const handlePush = async (e, field) => {
     e.preventDefault();
     if (hrefPersonal) {
+      await axios.patch("/api/messages", null, {
+        params: {
+          id_sender: field,
+          id_receiver: session.id,
+        },
+      });
       router.replace({
         pathname: hrefPersonal,
         query: {
           id_user: session.id,
           id_receiver: field,
-        },
-      });
-      await axios.patch("/api/messages", null, {
-        params: {
-          id_sender: session.receiver,
-          id_receiver: session.id,
         },
       });
       return;
