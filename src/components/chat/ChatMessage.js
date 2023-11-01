@@ -157,7 +157,7 @@ const ChatMessage = ({ data, session, setFile }) => {
                 marginBottom: "16px",
               }}
             />
-            <Typography>Jatuhkan file di sini.</Typography>
+            <Typography>Jatuhkan file di sini !.</Typography>
           </Box>
         ) : (
           <List
