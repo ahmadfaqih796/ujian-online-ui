@@ -25,7 +25,6 @@ const useUploadFile = (defaultPreview = undefined) => {
 
   const onSelectFile = (e) => {
     const file = e.target.files || e.dataTransfer.files;
-    console.log("dddddd", file);
 
     if (!file || file.length === 0) {
       e.target.value = "";
