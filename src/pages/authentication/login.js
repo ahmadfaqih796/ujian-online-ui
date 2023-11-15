@@ -43,7 +43,7 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Masuk
+            Sign In
           </Typography>
           <Collapse in={open}>
             <Alert
